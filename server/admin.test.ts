@@ -94,6 +94,8 @@ describe("administrative integration contracts", () => {
     const report = await getAdminReport(makeUser("barber", 3), "2030-01-01", "2030-01-31");
     expect(report.appointments).toBe(1);
     expect(report.byBarber).toEqual([{ barberName: "Kauã", appointments: 1, revenueCents: 3500, cancellations: 0 }]);
+    expect(report.moreData.uniqueCustomers).toBe(1);
+    expect(report.moreData.appointmentsPerCustomer).toBe(1);
   });
 
   it("records a real cancellation history event without changing appointment identity", async () => {
@@ -232,6 +234,7 @@ describe("administrative report barber filter", () => {
     const report = await getAdminReport(makeUser("admin"), "2030-01-01", "2030-01-31", "bruno");
     expect(report.appointments).toBe(1);
     expect(report.byBarber).toEqual([{ barberName: "Bruno", appointments: 1, revenueCents: 3500, cancellations: 0 }]);
+    expect(report.moreData.uniqueCustomers).toBe(1);
   });
 });
 

@@ -216,3 +216,24 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Atualizar calendário compartilhado, horários ocupados e relatórios após os cancelamentos.
 - [x] Garantir que cancelamentos não gerem faturamento e que Luan/Bruno mantenham acesso aos três barbeiros, enquanto Kauã fica no próprio escopo.
 - [x] Validar os fluxos com testes, E2E de interação e build; salvar checkpoint revisável.
+
+# Links de chatbot e relatórios integrados — 2026-08-26
+
+- [x] Adicionar no painel um link direto de chatbot para Luan, Bruno e Kauã, com copiar e abrir.
+- [x] Manter os links em cards independentes no Dashboard, fora da aba Relatórios, conforme ajuste solicitado.
+- [x] Confirmar que os cálculos de atendimentos, cancelamentos, faturamento e ticket médio usam os agendamentos do chatbot e da agenda compartilhada.
+- [x] Validar escopos de Luan, Bruno e Kauã, agendamento público, links e relatórios; executar testes/build e salvar checkpoint.
+
+# Indicadores Mais dados nos Relatórios — 2026-08-26
+
+- [x] Mapear quais indicadores podem ser calculados com segurança a partir das tabelas existentes, sem inventar dados: clientes únicos, atendimentos por cliente, receita/hora, top serviço, horas e tempo ocioso.
+- [x] Adicionar a seção Mais dados na aba Relatórios seguindo a referência visual enviada.
+- [x] Fazer os indicadores respeitarem o barbeiro selecionado e as permissões financeiras: Luan/Bruno nos três barbeiros, Kauã na própria agenda e Barbearia sem financeiro.
+- [x] Integrar cards de chatbot por barbeiro no painel, mantendo-os fora dos Relatórios conforme solicitado.
+- [x] Validar cálculos com agendamentos reais, links e responsividade; executar testes/build e salvar checkpoint revisável.
+
+# Organização dos links de chatbot — 2026-08-26
+
+- [x] Criar cards independentes de link dos chatbots no painel administrativo, fora da aba Relatórios e das tabelas de clientes/agendamentos.
+- [x] Manter Relatórios reservado aos indicadores Mais dados, filtros e cálculos por barbeiro.
+- [x] Validar abrir/copiar links e responsividade dos cards; executar testes/build e salvar checkpoint.

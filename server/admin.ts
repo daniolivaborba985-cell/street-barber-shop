@@ -10,6 +10,7 @@ import {
   plans,
   subscriptions,
   barbers,
+  availability,
   blocks,
   customers,
   services,
@@ -141,6 +142,7 @@ export async function listAdminAppointments(user: AdminUser) {
   const condition = scopeCondition(user);
   const rows = await db.select({
     id: appointments.id,
+    customerId: appointments.customerId,
     barberId: appointments.barberId,
     appointmentDate: appointments.appointmentDate,
     startTime: appointments.startTime,
@@ -218,6 +220,28 @@ export async function getAdminDashboard(user: AdminUser) {
   };
 }
 
+const timeToMinutes = (value: string) => { const [hours, minutes] = value.slice(0, 5).split(":").map(Number); return hours * 60 + minutes; };
+const daysInRange = (fromDate: string, toDate: string) => { const days: string[] = []; const cursor = new Date(`${fromDate}T12:00:00`); const end = new Date(`${toDate}T12:00:00`); while (cursor <= end) { days.push(cursor.toISOString().slice(0, 10)); cursor.setDate(cursor.getDate() + 1); } return days; };
+
+async function getMoreReportData(user: AdminUser, rows: Awaited<ReturnType<typeof listAdminAppointments>>, fromDate: string, toDate: string, requestedBarberId?: number) {
+  const db = await getDb();
+  if (!db) return { uniqueCustomers: 0, appointmentsPerCustomer: 0, performancePercent: 0, revenuePerHourCents: 0, upsellPercent: null, pendingPercent: 0, topService: "Sem dados", availableHours: 0, workedHours: 0, idleHours: 0, closedHours: 0 };
+  const scopedBarberIds = requestedBarberId ? [requestedBarberId] : user.role === "barber" && user.barberId ? [user.barberId] : [1, 2, 3];
+  const activeRows = rows.filter((row) => isBillableStatus(row.status));
+  const uniqueCustomers = new Set(activeRows.map((row) => row.customerId)).size;
+  const workedMinutes = activeRows.reduce((sum, row) => sum + row.totalDurationMinutes, 0);
+  const pendingPercent = rows.length ? Math.round((rows.filter((row) => row.status === "pending").length / rows.length) * 100) : 0;
+  const availabilityRows = (await db.select({ barberId: availability.barberId, weekday: availability.weekday, startTime: availability.startTime, endTime: availability.endTime }).from(availability).where(and(eq(availability.active, 1), inArray(availability.barberId, scopedBarberIds)))) ?? [];
+  const availableMinutes = daysInRange(fromDate, toDate).reduce((sum, day) => { const weekday = new Date(`${day}T12:00:00`).getDay(); return sum + availabilityRows.filter((slot) => slot.weekday === weekday).reduce((slotSum, slot) => slotSum + Math.max(0, timeToMinutes(slot.endTime) - timeToMinutes(slot.startTime)), 0); }, 0);
+  const blocksRows = (await listBlocks(user) ?? []).filter((block) => block.appointmentDate >= fromDate && block.appointmentDate <= toDate && scopedBarberIds.includes(block.barberId));
+  const closedMinutes = blocksRows.reduce((sum, block) => sum + Math.max(0, timeToMinutes(block.endTime) - timeToMinutes(block.startTime)), 0);
+  const serviceCounts = new Map<string, number>();
+  if (activeRows.length) { const serviceRows = (await db.select({ appointmentId: appointmentServices.appointmentId, serviceName: services.name }).from(appointmentServices).innerJoin(services, eq(services.id, appointmentServices.serviceId)).where(inArray(appointmentServices.appointmentId, activeRows.map((row) => row.id)))) ?? []; for (const service of serviceRows) serviceCounts.set(service.serviceName, (serviceCounts.get(service.serviceName) ?? 0) + 1); }
+  const topServiceEntry = Array.from(serviceCounts.entries()).sort((a, b) => b[1] - a[1])[0];
+  const revenueCents = activeRows.reduce((sum, row) => sum + row.totalPriceCents, 0);
+  return { uniqueCustomers, appointmentsPerCustomer: uniqueCustomers ? Number((activeRows.length / uniqueCustomers).toFixed(2)) : 0, performancePercent: availableMinutes ? Math.round((workedMinutes / availableMinutes) * 100) : 0, revenuePerHourCents: workedMinutes ? Math.round((revenueCents / workedMinutes) * 60) : 0, upsellPercent: null, pendingPercent, topService: topServiceEntry ? `${topServiceEntry[0]} (${Math.round((topServiceEntry[1] / Math.max(1, activeRows.length)) * 100)}%)` : "Sem dados", availableHours: Number((availableMinutes / 60).toFixed(1)), workedHours: Number((workedMinutes / 60).toFixed(1)), idleHours: Number((Math.max(0, availableMinutes - workedMinutes - closedMinutes) / 60).toFixed(1)), closedHours: Number((closedMinutes / 60).toFixed(1)) };
+}
+
 export async function getAdminReport(user: AdminUser, fromDate: string, toDate: string, barberSlug?: string) {
   if (!canViewReports(user)) throw new Error("Este perfil não possui acesso a relatórios.");
   const requestedBarberId = barberSlug ? ({ luan: 1, bruno: 2, kaua: 3 } as Record<string, number>)[barberSlug] : undefined;
@@ -241,6 +265,7 @@ export async function getAdminReport(user: AdminUser, fromDate: string, toDate: 
     revenueCents: active.reduce((sum, row) => sum + row.totalPriceCents, 0),
     averageTicketCents: active.length ? Math.round(active.reduce((sum, row) => sum + row.totalPriceCents, 0) / active.length) : 0,
     byBarber: Array.from(byBarber.values()),
+    moreData: await getMoreReportData(user, rows, fromDate, toDate, requestedBarberId),
   };
 }
 
