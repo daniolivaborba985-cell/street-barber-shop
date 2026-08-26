@@ -960,3 +960,11 @@ footer .brand small { font-size: 5px; }
   .contact h2 { font-size: 58px; }
   footer { grid-template-columns: 1fr; text-align: center; justify-items: center; }
 }
+
+/* Barber photo correction: larger cards with the complete source framing preserved. */
+.barber-section .barber-card { min-height: 0; }
+.barber-section .photo-wrap { height: auto; aspect-ratio: 3 / 4; min-height: 0; background: #292829; }
+.barber-section .photo-wrap img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+@media (max-width: 850px) {
+  .barber-section .photo-wrap { height: auto; aspect-ratio: 3 / 4; }
+}

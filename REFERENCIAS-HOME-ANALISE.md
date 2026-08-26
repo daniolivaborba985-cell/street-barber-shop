@@ -28,3 +28,9 @@ O print 6 confirma o contato e rodapé em viewport de 917×240: título compacto
 O print 7 repete a referência do hero em 1268×813. Ele reforça os mesmos alvos já verificados: header de 74 px, logo e navegação no topo, headline condensado em quatro linhas com as duas primeiras linhas em marfim e as duas últimas em bege, card editorial inclinado à direita, CTA duplo e metadados na base esquerda. Não há novo conteúdo ou novo componente a adicionar.
 
 A inspeção direta dos sete arquivos está concluída. As diferenças aplicadas nesta rodada permanecem limitadas à camada visual, ao carregamento das fontes de referência e à correção dos assets dos barbeiros; rotas, conteúdo, assistentes e agendamento não foram redesenhados.
+
+## QA explícito dos cards ampliados
+
+A captura desktop full-page de 1268 px mostra os três cards com área fotográfica ampliada e proporção vertical 3:4, preservando o enquadramento completo das fotografias sem zoom ou distorção. Os corpos dos cards, nomes, assistentes, contatos e botões permanecem visíveis e alinhados.
+
+A captura mobile full-page de 355 px confirma a mesma proporção 3:4 em uma coluna, sem corte horizontal, sem overflow visível e sem perda do conteúdo textual. As imagens permanecem inteiras dentro da área fotográfica, com espaço neutro apenas quando necessário para respeitar a proporção original.

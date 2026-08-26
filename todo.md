@@ -40,3 +40,11 @@
 - [x] Verificar responsividade e evitar cortes ou overflow em desktop e mobile.
 - [x] Reexecutar testes, TypeScript e build após os ajustes visuais.
 - [x] Capturar nova validação visual e salvar checkpoint da versão ajustada.
+
+# Ajuste específico dos cards de barbeiros — 2026-08-26
+
+- [x] Aumentar a área visual dos cards de barbeiros sem alterar a seção de serviços, planos ou contato.
+- [x] Exibir as fotos dos barbeiros em tamanho real, removendo zoom e corte visual.
+- [x] Preservar a proporção original de cada fotografia e manter a ordem Luan, Bruno e Kauã.
+- [x] Verificar desktop e mobile para evitar distorção, overflow ou perda do conteúdo dos cards.
+- [x] Reexecutar testes/check/build e salvar o checkpoint da correção.
