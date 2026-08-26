@@ -1037,3 +1037,29 @@ body.admin-menu-open { overflow: hidden; }
 .admin-metrics .admin-metric-card strong { color: #f4f0e9; }
 .admin-metrics .admin-metric-card span { color: #aaa4a0; }
 .admin-shell .admin-main input, .admin-shell .admin-main select { color-scheme: dark; }
+
+/* Custom administrative calendar: operational color states with text and markers for accessibility. */
+.admin-calendar-stack { display: grid; gap: 22px; }
+.admin-calendar-stack .admin-panel { margin-top: 0; }
+.admin-calendar-head { align-items: flex-end; }
+.admin-filter-label { display: grid; gap: 7px; min-width: 210px; color: #c8bdb0; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.admin-filter-label select { min-height: 40px; border: 1px solid rgba(232,214,181,.2); border-radius: 6px; background: #292629; color: #f4f0e9; padding: 0 10px; }
+.admin-calendar-toolbar { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 20px 22px 12px; color: #dec7a3; text-transform: capitalize; }
+.admin-calendar-toolbar strong { min-width: 180px; text-align: center; font: 700 25px var(--display); color: #f4f0e9; }
+.admin-calendar-toolbar button { min-width: 38px; }
+.admin-calendar-weekdays, .admin-calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; padding: 0 22px; }
+.admin-calendar-weekdays { padding-bottom: 8px; color: #9b9088; font: 700 10px var(--body); letter-spacing: .16em; text-align: center; }
+.admin-calendar-day { position: relative; min-height: 58px; border: 1px solid rgba(232,214,181,.11); border-radius: 8px; background: #292629; color: #f4f0e9; cursor: pointer; font: 700 16px var(--body); transition: transform .16s ease, border-color .16s ease, background .16s ease; }
+.admin-calendar-day:hover, .admin-calendar-day:focus-visible { transform: translateY(-2px); border-color: #dec7a3; outline: none; }
+.admin-calendar-day.is-outside { color: #686166; background: #211f21; cursor: default; opacity: .66; }
+.admin-calendar-day.is-selected { box-shadow: inset 0 0 0 2px #dec7a3; }
+.admin-calendar-day.has-blocked { background: rgba(196,143,42,.27); border-color: rgba(231,184,60,.7); }
+.admin-calendar-day.has-confirmed { background: rgba(151,56,56,.42); border-color: rgba(239,132,132,.72); }
+.admin-calendar-day.has-mixed { background: linear-gradient(135deg, rgba(196,143,42,.38) 0 50%, rgba(151,56,56,.48) 50% 100%); border-color: #dec7a3; }
+.admin-calendar-day > i { display: block; width: 7px; height: 7px; margin: 6px auto 0; border-radius: 50%; background: #dec7a3; }
+.admin-calendar-day.has-blocked > i { background: #f0c44e; }.admin-calendar-day.has-confirmed > i { background: #ef8585; }.admin-calendar-day.has-mixed > i { background: linear-gradient(90deg, #f0c44e 50%, #ef8585 50%); }
+.admin-calendar-legend { display: flex; flex-wrap: wrap; gap: 14px 22px; padding: 18px 22px 22px; color: #aaa4a0; font-size: 11px; }
+.admin-calendar-legend span { display: inline-flex; align-items: center; gap: 7px; }.legend-dot { width: 9px; height: 9px; display: inline-block; border-radius: 50%; }.legend-normal { background: #6f696a; }.legend-blocked { background: #f0c44e; }.legend-confirmed { background: #ef8585; }.legend-mixed { background: linear-gradient(90deg, #f0c44e 50%, #ef8585 50%); }
+.admin-day-panel .admin-panel-head p:last-child { color: #aaa4a0; font-size: 12px; }.admin-agenda-block-form { border-bottom: 1px solid rgba(232,214,181,.1); }.admin-field-wide { grid-column: span 2; }
+.admin-day-list { display: grid; gap: 10px; padding: 0 22px 22px; }.admin-day-item { display: flex; align-items: center; gap: 12px; padding: 13px 15px; border-radius: 8px; background: #292629; }.admin-day-item > div { display: grid; gap: 4px; }.admin-day-item strong { font-size: 13px; }.admin-day-item small { color: #aaa4a0; font-size: 11px; }.admin-day-marker { width: 9px; height: 9px; flex: 0 0 auto; border-radius: 50%; }.admin-day-confirmed { border-left: 3px solid #ef8585; }.admin-day-confirmed .admin-day-marker { background: #ef8585; }.admin-day-blocked { border-left: 3px solid #f0c44e; }.admin-day-blocked .admin-day-marker { background: #f0c44e; }
+@media (max-width: 820px) { .admin-calendar-head { align-items: stretch; }.admin-filter-label { min-width: 0; width: 100%; }.admin-calendar-weekdays, .admin-calendar-grid { padding-left: 14px; padding-right: 14px; gap: 5px; }.admin-calendar-day { min-height: 48px; font-size: 14px; }.admin-calendar-toolbar { padding-left: 14px; padding-right: 14px; }.admin-calendar-legend { padding-left: 14px; padding-right: 14px; }.admin-day-list { padding-left: 14px; padding-right: 14px; }.admin-field-wide { grid-column: auto; } }

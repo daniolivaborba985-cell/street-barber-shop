@@ -151,3 +151,17 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Validar no navegador que `/admin` renderiza a tela de login interno após sessão OAuth comum.
 - [x] Validar via interface um login local de equipe e confirmar entrada autorizada no painel.
 - [x] Salvar checkpoint somente após essas validações finais.
+
+# Calendário administrativo personalizado — 2026-08-26
+
+- [x] Mover a gestão de bloqueios para dentro da aba Agenda, mantendo bloqueios pessoais e de atendimento integrados ao backend.
+- [x] Criar calendário mensal personalizado com navegação de 2026 em diante e seleção de dia para visualizar os agendamentos.
+- [x] Representar dias com bloqueio em amarelo, dias com agendamento confirmado em vermelho e dias sem marcações no estado normal, sem depender somente da cor para acessibilidade.
+- [x] Adicionar seletor de barbeiro para Luan e Bruno visualizarem e alterarem as agendas de todos os barbeiros; manter Kauã restrito à própria agenda.
+- [x] Validar calendário, detalhe diário, bloqueios, agenda compartilhada, permissões e responsividade; executar testes/build e salvar checkpoint.
+
+# Ajustes finais de validação da Agenda — 2026-08-26
+
+- [x] Restringir também o formulário de novo agendamento da Agenda para que Kauã veja somente a própria opção de barbeiro.
+- [ ] Após existir um bloqueio e um agendamento confirmado reais, validar visualmente os estados amarelo/vermelho e o detalhe diário ao clicar no calendário.
+- [ ] Salvar checkpoint final depois da validação com registros reais; checkpoint funcional intermediário será salvo agora.

@@ -1,0 +1,3 @@
+# QA visual da Agenda — 2026-08-26
+
+A captura autenticada do desktop confirmou a renderização da nova Agenda com o calendário mensal, seletor de barbeiro e estados visuais integrados. A captura mobile em 390px confirmou que o drawer/menu do painel permanece funcional, o calendário se adapta a sete colunas, a legenda continua legível e o formulário de novo agendamento permanece acessível em coluna única. O calendário apresenta mês de agosto de 2026, permite seleção de dia e exibe a área de detalhe diário. A faixa inferior do Preview é chrome da ferramenta de captura, não faz parte da aplicação publicada.
