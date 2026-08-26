@@ -21,6 +21,7 @@ import {
   rescheduleAppointment,
   setUserPassword,
   assertAdminUser,
+  canViewFinance,
 } from "./admin";
 
 const appointmentInput = z.object({
@@ -36,6 +37,7 @@ const appointmentInput = z.object({
 const adminDateRange = z.object({
   fromDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   toDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  barberSlug: z.enum(["luan", "bruno", "kaua"]).optional(),
 });
 
 export const appRouter = router({
@@ -87,13 +89,13 @@ export const appRouter = router({
     profile: staffProcedure.query(({ ctx }) => ({ id: ctx.user.id, name: ctx.user.name, role: ctx.user.role, barberId: ctx.user.barberId })),
     dashboard: staffProcedure.query(({ ctx }) => getAdminDashboard(ctx.user)),
     customers: staffProcedure.query(({ ctx }) => listAdminCustomers(ctx.user)),
-    reports: reportProcedure.input(adminDateRange).query(({ input, ctx }) => getAdminReport(ctx.user, input.fromDate, input.toDate)),
+    reports: reportProcedure.input(adminDateRange).query(({ input, ctx }) => getAdminReport(ctx.user, input.fromDate, input.toDate, input.barberSlug)),
     blocks: staffProcedure.query(({ ctx }) => listBlocks(ctx.user)),
     createBlock: staffProcedure.input(z.object({ barberId: z.number().int().positive(), kind: z.enum(["personal", "service"]), appointmentDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), startTime: z.string().regex(/^\d{2}:\d{2}$/), endTime: z.string().regex(/^\d{2}:\d{2}$/), note: z.string().max(500).optional(), serviceId: z.number().int().positive().optional(), customerId: z.number().int().positive().optional(), valueCents: z.number().int().min(0).optional() })).mutation(({ input, ctx }) => createBlock(ctx.user, input)),
     deleteBlock: staffProcedure.input(z.object({ id: z.number().int().positive() })).mutation(({ input, ctx }) => deleteBlock(ctx.user, input.id)),
     users: adminProcedure.query(({ ctx }) => listStaffUsers(ctx.user)),
     setPassword: adminProcedure.input(z.object({ userId: z.number().int().positive(), password: z.string().min(10) })).mutation(({ input, ctx }) => setUserPassword(ctx.user, input.userId, input.password)),
-    accessCheck: staffProcedure.query(({ ctx }) => ({ canViewAll: ctx.user.role === "admin", canViewReports: ctx.user.role === "admin" || ctx.user.role === "barber", canManageUsers: ctx.user.role === "admin", canViewFinance: ctx.user.role !== "barbearia" })),
+    accessCheck: staffProcedure.query(({ ctx }) => ({ canViewAll: ctx.user.role === "admin", canViewReports: ctx.user.role === "admin" || ctx.user.role === "barber", canManageUsers: ctx.user.role === "admin", canViewFinance: canViewFinance(ctx.user) })),
   }),
 });
 

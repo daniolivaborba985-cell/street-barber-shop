@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("./db", () => ({ getDb: vi.fn() }));
-import { assertAdminUser, blockPersistence, canAccessBarber, canManageUsers, canViewAll, canViewReports, createBlock, filterBarberScope, FIXED_PROFILES, isLocalStaffUser, getAdminReport, hashPassword, isAdminRole, isBillableStatus, listAdminAppointments, listAdminCustomers, loginWithPassword, nextAppointmentStatus, recordAppointmentHistory, rescheduleAppointment, scopedBarberId, setUserPassword, verifyPassword } from "./admin";
+import { assertAdminUser, blockPersistence, canAccessBarber, canManageUsers, canViewAll, canViewFinance, canViewReports, createBlock, filterBarberScope, FIXED_PROFILES, isLocalStaffUser, getAdminReport, hashPassword, isAdminRole, isBillableStatus, listAdminAppointments, listAdminCustomers, loginWithPassword, nextAppointmentStatus, recordAppointmentHistory, rescheduleAppointment, scopedBarberId, setUserPassword, verifyPassword } from "./admin";
 import { getDb } from "./db";
 import { listOccupiedSlots } from "./appointments";
 import type { User } from "../drizzle/schema";
@@ -41,6 +41,7 @@ describe("administrative profile permissions", () => {
     expect(scopedBarberId(kaua)).toBe(3);
     expect(canViewAll(kaua)).toBe(false);
     expect(canViewReports(kaua)).toBe(true);
+    expect(canViewFinance(kaua)).toBe(true);
     expect(canManageUsers(kaua)).toBe(false);
   });
 
@@ -59,6 +60,7 @@ describe("administrative profile permissions", () => {
     expect(scopedBarberId(operation)).toBeUndefined();
     expect(canViewAll(operation)).toBe(false);
     expect(canViewReports(operation)).toBe(false);
+    expect(canViewFinance(operation)).toBe(false);
     expect(canManageUsers(operation)).toBe(false);
   });
 });
@@ -219,5 +221,16 @@ describe("administrative credentials", () => {
     await expect(verifyPassword(password, digest)).resolves.toBe(true);
     await expect(verifyPassword("wrong-password", digest)).resolves.toBe(false);
     await expect(hashPassword("short")).rejects.toThrow("10 caracteres");
+  });
+});
+
+
+describe("administrative report barber filter", () => {
+  it("filters the consolidated report to a selected barber for an admin", async () => {
+    const row = (barberId: number, barberName: string, barberSlug: string) => ({ id: barberId, barberId, appointmentDate: "2030-01-10", startTime: "09:00:00", endTime: "09:30:00", totalDurationMinutes: 30, totalPriceCents: 3500, status: "confirmed", customerName: "Cliente", customerPhone: "555", customerEmail: "cliente@test", barberName, barberSlug });
+    vi.mocked(getDb).mockResolvedValue(mockDatabase([[row(1, "Luan", "luan"), row(2, "Bruno", "bruno"), row(3, "Kauã", "kaua")]]) as any);
+    const report = await getAdminReport(makeUser("admin"), "2030-01-01", "2030-01-31", "bruno");
+    expect(report.appointments).toBe(1);
+    expect(report.byBarber).toEqual([{ barberName: "Bruno", appointments: 1, revenueCents: 3500, cancellations: 0 }]);
   });
 });

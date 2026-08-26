@@ -40,6 +40,7 @@ export const isLocalStaffUser = (user: User | null | undefined): user is AdminUs
 
 export function canViewAll(user: AdminUser) { return user.role === "admin"; }
 export function canViewReports(user: AdminUser) { return user.role === "admin" || user.role === "barber"; }
+export function canViewFinance(user: AdminUser) { return user.role !== "barbearia"; }
 export function canManageUsers(user: AdminUser) { return user.role === "admin"; }
 export function scopedBarberId(user: AdminUser): number | undefined {
   return user.role === "barber" ? (user.barberId ?? undefined) : undefined;
@@ -212,14 +213,17 @@ export async function getAdminDashboard(user: AdminUser) {
       appointments: rows.length,
       confirmed: confirmed.length,
       cancelled: rows.filter((row) => row.status === "cancelled").length,
-      revenueCents: user.role === "barbearia" ? null : active.reduce((sum, row) => sum + row.totalPriceCents, 0),
+      revenueCents: canViewFinance(user) ? active.reduce((sum, row) => sum + row.totalPriceCents, 0) : null,
     },
   };
 }
 
-export async function getAdminReport(user: AdminUser, fromDate: string, toDate: string) {
+export async function getAdminReport(user: AdminUser, fromDate: string, toDate: string, barberSlug?: string) {
   if (!canViewReports(user)) throw new Error("Este perfil não possui acesso a relatórios.");
-  const rows = (await listAdminAppointments(user)).filter((row) => row.appointmentDate >= fromDate && row.appointmentDate <= toDate);
+  const requestedBarberId = barberSlug ? ({ luan: 1, bruno: 2, kaua: 3 } as Record<string, number>)[barberSlug] : undefined;
+  if (barberSlug && !requestedBarberId) throw new Error("Barbeiro inválido.");
+  if (user.role === "barber" && requestedBarberId && requestedBarberId !== user.barberId) throw new Error("Você só pode consultar o próprio relatório.");
+  const rows = (await listAdminAppointments(user)).filter((row) => row.appointmentDate >= fromDate && row.appointmentDate <= toDate && (!requestedBarberId || row.barberId === requestedBarberId));
   const active = rows.filter((row) => isBillableStatus(row.status));
   const byBarber = new Map<string, { barberName: string; appointments: number; revenueCents: number; cancellations: number }>();
   for (const row of rows) {

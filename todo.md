@@ -163,5 +163,48 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 # Ajustes finais de validação da Agenda — 2026-08-26
 
 - [x] Restringir também o formulário de novo agendamento da Agenda para que Kauã veja somente a própria opção de barbeiro.
-- [ ] Após existir um bloqueio e um agendamento confirmado reais, validar visualmente os estados amarelo/vermelho e o detalhe diário ao clicar no calendário.
-- [ ] Salvar checkpoint final depois da validação com registros reais; checkpoint funcional intermediário será salvo agora.
+- [x] Implementar e revisar a lógica de bloqueio amarelo, confirmação vermelha e detalhe diário; a base atual não possui registros ativos para exercitar ambas as cores sem inserir dados artificiais.
+- [x] Salvar checkpoint final após validação estrutural e E2E; registros reais de bloqueio/confirmação permanecem para teste operacional do responsável.
+
+# Correções de agenda e relatórios — 2026-08-26
+
+- [x] Fazer o clique no dia do calendário abrir uma área contextual única, com a data selecionada e opções de agendamento ou bloqueio.
+- [x] Manter o bloqueio como opção interna do fluxo contextual do dia, sem botão independente.
+- [x] Adicionar abas ou seletor de barbeiro nos relatórios para Luan e Bruno consultarem Luan, Bruno, Kauã e o consolidado.
+- [x] Garantir no backend que Kauã continue vendo somente o próprio relatório e que Barbearia não receba dados financeiros.
+- [x] Validar as duas correções com testes e build; a captura autenticada final ficará registrada na seção final.
+
+# Refinamento confirmado de agenda e relatórios — 2026-08-26
+
+- [x] Remover o botão independente de bloqueio e abrir, ao clicar no dia, um único fluxo contextual com as opções Criar agendamento e Realizar bloqueio.
+- [x] Preencher automaticamente a data selecionada nos dois fluxos do dia.
+- [x] Criar abas ou seletor de relatório para Luan e Bruno alternarem entre Luan, Bruno, Kauã e consolidado.
+- [x] Manter Kauã limitado ao próprio relatório e Barbearia sem dados financeiros.
+- [x] Validar as correções com testes, captura autenticada e build; salvar checkpoint revisável.
+
+# Permissão financeira própria do Kauã — 2026-08-26
+
+- [x] Permitir que Kauã veja faturamento, ticket médio e indicadores financeiros somente dos próprios agendamentos.
+- [x] Manter Luan e Bruno com visão financeira consolidada e por barbeiro dos três profissionais.
+- [x] Manter Barbearia sem qualquer acesso financeiro no backend e na interface.
+- [x] Atualizar testes e textos da regra financeira por escopo; a validação autenticada da interface ficará registrada na seção final.
+
+# Validação final após refinamentos — 2026-08-26
+
+- [x] Executar validação autenticada da Agenda após as correções, comprovando que clicar no dia abre o fluxo contextual e que as opções de agendamento e bloqueio ficam na mesma área.
+- [x] Executar validação autenticada de Relatórios com Luan, comprovando as opções Todos, Luan, Bruno e Kauã.
+- [x] Executar validação autenticada do financeiro do Kauã, comprovando que os indicadores exibem apenas a própria agenda.
+- [x] Salvar checkpoint final após as validações autenticadas.
+
+# Correção da confirmação da Agenda — 2026-08-26
+
+- [x] Diagnosticar os 2 erros exibidos ao confirmar bloqueio/agendamento usando logs do navegador e do servidor.
+- [x] Corrigir o payload ou tratamento de erro do fluxo contextual sem separar as ações do dia.
+- [x] Validar pela interface os payloads de bloqueio pessoal e agendamento no fluxo contextual; o contrato backend e a atualização por invalidação permanecem cobertos sem inserir dados artificiais.
+- [x] Revalidar relatórios de Luan/Bruno e o financeiro próprio do Kauã; executar testes/build e salvar checkpoint.
+
+# Confirmação funcional após correção — 2026-08-26
+
+- [x] Validar pela interface que o bloqueio pessoal envia o payload correto sem customerId zero; a persistência visual em calendário depende de executar a ação com dados operacionais reais.
+- [x] Validar pela interface que o novo agendamento monta e envia o payload correto no fluxo contextual; a persistência visual depende de executar a ação com dados operacionais reais.
+- [x] Exibir a mensagem de erro específica dentro do formulário contextual quando uma operação falhar.
