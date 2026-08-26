@@ -257,3 +257,23 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Fazer a logo aparecer de forma contínua e perceptível em toda a área do Hero, não apenas em um trecho lateral.
 - [x] Recalibrar escala, repetição/distribuição, opacidade e camadas sem prejudicar o texto, o card principal ou os controles.
 - [x] Validar o resultado em desktop e mobile, corrigir overflow se houver, executar testes/build e salvar checkpoint.
+
+# Qualidade 4K da marca d’água — 2026-08-26
+
+- [x] Preparar uma versão da logo em alta resolução para reduzir perda de nitidez no Hero em telas grandes.
+- [x] Integrar o asset de alta resolução mantendo a logo distribuída por toda a tela, com compressão e carregamento adequados.
+- [x] Confirmar que a imagem estática não é descrita como “alto FPS”; não foi criada animação, conforme solicitado.
+- [x] Validar desktop/mobile, executar testes/build e salvar checkpoint.
+
+# Recriação fiel da logo em alta resolução — 2026-08-26
+
+- [x] Recriar a logo oficial preservando exatamente símbolo, composição, proporções, cores e identidade visual atuais.
+- [x] Substituir o asset de baixa definição usado no Hero pela versão estática de alta resolução.
+- [x] Ajustar a marca d’água para usar a nova logo sem mudar o layout ou o conteúdo da Home.
+- [x] Validar fidelidade visual, nitidez em desktop/mobile, testes/build e salvar checkpoint.
+
+# Ajuste de qualidade sem recriação — 2026-08-26
+
+- [x] Usar o melhor arquivo original disponível da logo, sem alterar seu desenho, cores ou proporções.
+- [x] Otimizar formato, resolução efetiva e renderização da marca d’água no Hero para reduzir pixelização.
+- [x] Validar desktop/mobile, executar testes/build e salvar checkpoint somente após confirmar o resultado.
