@@ -208,3 +208,11 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Validar pela interface que o bloqueio pessoal envia o payload correto sem customerId zero; a persistência visual em calendário depende de executar a ação com dados operacionais reais.
 - [x] Validar pela interface que o novo agendamento monta e envia o payload correto no fluxo contextual; a persistência visual depende de executar a ação com dados operacionais reais.
 - [x] Exibir a mensagem de erro específica dentro do formulário contextual quando uma operação falhar.
+
+# Cancelamento operacional da Agenda — 2026-08-26
+
+- [x] Adicionar ação de cancelar/excluir bloqueios pessoais manuais com confirmação e escopo por barbeiro.
+- [x] Adicionar ação de cancelar agendamentos de serviço pelo painel com confirmação e histórico.
+- [x] Atualizar calendário compartilhado, horários ocupados e relatórios após os cancelamentos.
+- [x] Garantir que cancelamentos não gerem faturamento e que Luan/Bruno mantenham acesso aos três barbeiros, enquanto Kauã fica no próprio escopo.
+- [x] Validar os fluxos com testes, E2E de interação e build; salvar checkpoint revisável.

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("./db", () => ({ getDb: vi.fn() }));
-import { assertAdminUser, blockPersistence, canAccessBarber, canManageUsers, canViewAll, canViewFinance, canViewReports, createBlock, filterBarberScope, FIXED_PROFILES, isLocalStaffUser, getAdminReport, hashPassword, isAdminRole, isBillableStatus, listAdminAppointments, listAdminCustomers, loginWithPassword, nextAppointmentStatus, recordAppointmentHistory, rescheduleAppointment, scopedBarberId, setUserPassword, verifyPassword } from "./admin";
+import { assertAdminUser, blockPersistence, canAccessBarber, canManageUsers, canViewAll, canViewFinance, canViewReports, createBlock, deleteBlock, filterBarberScope, FIXED_PROFILES, isLocalStaffUser, getAdminReport, hashPassword, isAdminRole, isBillableStatus, listAdminAppointments, listAdminCustomers, loginWithPassword, nextAppointmentStatus, recordAppointmentHistory, rescheduleAppointment, scopedBarberId, setUserPassword, verifyPassword } from "./admin";
 import { getDb } from "./db";
 import { listOccupiedSlots } from "./appointments";
 import type { User } from "../drizzle/schema";
@@ -232,5 +232,19 @@ describe("administrative report barber filter", () => {
     const report = await getAdminReport(makeUser("admin"), "2030-01-01", "2030-01-31", "bruno");
     expect(report.appointments).toBe(1);
     expect(report.byBarber).toEqual([{ barberName: "Bruno", appointments: 1, revenueCents: 3500, cancellations: 0 }]);
+  });
+});
+
+
+describe("administrative cancellation", () => {
+  it("deactivates an authorized personal block", async () => {
+    const state: any = { id: 44, barberId: 3, active: 1, kind: "personal" };
+    const db: any = {
+      select: () => chain([state]),
+      update: () => ({ set: (values: any) => ({ where: async () => Object.assign(state, values) }) }),
+    };
+    vi.mocked(getDb).mockResolvedValue(db);
+    await expect(deleteBlock(makeUser("barber", 3), 44)).resolves.toEqual({ success: true });
+    expect(state.active).toBe(0);
   });
 });

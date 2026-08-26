@@ -1071,3 +1071,6 @@ body.admin-menu-open { overflow: hidden; }
 @media (max-width: 480px) { .admin-day-actions { padding-left: 14px; padding-right: 14px; }.admin-day-actions > div { display: grid; grid-template-columns: 1fr; }.admin-day-actions button { width: 100%; }.admin-form-section-title { font-size: 14px; } }
 
 .admin-form-error { grid-column: 1 / -1; margin: 0; padding: 10px 12px; border: 1px solid rgba(219, 89, 89, .55); background: rgba(219, 89, 89, .12); color: #ffb4aa; font-size: 13px; line-height: 1.4; }
+
+.admin-day-item { align-items: center; display: flex; gap: 12px; }.admin-day-item-main { flex: 1; min-width: 0; }.admin-day-item > button { flex: 0 0 auto; white-space: nowrap; }.admin-day-item > button span { color: #e2a29a; font-size: 16px; line-height: 1; }
+@media (max-width: 480px) { .admin-day-item { align-items: flex-start; flex-wrap: wrap; }.admin-day-item > button { margin-left: 28px; } }
