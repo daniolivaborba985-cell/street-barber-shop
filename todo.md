@@ -113,3 +113,20 @@
 
 - [x] Validar setUserPassword para um perfil fixo com hash e testar login local após a senha ser provisionada sem expor a senha.
 - [x] Encadear recordAppointmentHistory/rescheduleAppointment com getAdminDashboard ou getAdminReport e comprovar faturamento sem cancelados e sem duplicidade.
+
+# Ajustes de usabilidade mobile e credenciais — 2026-08-26
+
+- [x] Corrigir o menu administrativo mobile para fechar ao selecionar uma rota, tocar fora, usar o botão de fechar ou pressionar Escape, sem bloquear a rolagem da página.
+- [x] Configurar os logins dos quatro perfis fixos com as credenciais fornecidas pelo responsável e persistir somente hashes seguros das senhas.
+- [x] Validar login local dos quatro perfis, permissões por role e comportamento responsivo do menu.
+- [x] Reexecutar testes, TypeScript, build e salvar checkpoint da versão ajustada.
+
+## Registro de segurança
+
+As senhas recebidas foram usadas somente para provisionamento seguro e não devem ser reproduzidas em documentação, logs ou interface.
+
+# Lacunas de integração identificadas — 2026-08-26
+
+- [x] Atualizar a fonte de verdade dos perfis fixos para refletir os novos logins por e-mail e alinhar os testes sem alterar as roles.
+- [x] Executar validação funcional autenticada do drawer mobile: abrir, fechar por item, backdrop, botão e Escape.
+- [x] Revisar documentação e arquivos administrativos desatualizados sem expor senhas.

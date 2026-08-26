@@ -17,9 +17,9 @@ beforeEach(() => { vi.mocked(getDb).mockReset(); });
 
 describe("administrative profile permissions", () => {
   it("defines the four fixed operational profiles", () => {
-    expect(FIXED_PROFILES.map((profile) => profile.username)).toEqual(["luan", "bruno", "kaua", "barbearia"]);
+    expect(FIXED_PROFILES.map((profile) => profile.username)).toEqual(["luanbringhenti2@gmail.com", "brunobringhenti16@gmail.com", "kauadoura14@gmail.com", "streetbarber@gmail.com"]);
     expect(FIXED_PROFILES.filter((profile) => profile.role === "admin")).toHaveLength(2);
-    expect(FIXED_PROFILES.find((profile) => profile.username === "kaua")?.barberId).toBe(3);
+    expect(FIXED_PROFILES.find((profile) => profile.username === "kauadoura14@gmail.com")?.barberId).toBe(3);
   });
   it("accepts exactly the three staff roles", () => {
     expect(isAdminRole("admin")).toBe(true);
@@ -180,13 +180,13 @@ describe("administrative operations", () => {
 
 describe("administrative password provisioning", () => {
   it("provisions a fixed profile hash and authenticates with it", async () => {
-    const user: any = { ...makeUser("admin"), id: 21, username: "luan", openId: "local:luan", passwordHash: null };
+    const user: any = { ...makeUser("admin"), id: 21, username: "luanbringhenti2@gmail.com", openId: "local:luan", passwordHash: null };
     const db: any = { select: () => chain([user]), update: () => ({ set: (values: any) => ({ where: async () => Object.assign(user, values) }) }), insert: () => ({ values: async () => [{ insertId: 1 }] }) };
     vi.mocked(getDb).mockResolvedValue(db);
     await setUserPassword(makeUser("admin"), 21, "street-login-password");
     expect(user.passwordHash).toMatch(/^scrypt\$/);
     expect(user.passwordHash).not.toContain("street-login-password");
-    const result = await loginWithPassword("luan", "street-login-password");
+    const result = await loginWithPassword("luanbringhenti2@gmail.com", "street-login-password");
     expect(result.user.id).toBe(21);
   });
 });
@@ -194,10 +194,10 @@ describe("administrative password provisioning", () => {
 describe("administrative login", () => {
   it("authenticates a fixed local profile and creates a session without storing plaintext", async () => {
     const password = "street-login-password";
-    const user = { ...makeUser("admin"), username: "luan", openId: "local:luan", passwordHash: await hashPassword(password) };
+    const user = { ...makeUser("admin"), username: "luanbringhenti2@gmail.com", openId: "local:luan", passwordHash: await hashPassword(password) };
     vi.mocked(getDb).mockResolvedValue(mockDatabase([[user]]) as any);
-    const result = await loginWithPassword("luan", password);
-    expect(result.user.username).toBe("luan");
+    const result = await loginWithPassword("luanbringhenti2@gmail.com", password);
+    expect(result.user.username).toBe("luanbringhenti2@gmail.com");
     expect(result.token).toMatch(/^[a-f0-9]{64}$/);
     expect(user.passwordHash).not.toContain(password);
   });

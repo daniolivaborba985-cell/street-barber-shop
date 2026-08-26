@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { CalendarDays, Check, Clock3, LayoutDashboard, Loader2, LockKeyhole, LogIn, Plus, ShieldAlert, Users, WalletCards, X } from "lucide-react";
-import { FormEvent, useMemo, useState } from "react";
+import { CalendarDays, Check, Clock3, LayoutDashboard, Loader2, LockKeyhole, LogIn, Menu, Plus, ShieldAlert, Users, WalletCards, X } from "lucide-react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useLocation, useRoute } from "wouter";
 
 const money = (cents: number | null | undefined) => cents == null ? "—" : new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(cents / 100);
@@ -113,6 +113,18 @@ function AdminContent() {
   const [, setLocation] = useLocation();
   const [, params] = useRoute<{ tab?: string }>("/admin/:tab?");
   const tab = (params?.tab as Tab | undefined) ?? "dashboard";
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    document.body.classList.toggle("admin-menu-open", menuOpen);
+    return () => document.body.classList.remove("admin-menu-open");
+  }, [menuOpen]);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [menuOpen]);
+  const navigate = (path: string) => { setLocation(path); setMenuOpen(false); };
   if (loading) return <div className="admin-empty"><Loader2 className="animate-spin" /> Verificando acesso…</div>;
   if (!user) return <LoginPage />;
   if (!["admin", "barber", "barbearia"].includes(user.role)) return <div className="admin-denied"><ShieldAlert size={30} /><h1>Acesso restrito</h1><p>Seu perfil não possui acesso ao painel administrativo.</p><Button onClick={() => setLocation("/")}>Voltar para a Home</Button></div>;
@@ -125,7 +137,7 @@ function AdminContent() {
     { tab: "relatorios", label: "Relatórios", icon: WalletCards, visible: canReports },
     { tab: "usuarios", label: "Usuários", icon: LockKeyhole, visible: user.role === "admin" },
   ];
-  return <div className="admin-shell"><aside className="admin-sidebar"><div className="admin-brand"><span className="admin-brand-mark">S</span><div><strong>STREET</strong><small>BARBER SHOP</small></div></div><nav>{items.filter((item) => item.visible).map((item) => <button key={item.tab} className={tab === item.tab ? "active" : ""} onClick={() => setLocation(`/admin/${item.tab}`)}><item.icon size={17} /> {item.label}</button>)}</nav><div className="admin-sidebar-foot"><span>{roleLabel[user.role]}</span><small>{user.name ?? user.email ?? user.username ?? "Usuário"}</small></div></aside><main className="admin-main">{tab === "dashboard" && <DashboardTab user={user} />}{tab === "agenda" && <AgendaTab />}{tab === "clientes" && <CustomersTab />}{tab === "relatorios" && canReports && <ReportsTab user={user} />}{tab === "bloqueios" && <BlocksTab user={user} />}{tab === "usuarios" && user.role === "admin" && <UsersTab />}<button className="admin-public-link" onClick={() => setLocation("/")}>← Ver site público</button></main></div>;
+  return <div className="admin-shell"><button className={`admin-sidebar-backdrop ${menuOpen ? "is-visible" : ""}`} aria-label="Fechar menu ao tocar fora" onClick={() => setMenuOpen(false)} tabIndex={menuOpen ? 0 : -1} /><div className="admin-mobile-toolbar"><div className="admin-brand"><span className="admin-brand-mark">S</span><div><strong>STREET</strong><small>BARBER SHOP</small></div></div><button className="admin-menu-trigger" aria-expanded={menuOpen} aria-controls="admin-navigation" onClick={() => setMenuOpen(true)}><Menu size={18} /> Menu</button></div><aside id="admin-navigation" className={`admin-sidebar ${menuOpen ? "is-open" : ""}`}><div className="admin-brand"><span className="admin-brand-mark">S</span><div><strong>STREET</strong><small>BARBER SHOP</small></div><button className="admin-menu-close" aria-label="Fechar menu" onClick={() => setMenuOpen(false)}><X size={18} /></button></div><nav>{items.filter((item) => item.visible).map((item) => <button key={item.tab} className={tab === item.tab ? "active" : ""} onClick={() => navigate(`/admin/${item.tab}`)}><item.icon size={17} /> {item.label}</button>)}</nav><div className="admin-sidebar-foot"><span>{roleLabel[user.role]}</span><small>{user.name ?? user.email ?? user.username ?? "Usuário"}</small></div></aside><main className="admin-main">{tab === "dashboard" && <DashboardTab user={user} />}{tab === "agenda" && <AgendaTab />}{tab === "clientes" && <CustomersTab />}{tab === "relatorios" && canReports && <ReportsTab user={user} />}{tab === "bloqueios" && <BlocksTab user={user} />}{tab === "usuarios" && user.role === "admin" && <UsersTab />}<button className="admin-public-link" onClick={() => navigate("/")}>← Ver site público</button></main></div>;
 }
 
 export default function AdminPage() {

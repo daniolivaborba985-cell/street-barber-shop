@@ -1,7 +1,9 @@
 # Ativação dos perfis administrativos
 
-A aplicação possui quatro perfis locais fixos no banco de dados: `luan` e `bruno`, ambos com papel administrador; `kaua`, com papel barbeiro vinculado ao barbeiro Kauã; e `barbearia`, com papel operacional. A consulta de verificação retornou exatamente esses quatro perfis locais.
+A aplicação possui exatamente quatro perfis locais fixos no banco de dados. Os logins definidos pelo responsável são `luanbringhenti2@gmail.com` e `brunobringhenti16@gmail.com`, ambos com papel administrador; `kauadoura14@gmail.com`, com papel barbeiro vinculado ao barbeiro Kauã; e `streetbarber@gmail.com`, com papel operacional da Barbearia. A consulta de verificação confirmou exatamente esses quatro perfis locais.
 
-As credenciais foram criadas sem senha inicial para evitar inventar ou registrar uma senha que não foi fornecida pelo responsável. Um administrador autenticado deve abrir `/admin/usuarios`, selecionar cada perfil e configurar uma senha individual com no mínimo 10 caracteres. O sistema grava somente o hash scrypt e nunca a senha em texto puro.
+As quatro credenciais foram provisionadas em 26/08/2026. As senhas não são registradas neste documento, nos logs ou na interface: o sistema grava somente hashes scrypt e valida as senhas durante o login local.
 
-O usuário técnico OAuth do projeto permanece separado da lista de perfis locais para não quebrar a autenticação base do ambiente. O perfil Barbearia não recebe acesso a relatórios, faturamento, usuários ou configurações administrativas.
+O acesso é feito em `/admin`. O usuário técnico OAuth do projeto permanece separado da lista de perfis locais para não quebrar a autenticação base do ambiente. O perfil Barbearia não recebe acesso a relatórios, faturamento, usuários ou configurações administrativas.
+
+No mobile, o menu administrativo funciona como um drawer lateral. Ele pode ser aberto pelo botão **Menu** e fechado ao escolher uma rota, tocar no backdrop, usar o botão de fechar ou pressionar `Escape`; enquanto estiver aberto, a rolagem do documento fica bloqueada para evitar que a tela fique presa ou seja rolada em duplicidade.

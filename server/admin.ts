@@ -24,10 +24,10 @@ export const ADMIN_ROLES = ["admin", "barber", "barbearia"] as const;
 export type AdminRole = (typeof ADMIN_ROLES)[number];
 export type AdminUser = User;
 export const FIXED_PROFILES = [
-  { username: "luan", name: "Luan Bringhenti", role: "admin", barberId: 1 },
-  { username: "bruno", name: "Bruno Bringhenti", role: "admin", barberId: 2 },
-  { username: "kaua", name: "Kauã dos Santos", role: "barber", barberId: 3 },
-  { username: "barbearia", name: "Barbearia Street Barber Shop", role: "barbearia", barberId: null },
+  { username: "luanbringhenti2@gmail.com", name: "Luan Bringhenti", role: "admin", barberId: 1 },
+  { username: "brunobringhenti16@gmail.com", name: "Bruno Bringhenti", role: "admin", barberId: 2 },
+  { username: "kauadoura14@gmail.com", name: "Kauã dos Santos", role: "barber", barberId: 3 },
+  { username: "streetbarber@gmail.com", name: "Barbearia Street Barber Shop", role: "barbearia", barberId: null },
 ] as const;
 export const isBillableStatus = (status: string) => status !== "cancelled";
 export const canAccessBarber = (user: AdminUser, barberId: number) => user.role !== "barber" || user.barberId === barberId;
