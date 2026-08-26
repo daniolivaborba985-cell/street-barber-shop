@@ -1,0 +1,29 @@
+# Project TODO
+
+- [x] Inicializar o destino Web Full-Stack com Node.js, React, tRPC, Drizzle e autenticação base.
+- [x] Receber e auditar o pacote limpo da Street Barber Shop sem importar arquivos da IR AGRO.
+- [x] Confirmar a aplicação pública existente em React/Vite com roteamento manual por pathname/popstate.
+- [x] Confirmar as rotas públicas atuais: Home, /planos, /clube e /assistentes/:slug para Luan, Bruno e Kauã.
+- [x] Confirmar que o agendamento atual é somente local, usando localStorage por barbeiro.
+- [x] Identificar os assets locais oficiais: logo.jpeg, luan.jpeg, bruno.jpeg e kaua.jpeg.
+- [x] Identificar dependências externas atuais: Google Fonts e avatares dos assistentes no Manus CDN.
+- [x] Migrar a Home pública para a nova estrutura sem redesenhar ou simplificar a interface.
+- [x] Preservar identidade visual, tipografia, paleta, espaçamentos, responsividade, animações, imagens, seções, cards, botões e textos existentes.
+- [x] Preservar as rotas públicas e adicionar rotas de retorno claras nas páginas internas.
+- [x] Copiar os assets oficiais para o armazenamento estático do projeto e referenciá-los por URLs persistentes.
+- [x] Registrar dependências externas e eliminar as desnecessárias quando possível, sem alterar o comportamento visual.
+- [x] Criar schema relacional inicial para users, customers, barbers, services, plans, benefits, partners, appointments, availability e subscriptions, sem inventar clientes reais.
+- [x] Criar helpers de banco e procedimentos tRPC para cadastro e consulta de agendamentos.
+- [x] Migrar o fluxo do assistente para captar nome, telefone, e-mail, serviços, data e horário.
+- [x] Validar no backend dias e horários de atendimento, duração total dos serviços e disponibilidade por barbeiro.
+- [x] Impedir conflitos de horário por barbeiro no backend antes de gravar o agendamento.
+- [x] Persistir agendamentos no banco com timestamps UTC e status operacional.
+- [x] Preparar autenticação usando a base Manus OAuth existente, sem exigir login para a experiência pública nesta etapa.
+- [x] Criar a estrutura inicial protegida de /admin para visualização e organização de agendamentos.
+- [x] Restringir a área administrativa por role admin e usar DashboardLayout existente do template.
+- [x] Não habilitar notificações de agendamento nesta etapa.
+- [x] Não adicionar funcionalidades extras além do escopo aprovado.
+- [x] Escrever ou atualizar testes Vitest para regras de disponibilidade, conflitos, persistência e proteção administrativa.
+- [x] Executar check, build e testes automatizados.
+- [x] Verificar a Home e os fluxos públicos em desktop e mobile por captura visual.
+- [x] Revisar todo o projeto e criar checkpoint final antes da entrega.
