@@ -245,3 +245,9 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Posicionar os serviços após os barbeiros e a chamada "Conheça nossos planos" imediatamente ao final dos serviços.
 - [x] Posicionar os planos depois da chamada e manter as considerações finais no encerramento da Home.
 - [x] Atualizar âncoras, botões e rolagem; validar desktop/mobile e salvar checkpoint revisável.
+
+# Marca d’água da logo no hero — 2026-08-26
+
+- [x] Adicionar a logo oficial como marca d’água no fundo da tela inicial, atrás do conteúdo do hero.
+- [x] Calibrar opacidade, tamanho e posição para preservar a leitura do texto e a imagem principal.
+- [x] Validar a marca d’água em desktop e mobile, respeitando acessibilidade e ausência de overflow; executar testes/build e salvar checkpoint.
