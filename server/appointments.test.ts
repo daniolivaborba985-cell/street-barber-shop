@@ -79,7 +79,7 @@ describe("panel booking and shared calendar", () => {
     };
     vi.mocked(getDb).mockResolvedValue(db as any);
     const { appRouter } = await import("./routers");
-    const caller = appRouter.createCaller({ user: { id: 10, role: "admin", openId: "oauth-admin" } as any, req: { protocol: "https", headers: {} } as never, res: {} as never });
+    const caller = appRouter.createCaller({ user: { id: 10, role: "admin", openId: "local:luan", loginMethod: "local", username: "luanbringhenti2@gmail.com" } as any, req: { protocol: "https", headers: {} } as never, res: {} as never });
     await caller.appointments.createFromPanel({ barberSlug: "luan", name: "Cliente Painel", phone: "49999999999", email: "painel@example.com", serviceSlugs: ["corte"], appointmentDate: "2026-08-29", startTime: "10:00" });
     await expect(listOccupiedSlots("luan", "2026-08-29")).resolves.toEqual([{ startTime: "10:00", endTime: "10:30" }]);
   });

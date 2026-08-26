@@ -23,9 +23,9 @@ function LoginPage() {
     <div className="admin-login-card">
       <p className="admin-eyebrow">STREET BARBER SHOP · ÁREA INTERNA</p>
       <h1>Acesso ao painel</h1>
-      <p>Entre com seu usuário individual para acessar a agenda e os recursos liberados para o seu perfil.</p>
+      <p>Entre com seu e-mail e senha de acesso interno. Esta área é exclusiva da equipe Street Barber Shop.</p>
       <form onSubmit={submit} className="admin-login-form">
-        <label>Usuário<Input value={username} onChange={(event) => setUsername(event.target.value)} autoComplete="username" placeholder="seu.usuario" /></label>
+        <label>Usuário<Input value={username} onChange={(event) => setUsername(event.target.value)} autoComplete="username" placeholder="seu@email.com" /></label>
         <label>Senha<Input value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" type="password" placeholder="••••••••••" /></label>
         {login.error && <span className="admin-error">{login.error.message}</span>}
         {message && <span className="admin-success">{message}</span>}
@@ -126,7 +126,7 @@ function AdminContent() {
   }, [menuOpen]);
   const navigate = (path: string) => { setLocation(path); setMenuOpen(false); };
   if (loading) return <div className="admin-empty"><Loader2 className="animate-spin" /> Verificando acesso…</div>;
-  if (!user) return <LoginPage />;
+  if (!user || user.loginMethod !== "local") return <LoginPage />;
   if (!["admin", "barber", "barbearia"].includes(user.role)) return <div className="admin-denied"><ShieldAlert size={30} /><h1>Acesso restrito</h1><p>Seu perfil não possui acesso ao painel administrativo.</p><Button onClick={() => setLocation("/")}>Voltar para a Home</Button></div>;
   const canReports = user.role === "admin" || user.role === "barber";
   const items: Array<{ tab: Tab; label: string; icon: typeof LayoutDashboard; visible: boolean }> = [

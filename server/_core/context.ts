@@ -20,17 +20,21 @@ export async function createContext(
   opts: CreateExpressContextOptions
 ): Promise<TrpcContext> {
   let user: User | null = null;
+  const adminToken = readCookie(opts.req.headers.cookie, ADMIN_SESSION_COOKIE);
 
-  try {
-    user = await sdk.authenticateRequest(opts.req);
-  } catch (error) {
-    user = null;
+  // A sessão local do painel tem prioridade para que um OAuth comum não pule o login interno.
+  if (adminToken) {
+    try {
+      user = (await getUserFromAdminSession(adminToken)) ?? null;
+    } catch {
+      user = null;
+    }
   }
 
   if (!user) {
     try {
-      user = (await getUserFromAdminSession(readCookie(opts.req.headers.cookie, ADMIN_SESSION_COOKIE))) ?? null;
-    } catch {
+      user = await sdk.authenticateRequest(opts.req);
+    } catch (error) {
       user = null;
     }
   }

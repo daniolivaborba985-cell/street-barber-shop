@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("./db", () => ({ getDb: vi.fn() }));
-import { assertAdminUser, blockPersistence, canAccessBarber, canManageUsers, canViewAll, canViewReports, createBlock, filterBarberScope, FIXED_PROFILES, getAdminReport, hashPassword, isAdminRole, isBillableStatus, listAdminAppointments, listAdminCustomers, loginWithPassword, nextAppointmentStatus, recordAppointmentHistory, rescheduleAppointment, scopedBarberId, setUserPassword, verifyPassword } from "./admin";
+import { assertAdminUser, blockPersistence, canAccessBarber, canManageUsers, canViewAll, canViewReports, createBlock, filterBarberScope, FIXED_PROFILES, isLocalStaffUser, getAdminReport, hashPassword, isAdminRole, isBillableStatus, listAdminAppointments, listAdminCustomers, loginWithPassword, nextAppointmentStatus, recordAppointmentHistory, rescheduleAppointment, scopedBarberId, setUserPassword, verifyPassword } from "./admin";
 import { getDb } from "./db";
 import { listOccupiedSlots } from "./appointments";
 import type { User } from "../drizzle/schema";
@@ -21,6 +21,13 @@ describe("administrative profile permissions", () => {
     expect(FIXED_PROFILES.filter((profile) => profile.role === "admin")).toHaveLength(2);
     expect(FIXED_PROFILES.find((profile) => profile.username === "kauadoura14@gmail.com")?.barberId).toBe(3);
   });
+  it("requires a local session for panel staff access", () => {
+    expect(isLocalStaffUser({ loginMethod: "local", role: "barber" } as any)).toBe(true);
+    expect(isLocalStaffUser({ loginMethod: "local", role: "barbearia" } as any)).toBe(true);
+    expect(isLocalStaffUser({ loginMethod: "google", role: "admin" } as any)).toBe(false);
+    expect(isLocalStaffUser({ loginMethod: "local", role: "user" } as any)).toBe(false);
+  });
+
   it("accepts exactly the three staff roles", () => {
     expect(isAdminRole("admin")).toBe(true);
     expect(isAdminRole("barber")).toBe(true);

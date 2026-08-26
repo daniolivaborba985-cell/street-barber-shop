@@ -137,3 +137,17 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Preservar sem alterações os logins e as roles de Luan, Bruno, Kauã e Barbearia.
 - [x] Validar que o login de um barbeiro continua funcionando e entregar o card de acesso para teste.
 - [x] Salvar checkpoint da alteração de acesso.
+
+# Proteção de acesso interno ao painel — 2026-08-26
+
+- [x] Exigir login local com usuário/e-mail e senha ao abrir `/admin`, mesmo quando existir uma sessão OAuth comum no navegador.
+- [x] Impedir no backend que usuários comuns/clientes ou sessões OAuth não locais acessem procedures administrativas.
+- [x] Preservar acesso dos perfis internos Luan, Bruno, Kauã e Barbearia com suas permissões atuais.
+- [x] Validar visualmente e funcionalmente a tela de login, o bloqueio de cliente/OAuth e o acesso dos perfis internos.
+- [x] Executar testes e build e salvar checkpoint da proteção revisada.
+
+# Validação end-to-end da barreira local — 2026-08-26
+
+- [x] Validar no navegador que `/admin` renderiza a tela de login interno após sessão OAuth comum.
+- [x] Validar via interface um login local de equipe e confirmar entrada autorizada no painel.
+- [x] Salvar checkpoint somente após essas validações finais.

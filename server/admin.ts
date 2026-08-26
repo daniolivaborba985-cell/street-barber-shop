@@ -36,6 +36,7 @@ export const blockPersistence = (kind: CreateBlockInput["kind"]) => kind === "se
 export const nextAppointmentStatus = (action: "confirmed" | "cancelled" | "completed") => action === "cancelled" ? "cancelled" as const : "confirmed" as const;
 
 export const isAdminRole = (role: string): role is AdminRole => ADMIN_ROLES.includes(role as AdminRole);
+export const isLocalStaffUser = (user: User | null | undefined): user is AdminUser => Boolean(user && user.loginMethod === "local" && isAdminRole(user.role));
 
 export function canViewAll(user: AdminUser) { return user.role === "admin"; }
 export function canViewReports(user: AdminUser) { return user.role === "admin" || user.role === "barber"; }
