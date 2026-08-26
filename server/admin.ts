@@ -31,6 +31,7 @@ export const FIXED_PROFILES = [
 ] as const;
 export const isBillableStatus = (status: string) => status !== "cancelled";
 export const canAccessBarber = (user: AdminUser, barberId: number) => user.role !== "barber" || user.barberId === barberId;
+export function filterBarberScope<T extends { barberId: number }>(user: AdminUser, rows: T[]) { return rows.filter((row) => canAccessBarber(user, row.barberId)); }
 export const blockPersistence = (kind: CreateBlockInput["kind"]) => kind === "service" ? "appointment" as const : "block" as const;
 export const nextAppointmentStatus = (action: "confirmed" | "cancelled" | "completed") => action === "cancelled" ? "cancelled" as const : "confirmed" as const;
 
@@ -136,8 +137,9 @@ export async function listAdminAppointments(user: AdminUser) {
   const db = await getDb();
   if (!db) return [];
   const condition = scopeCondition(user);
-  return db.select({
+  const rows = await db.select({
     id: appointments.id,
+    barberId: appointments.barberId,
     appointmentDate: appointments.appointmentDate,
     startTime: appointments.startTime,
     endTime: appointments.endTime,
@@ -154,6 +156,7 @@ export async function listAdminAppointments(user: AdminUser) {
     .innerJoin(barbers, eq(barbers.id, appointments.barberId))
     .where(condition)
     .orderBy(desc(appointments.appointmentDate), desc(appointments.startTime)).limit(500);
+  return filterBarberScope(user, rows);
 }
 
 export async function listAdminCustomers(user: AdminUser) {
@@ -167,6 +170,7 @@ export async function listAdminCustomers(user: AdminUser) {
     email: customers.email,
     createdAt: customers.createdAt,
     appointmentId: appointments.id,
+    appointmentBarberId: appointments.barberId,
     appointmentDate: appointments.appointmentDate,
     startTime: appointments.startTime,
     barberName: barbers.name,
@@ -176,8 +180,9 @@ export async function listAdminCustomers(user: AdminUser) {
     .leftJoin(barbers, eq(barbers.id, appointments.barberId))
     .where(barberId ? or(eq(appointments.barberId, barberId), eq(appointments.id, 0)) : undefined)
     .orderBy(desc(customers.createdAt));
+  const scopedRows = barberId ? rows.filter((row) => !row.appointmentId || row.appointmentBarberId === barberId) : rows;
   const byId = new Map<number, { id: number; name: string; phone: string; email: string; createdAt: Date; appointments: Array<{ id: number; date: string; time: string; barberName: string | null; status: string; services: string[] }>; plan: string | null; status: string }>();
-  for (const row of rows) {
+  for (const row of scopedRows) {
     const existing = byId.get(row.id) ?? { id: row.id, name: row.name, phone: row.phone, email: row.email, createdAt: row.createdAt, appointments: [], plan: null, status: "Novo" };
     if (row.appointmentId) {
       const serviceRows = await db.select({ name: services.name }).from(appointmentServices).innerJoin(services, eq(services.id, appointmentServices.serviceId)).where(eq(appointmentServices.appointmentId, row.appointmentId));

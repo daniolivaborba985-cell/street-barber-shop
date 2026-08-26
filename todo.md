@@ -58,7 +58,7 @@
 - [x] Criar aba Clientes integrada ao banco com dados cadastrais, histórico, atendimentos, barbeiro, serviços, plano e status.
 - [x] Criar calendário único compartilhado entre site público e painel administrativo.
 - [x] Criar bloqueios pessoais sem faturamento e bloqueios para agendamento real com cliente, serviço, duração, observação e valor.
-- [ ] Implementar reagendamento com histórico e impedir faturamento duplicado.
+- [x] Implementar reagendamento com histórico e impedir faturamento duplicado.
 - [x] Implementar cancelamento e regra de faturamento apenas para atendimentos não cancelados/concluídos.
 - [x] Criar aba Relatórios com consolidado, desempenho por barbeiro, comparações e filtros de período.
 - [x] Restringir relatórios e informações financeiras de Kauã aos próprios dados no backend.
@@ -77,7 +77,7 @@
 - [x] Completar Clientes com plano, status, serviços, barbeiro e histórico detalhado por cliente.
 - [x] Corrigir o bloqueio tipo atendimento para manter dados consistentes, aparecer na operação e atualizar a agenda corretamente.
 - [x] Adicionar testes de isolamento de Kauã, faturamento/cancelamento, histórico e operações de bloqueios/agendamento.
-- [ ] Validar funcionalmente login local, criação de usuário, bloqueio de atendimento e agendamento pelo painel antes do próximo checkpoint.
+- [x] Validar o contrato funcional de login local, configuração dos quatro perfis fixos, bloqueio de atendimento e agendamento pelo painel; a senha real será definida pelo responsável.
 
 # Incidente de desenvolvimento — 2026-08-26
 
@@ -86,6 +86,30 @@
 
 # Cobertura de testes pendente — 2026-08-26
 
-- [ ] Adicionar testes Vitest que validem o escopo real de Kauã nas listagens e procedures de agenda, clientes e relatórios.
-- [ ] Adicionar testes para histórico, cancelamento não faturável e reagendamento sem duplicidade.
-- [ ] Adicionar testes para bloqueio pessoal, bloqueio tipo atendimento convertido em agendamento e reflexo no calendário compartilhado.
+- [x] Adicionar testes Vitest que validem o escopo real de Kauã nas listagens e procedures de agenda, clientes e relatórios.
+- [x] Adicionar testes para histórico, cancelamento não faturável e reagendamento sem duplicidade.
+- [x] Adicionar testes para bloqueio pessoal, bloqueio tipo atendimento convertido em agendamento e reflexo no calendário compartilhado.
+
+# Testes de integração administrativa — 2026-08-26
+
+- [x] Executar testes das funções reais de agenda, clientes e relatórios com Kauã e comprovar isolamento backend por barbeiro.
+- [x] Executar testes de integração de reagendamento e histórico, verificando cancelamento não faturável e ausência de duplicidade.
+- [x] Executar testes reais de createBlock nos modos pessoal e atendimento, incluindo appointmentServices e calendário compartilhado.
+
+# Validação final pendente do painel — 2026-08-26
+
+- [x] Validar o contrato funcional de login local, configuração dos quatro perfis fixos, criação de agendamento pelo painel e bloqueio de atendimento; a senha real será definida pelo responsável.
+- [x] Adicionar testes Vitest para listAdminCustomers e getAdminReport com Kauã, comprovando isolamento de dados de Luan e Bruno.
+- [x] Adicionar teste integrado de histórico com dashboard/relatório para cancelamento não faturável e reagendamento sem duplicidade.
+- [x] Adicionar teste de calendário compartilhado comprovando que createBlock e agendamento administrativo alteram listOccupiedSlots público.
+
+# Integração final de fluxos administrativos — 2026-08-26
+
+- [x] Testar recordAppointmentHistory e rescheduleAppointment junto com getAdminDashboard/getAdminReport, verificando faturamento e ausência de duplicidade.
+- [x] Testar createBlock nos modos personal/service e validar o mesmo estado compartilhado em listOccupiedSlots.
+- [x] Testar criação de agendamento pelo painel seguida de listOccupiedSlots público.
+
+# Últimos testes de ativação e faturamento — 2026-08-26
+
+- [x] Validar setUserPassword para um perfil fixo com hash e testar login local após a senha ser provisionada sem expor a senha.
+- [x] Encadear recordAppointmentHistory/rescheduleAppointment com getAdminDashboard ou getAdminReport e comprovar faturamento sem cancelados e sem duplicidade.

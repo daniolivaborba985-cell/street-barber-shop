@@ -1,10 +1,15 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+vi.mock("./db", () => ({ getDb: vi.fn() }));
 import {
   AppointmentValidationError,
   intervalsOverlap,
   validateAppointmentRequest,
   toUtcTimestamp,
+  listOccupiedSlots,
 } from "./appointments";
+import { getDb } from "./db";
+
+const awaitable = (result: unknown) => { const query: any = {}; query.from = () => query; query.innerJoin = () => query; query.where = () => query; query.limit = async () => result; query.then = (resolve: (value: unknown) => unknown) => Promise.resolve(result).then(resolve); return query; };
 
 describe("appointment validation", () => {
   it("calculates the total duration and end time for multiple services", () => {
@@ -57,6 +62,28 @@ describe("appointment validation", () => {
   });
 });
 
+
+describe("panel booking and shared calendar", () => {
+  it("creates one panel appointment and exposes it through public occupied slots", async () => {
+    const state: any = { appointment: null };
+    let txSelect = 0;
+    const tx = {
+      select: () => { txSelect += 1; const result = txSelect === 1 ? [{ id: 1 }] : txSelect === 2 ? [{ id: 1, slug: "corte", priceCents: 3500, durationMinutes: 30 }] : txSelect <= 4 ? [] : txSelect === 5 ? [{ id: 1 }] : txSelect === 6 ? [] : [state.appointment]; return awaitable(result); },
+      insert: () => ({ values: async (value: any) => { if (value.customerId && value.barberId) { state.appointment = { id: 99, ...value }; } return [{ insertId: value.customerId ? 7 : 99 }]; } }),
+      update: () => ({ set: () => ({ where: async () => undefined }) }),
+    };
+    let calendarSelect = 0;
+    const db = {
+      transaction: async (callback: (transaction: typeof tx) => Promise<unknown>) => callback(tx),
+      select: () => { calendarSelect += 1; const result = calendarSelect === 1 ? [{ id: 1 }] : calendarSelect === 2 ? [{ startTime: "10:00:00", endTime: "10:30:00" }] : []; return awaitable(result); },
+    };
+    vi.mocked(getDb).mockResolvedValue(db as any);
+    const { appRouter } = await import("./routers");
+    const caller = appRouter.createCaller({ user: { id: 10, role: "admin", openId: "oauth-admin" } as any, req: { protocol: "https", headers: {} } as never, res: {} as never });
+    await caller.appointments.createFromPanel({ barberSlug: "luan", name: "Cliente Painel", phone: "49999999999", email: "painel@example.com", serviceSlugs: ["corte"], appointmentDate: "2026-08-29", startTime: "10:00" });
+    await expect(listOccupiedSlots("luan", "2026-08-29")).resolves.toEqual([{ startTime: "10:00", endTime: "10:30" }]);
+  });
+});
 
 describe("appointment administration", () => {
   it("requires an authenticated administrator for the appointment list", async () => {
