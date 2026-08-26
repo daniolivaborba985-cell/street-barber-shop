@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Permanent+Marker&display=swap');
 
 :root {
   font-family: 'DM Sans', sans-serif;
@@ -860,4 +860,103 @@ h1 em, h2 em { font-weight: 700; }
 .plan-detail-page h1 { overflow-wrap: anywhere; }
 @media (max-width: 480px) {
   .plan-detail-page h1 { font-size: clamp(48px, 14vw, 78px); }
+}
+
+/* Reference contrast: public dark surfaces inherit the ivory foreground, while em remains beige. */
+.app { color: #f8f4ec; }
+.hero h1, .dark-section h2, .club-teaser h2, .contact h2 { color: #f8f4ec; }
+.hero h1 em, .dark-section h2 em, .club-teaser h2 em, .contact h2 em { color: var(--beige); }
+
+/* Reference-matched desktop rail: the supplied captures use a generous right breathing room. */
+@media (min-width: 851px) {
+  .site-header { padding-right: max(80px, calc((100vw - 1220px) / 2 + 52px)); }
+  .hero { padding-right: max(90px, calc((100vw - 1220px) / 2 + 62px)); }
+  .hero-copy { transform: translateY(-10px); }
+  .hero-card { min-height: 565px; max-width: 390px; justify-self: end; transform: translateY(-8px) rotate(2.5deg); }
+}
+
+/* Home reference pass: match the supplied first capture's type scale and right-side balance. */
+@media (min-width: 851px) {
+  .site-header { padding-left: max(34px, calc((100vw - 1220px) / 2)); padding-right: max(110px, calc((100vw - 1220px) / 2 + 82px)); }
+  .hero { padding-left: max(34px, calc((100vw - 1220px) / 2)); padding-right: max(110px, calc((100vw - 1220px) / 2 + 82px)); }
+  .hero h1 { font-size: clamp(64px, 7.7vw, 110px); }
+  .hero-card { max-width: 420px; transform: translateX(-20px) translateY(-8px) rotate(2.5deg); }
+}
+
+/* Final calibration to the supplied Home prints — geometry only, no content redesign. */
+.phase-two .section-head { align-items: end; margin-bottom: 31px; }
+.phase-two .section-head h2 { font-size: clamp(52px, 6.05vw, 78px); line-height: .9; }
+.phase-two .section-head > p { max-width: 375px; margin-bottom: 3px; font-size: 14px; line-height: 1.55; }
+.phase-two .service-grid { gap: 9px; }
+.phase-two .service-card { min-height: 235px; padding: 17px 16px 15px; border-radius: 14px; border: 1px solid rgba(242,237,228,.18); box-shadow: none; }
+.phase-two .service-card::before { display: none; }
+.phase-two .service-card-top > svg { width: 40px; height: 40px; padding: 9px; border-radius: 13px; }
+.phase-two .service-number { font-size: 14px; }
+.phase-two .service-card h3 { margin: 37px 0 7px; font-size: 19px; line-height: .96; }
+.phase-two .service-detail { min-height: 30px; font-size: 10px; line-height: 1.35; }
+.phase-two .service-description { margin-bottom: 12px; font-size: 10px; line-height: 1.45; }
+.phase-two .service-link { font-size: 9px; }
+
+.club-teaser.phase-three { padding-top: 76px; padding-bottom: 70px; }
+.club-teaser-head { width: 100%; align-items: center; gap: 60px; }
+.club-teaser-head h2 { font-size: clamp(55px, 6.3vw, 78px); line-height: .9; }
+.club-teaser-head > div:first-child p:not(.eyebrow) { max-width: 535px; font-size: 15px; line-height: 1.65; }
+.club-mark { width: 273px; height: 273px; }
+.club-mark img { width: 105px; height: 105px; }
+.club-mark-signature { font-size: 27px; }
+.home-plans-section { margin-top: 54px; padding-top: 43px; }
+.home-plans-intro > .plans-kicker, .home-plans-intro > .vip-marker { display: none; }
+.home-plans-intro h3 { margin-top: 0; font-size: clamp(40px, 4.35vw, 58px); }
+.home-plans-intro > p:not(.eyebrow) { font-size: 14px; line-height: 1.65; }
+.home-plans-intro > p:nth-of-type(2) { font-size: 15px; }
+.home-plans-grid { margin-top: 31px; gap: 13px; }
+.home-plans-grid .plan-card { min-height: 363px; border-radius: 15px; padding: 20px 17px 16px; }
+.home-plans-grid .plan-card h2 { font-size: clamp(31px, 2.45vw, 39px); margin-top: 43px; }
+.home-plans-grid .plan-card .plan-prices strong { font-size: clamp(42px, 3.6vw, 54px); }
+.home-plans-grid .plan-card-trigger > p { font-size: 12px; }
+.home-plans-note { font-size: 11px; }
+
+.barber-section { padding-top: 78px; padding-bottom: 78px; }
+.barber-section .section-head { margin-bottom: 28px; }
+.barber-section .section-head h2 { font-size: clamp(54px, 6vw, 75px); }
+.barber-section .section-head > p { max-width: 315px; font-size: 11px; line-height: 1.55; }
+.barber-grid { gap: 12px; }
+.barber-card { border-radius: 14px; box-shadow: 0 9px 25px rgba(28,23,16,.08); }
+.barber-section .photo-wrap { height: 325px; aspect-ratio: auto; }
+.barber-section .card-body { padding: 16px 12px 12px; }
+.barber-section .card-body h3 { font-size: 17px; margin-bottom: 4px; }
+.barber-section .assistant-line { font-size: 8px !important; }
+.barber-section .card-body p { font-size: 9px; line-height: 1.45; }
+.barber-section .barber-description { min-height: 28px; }
+.barber-section .contact-row { margin: 13px 0 12px; gap: 5px 8px; font-size: 7px; }
+.barber-section .dark-btn { padding: 9px; border-radius: 7px; font-size: 9px; }
+
+.contact { padding-top: 66px; padding-bottom: 58px; }
+.contact h2 { font-size: clamp(54px, 6.4vw, 78px); }
+.contact-info { gap: 12px; font-size: 10px; }
+.contact-info svg { width: 14px; height: 14px; }
+footer { min-height: 54px; padding-top: 15px; padding-bottom: 15px; font-size: 8px; }
+footer .brand { font-size: 12px; }
+footer .brand img { width: 30px; height: 30px; }
+footer .brand small { font-size: 5px; }
+
+@media (max-width: 850px) {
+  .phase-two .section-head h2, .barber-section .section-head h2 { font-size: clamp(49px, 11vw, 68px); }
+  .club-teaser.phase-three { padding-top: 67px; padding-bottom: 62px; }
+  .club-teaser-head h2 { font-size: clamp(49px, 12vw, 66px); }
+  .club-mark { width: 220px; height: 220px; }
+  .barber-section .photo-wrap { height: 350px; }
+  .contact h2 { font-size: 60px; }
+}
+@media (max-width: 480px) {
+  .phase-two .section-head h2, .barber-section .section-head h2 { font-size: 52px; }
+  .phase-two .service-grid { gap: 8px; }
+  .phase-two .service-card { min-height: 225px; border-radius: 12px; }
+  .club-teaser-head h2 { font-size: 51px; }
+  .club-mark { width: 190px; height: 190px; }
+  .club-mark img { width: 86px; height: 86px; }
+  .home-plans-intro h3 { font-size: 42px; }
+  .barber-section .photo-wrap { height: 350px; }
+  .contact h2 { font-size: 58px; }
+  footer { grid-template-columns: 1fr; text-align: center; justify-items: center; }
 }

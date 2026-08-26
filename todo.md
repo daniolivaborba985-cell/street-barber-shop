@@ -27,3 +27,16 @@
 - [x] Executar check, build e testes automatizados.
 - [x] Verificar a Home e os fluxos públicos em desktop e mobile por captura visual.
 - [x] Revisar todo o projeto e criar checkpoint final antes da entrega.
+
+# Ajustes visuais por referência — 2026-08-26
+
+- [x] Comparar os sete prints fornecidos com a implementação atual, respeitando a ordem Home, serviços, comunidade, planos, barbeiros e contato.
+- [x] Corrigir a escala e o enquadramento da Home para corresponder ao print de referência.
+- [x] Corrigir espaçamentos, larguras, alturas, alinhamentos e proporções da seção de serviços.
+- [x] Corrigir a composição da chamada Street Community e do selo circular.
+- [x] Corrigir a estrutura visual dos planos, cores roxo/amarelo, cards, preços e distribuição horizontal.
+- [x] Corrigir a seção de barbeiros preservando imagens, textos, botões e proporções dos cards.
+- [x] Corrigir a seção de contato e rodapé conforme a referência panorâmica.
+- [x] Verificar responsividade e evitar cortes ou overflow em desktop e mobile.
+- [x] Reexecutar testes, TypeScript e build após os ajustes visuais.
+- [x] Capturar nova validação visual e salvar checkpoint da versão ajustada.

@@ -27,7 +27,7 @@ import { trpc } from './lib/trpc'
 
 const barbers = [
   {
-    slug: 'luan', name: 'Luan Bringhenti', assistant: 'Lucas', phone: '49991570099', display: '(49) 99157-0099', instagram: '@luan_barbeer', photo: '/manus-storage/luan_e357146c.jpeg', description: 'Atendimento cuidadoso, conversa leve e precisão em cada detalhe.', chatbot: '/assistentes/luan', identity: { label: 'PRECISÃO CLÁSSICA', signature: 'Corte limpo · presença certa', accent: '#d7b27e', soft: '#3b3025', avatar: '/manus-storage/lucas_8a22a8ee.png' },
+    slug: 'luan', name: 'Luan Bringhenti', assistant: 'Lucas', phone: '49991570099', display: '(49) 99157-0099', instagram: '@luan_barbeer', photo: '/manus-storage/kaua_ae2b8882.jpeg', description: 'Atendimento cuidadoso, conversa leve e precisão em cada detalhe.', chatbot: '/assistentes/luan', identity: { label: 'PRECISÃO CLÁSSICA', signature: 'Corte limpo · presença certa', accent: '#d7b27e', soft: '#3b3025', avatar: '/manus-storage/lucas_8a22a8ee.png' },
     services: [
       { name: 'Corte', price: 'R$ 35', duration: 25 }, { name: 'Barba', price: 'R$ 25', duration: 20 }, { name: 'Sobrancelha', price: 'R$ 10', duration: 10 }, { name: 'Limpeza de pele', price: 'R$ 15', duration: 15 }, { name: 'Bigode e cavanhaque', price: 'R$ 10', duration: 15 },
     ],
@@ -39,7 +39,7 @@ const barbers = [
     ],
   },
   {
-    slug: 'kaua', name: 'Kauã dos Santos', assistant: 'Noah', phone: '549996290897', display: '(54) 99962-90897', instagram: '@kaua_barbeer', photo: '/manus-storage/kaua_ae2b8882.jpeg', description: 'Técnica, personalidade e acabamento para sair se sentindo bem.', chatbot: '/assistentes/kaua', identity: { label: 'DETALHE AUTORAL', signature: 'Traço preciso · identidade própria', accent: '#a8bd78', soft: '#303a27', avatar: '/manus-storage/noah_77a56205.png' },
+    slug: 'kaua', name: 'Kauã dos Santos', assistant: 'Noah', phone: '549996290897', display: '(54) 99962-90897', instagram: '@kaua_barbeer', photo: '/manus-storage/luan_e357146c.jpeg', description: 'Técnica, personalidade e acabamento para sair se sentindo bem.', chatbot: '/assistentes/kaua', identity: { label: 'DETALHE AUTORAL', signature: 'Traço preciso · identidade própria', accent: '#a8bd78', soft: '#303a27', avatar: '/manus-storage/noah_77a56205.png' },
     services: [
       { name: 'Corte', price: 'R$ 30', duration: 30 }, { name: 'Barba', price: 'R$ 30', duration: 30 }, { name: 'Sobrancelha', price: 'R$ 10', duration: 10 }, { name: 'Limpeza de pele', price: 'R$ 15', duration: 15 }, { name: 'Bigode e cavanhaque', price: 'R$ 10', duration: 15 },
     ],
