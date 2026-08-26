@@ -130,3 +130,10 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Atualizar a fonte de verdade dos perfis fixos para refletir os novos logins por e-mail e alinhar os testes sem alterar as roles.
 - [x] Executar validação funcional autenticada do drawer mobile: abrir, fechar por item, backdrop, botão e Escape.
 - [x] Revisar documentação e arquivos administrativos desatualizados sem expor senhas.
+
+# Revogação do acesso OAuth — 2026-08-26
+
+- [x] Revogar somente o acesso administrativo de Daniel Oliveira ao painel, mantendo a conta OAuth do projeto intacta.
+- [x] Preservar sem alterações os logins e as roles de Luan, Bruno, Kauã e Barbearia.
+- [x] Validar que o login de um barbeiro continua funcionando e entregar o card de acesso para teste.
+- [x] Salvar checkpoint da alteração de acesso.
