@@ -237,3 +237,11 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Criar cards independentes de link dos chatbots no painel administrativo, fora da aba Relatórios e das tabelas de clientes/agendamentos.
 - [x] Manter Relatórios reservado aos indicadores Mais dados, filtros e cálculos por barbeiro.
 - [x] Validar abrir/copiar links e responsividade dos cards; executar testes/build e salvar checkpoint.
+
+# Reordenação confirmada da Home — 2026-08-26
+
+- [x] Manter a apresentação principal da tela inicial exatamente em primeiro lugar, sem alteração visual.
+- [x] Posicionar depois do hero a apresentação "Conheça nossos barbeiros" e os cards atuais dos barbeiros.
+- [x] Posicionar os serviços após os barbeiros e a chamada "Conheça nossos planos" imediatamente ao final dos serviços.
+- [x] Posicionar os planos depois da chamada e manter as considerações finais no encerramento da Home.
+- [x] Atualizar âncoras, botões e rolagem; validar desktop/mobile e salvar checkpoint revisável.
