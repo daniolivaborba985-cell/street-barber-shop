@@ -1096,7 +1096,7 @@ body.admin-menu-open { overflow: hidden; }
 @media (max-width: 520px) { .admin-chatbot-card { min-height: 0; } .admin-more-data-grid { grid-template-columns: 1fr; } .admin-more-data-grid article, .admin-more-data-grid article:nth-child(2n), .admin-more-data-grid article:nth-child(4n) { border-right: 0; } }
 
 /* Marca d’água da identidade Street no hero */
-.hero-watermark { position: absolute; z-index: 0; top: 61%; left: 72%; width: clamp(260px, 30vw, 400px); aspect-ratio: 1; object-fit: cover; border-radius: 50%; opacity: .047; filter: grayscale(1) contrast(.58) brightness(1.18); mix-blend-mode: screen; transform: translate(-50%, -50%) rotate(-9deg); pointer-events: none; user-select: none; }
+.hero-watermark { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: .115; filter: grayscale(1) contrast(.55) brightness(1.28); mix-blend-mode: screen; pointer-events: none; user-select: none; }
 .hero-copy, .hero-card { z-index: 1; }
-@media (max-width: 850px) { .hero-watermark { top: 63%; left: 70%; width: min(64vw, 270px); opacity: .042; transform: translate(-50%, -50%) rotate(-9deg); } }
-@media (prefers-reduced-transparency: reduce) { .hero-watermark { opacity: .025; } }
+@media (max-width: 850px) { .hero-watermark { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: .085; } }
+@media (prefers-reduced-transparency: reduce) { .hero-watermark { opacity: .06; } }

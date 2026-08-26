@@ -251,3 +251,9 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Adicionar a logo oficial como marca d’água no fundo da tela inicial, atrás do conteúdo do hero.
 - [x] Calibrar opacidade, tamanho e posição para preservar a leitura do texto e a imagem principal.
 - [x] Validar a marca d’água em desktop e mobile, respeitando acessibilidade e ausência de overflow; executar testes/build e salvar checkpoint.
+
+# Refinamento da marca d’água em toda a tela — 2026-08-26
+
+- [x] Fazer a logo aparecer de forma contínua e perceptível em toda a área do Hero, não apenas em um trecho lateral.
+- [x] Recalibrar escala, repetição/distribuição, opacidade e camadas sem prejudicar o texto, o card principal ou os controles.
+- [x] Validar o resultado em desktop e mobile, corrigir overflow se houver, executar testes/build e salvar checkpoint.
