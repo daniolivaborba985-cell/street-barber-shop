@@ -48,3 +48,44 @@
 - [x] Preservar a proporção original de cada fotografia e manter a ordem Luan, Bruno e Kauã.
 - [x] Verificar desktop e mobile para evitar distorção, overflow ou perda do conteúdo dos cards.
 - [x] Reexecutar testes/check/build e salvar o checkpoint da correção.
+
+# Painel administrativo completo — especificação recebida em 2026-08-26
+
+- [x] Preservar integralmente Home, assistentes, planos, barbeiros, calendário e fluxos públicos existentes.
+- [x] Criar acesso secundário `/admin` com login individual, senha armazenada com hash seguro, perfil e permissões.
+- [x] Definir exatamente quatro perfis: Luan administrador, Bruno administrador, Kauã barbeiro restrito e Barbearia operacional.
+- [x] Aplicar no backend permissões equivalentes para Luan e Bruno, escopo individual para Kauã e escopo operacional para Barbearia.
+- [x] Criar aba Clientes integrada ao banco com dados cadastrais, histórico, atendimentos, barbeiro, serviços, plano e status.
+- [x] Criar calendário único compartilhado entre site público e painel administrativo.
+- [x] Criar bloqueios pessoais sem faturamento e bloqueios para agendamento real com cliente, serviço, duração, observação e valor.
+- [ ] Implementar reagendamento com histórico e impedir faturamento duplicado.
+- [x] Implementar cancelamento e regra de faturamento apenas para atendimentos não cancelados/concluídos.
+- [x] Criar aba Relatórios com consolidado, desempenho por barbeiro, comparações e filtros de período.
+- [x] Restringir relatórios e informações financeiras de Kauã aos próprios dados no backend.
+- [x] Ocultar Relatórios, faturamento e configurações administrativas do perfil Barbearia também no backend.
+- [x] Criar Dashboard adaptado aos perfis administrador, barbeiro individual e operação da barbearia.
+- [x] Modelar disponibilidade, intervalos, dias indisponíveis, bloqueios e horários ocupados por barbeiro.
+- [x] Criar tabelas de blocks e appointment history relacionadas ao banco existente.
+- [x] Permitir criação de agendamento pelo painel usando a mesma fonte de dados do site.
+- [x] Atualizar o site para refletir agendamentos e bloqueios criados pelo painel.
+- [x] Escrever testes Vitest para autorização por perfil, isolamento de dados de Kauã, regras operacionais, faturamento e histórico.
+- [x] Validar TypeScript, build, banco, fluxos administrativos e regressões públicas antes do checkpoint.
+
+# Correções de conformidade do painel — 2026-08-26
+
+- [x] Criar e vincular exatamente os quatro perfis solicitados: Luan, Bruno, Kauã e Barbearia, sem permitir perfis extras nesta etapa.
+- [x] Completar Clientes com plano, status, serviços, barbeiro e histórico detalhado por cliente.
+- [x] Corrigir o bloqueio tipo atendimento para manter dados consistentes, aparecer na operação e atualizar a agenda corretamente.
+- [x] Adicionar testes de isolamento de Kauã, faturamento/cancelamento, histórico e operações de bloqueios/agendamento.
+- [ ] Validar funcionalmente login local, criação de usuário, bloqueio de atendimento e agendamento pelo painel antes do próximo checkpoint.
+
+# Incidente de desenvolvimento — 2026-08-26
+
+- [x] Reiniciar o servidor de desenvolvimento solicitado pelo usuário.
+- [x] Confirmar que o preview responde e revisar logs recentes após o reinício.
+
+# Cobertura de testes pendente — 2026-08-26
+
+- [ ] Adicionar testes Vitest que validem o escopo real de Kauã nas listagens e procedures de agenda, clientes e relatórios.
+- [ ] Adicionar testes para histórico, cancelamento não faturável e reagendamento sem duplicidade.
+- [ ] Adicionar testes para bloqueio pessoal, bloqueio tipo atendimento convertido em agendamento e reflexo no calendário compartilhado.

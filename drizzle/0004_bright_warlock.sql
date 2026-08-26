@@ -1,0 +1,1 @@
+ALTER TABLE `appointmentHistory` MODIFY COLUMN `changedByUserId` int;

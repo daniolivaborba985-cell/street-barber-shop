@@ -2,7 +2,9 @@ import { and, desc, eq, gt, gte, lt, lte, ne, or } from "drizzle-orm";
 import {
   appointments,
   appointmentServices,
+  appointmentHistory,
   availability,
+  blocks,
   barbers,
   barberServices,
   customers,
@@ -176,6 +178,13 @@ export async function createAppointment(input: CreateAppointmentInput): Promise<
       .limit(1);
     if (conflicts[0]) throw new AppointmentConflictError();
 
+    const blockConflicts = await tx
+      .select({ id: blocks.id })
+      .from(blocks)
+      .where(and(eq(blocks.barberId, barber[0].id), eq(blocks.appointmentDate, validated.appointmentDate), eq(blocks.active, 1), lt(blocks.startTime, validated.endTime), gt(blocks.endTime, validated.startTime)))
+      .limit(1);
+    if (blockConflicts[0]) throw new AppointmentConflictError("Este horário está bloqueado na agenda. Escolha outro.");
+
     const [availabilityRow] = await tx
       .select({ id: availability.id })
       .from(availability)
@@ -222,11 +231,22 @@ export async function createAppointment(input: CreateAppointmentInput): Promise<
     });
     const appointmentId = Number(appointmentInsert[0].insertId);
     await tx.insert(appointmentServices).values(selectedServices.map((service) => ({ appointmentId, serviceId: service.id, priceCents: service.priceCents, durationMinutes: service.durationMinutes })));
+    await tx.insert(appointmentHistory).values({ appointmentId, changedByUserId: null, action: "created" });
     const [appointment] = await tx.select().from(appointments).where(eq(appointments.id, appointmentId)).limit(1);
     if (!appointment) throw new Error("Não foi possível recuperar o agendamento criado.");
 
     return appointment;
   });
+}
+
+export async function listOccupiedSlots(barberSlug: string, appointmentDate: string) {
+  const db = await getDb();
+  if (!db) return [];
+  const [barber] = await db.select({ id: barbers.id }).from(barbers).where(eq(barbers.slug, barberSlug)).limit(1);
+  if (!barber) return [];
+  const appointmentsRows = await db.select({ startTime: appointments.startTime, endTime: appointments.endTime }).from(appointments).where(and(eq(appointments.barberId, barber.id), eq(appointments.appointmentDate, appointmentDate), ne(appointments.status, "cancelled")));
+  const blockRows = await db.select({ startTime: blocks.startTime, endTime: blocks.endTime }).from(blocks).where(and(eq(blocks.barberId, barber.id), eq(blocks.appointmentDate, appointmentDate), eq(blocks.active, 1)));
+  return [...appointmentsRows, ...blockRows].map((row) => ({ startTime: row.startTime.slice(0, 5), endTime: row.endTime.slice(0, 5) }));
 }
 
 export async function listAppointments() {
