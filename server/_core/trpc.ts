@@ -3,6 +3,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import type { TrpcContext } from "./context";
 import { isLocalStaffUser } from "../admin";
+import { getCustomerFromRequest } from "../club";
 
 const t = initTRPC.context<TrpcContext>().create({
   transformer: superjson,
@@ -27,6 +28,16 @@ const requireUser = t.middleware(async opts => {
 });
 
 export const protectedProcedure = t.procedure.use(requireUser);
+
+export const customerProcedure = t.procedure.use(
+  t.middleware(async opts => {
+    const customer = await getCustomerFromRequest(opts.ctx.req);
+    if (!customer) {
+      throw new TRPCError({ code: "UNAUTHORIZED", message: "Faça login para acessar sua área VIP." });
+    }
+    return opts.next({ ctx: { ...opts.ctx, customer } });
+  }),
+);
 
 export const staffProcedure = t.procedure.use(
   t.middleware(async opts => {

@@ -5,7 +5,8 @@ import { createAppointment, AppointmentConflictError, AppointmentValidationError
 import { getSessionCookieOptions } from "./_core/cookies";
 import { ADMIN_SESSION_COOKIE } from "./_core/context";
 import { systemRouter } from "./_core/systemRouter";
-import { adminProcedure, publicProcedure, reportProcedure, router, staffProcedure } from "./_core/trpc";
+import { adminProcedure, customerProcedure, publicProcedure, reportProcedure, router, staffProcedure } from "./_core/trpc";
+import { ClubError, CUSTOMER_SESSION_COOKIE, consumeBenefit, getAdminClubReport, getClubPlanBySlug, getClubPlans, getCustomerRaffles, getCustomerFromRequest, getVipDashboard, joinRaffle, listClubPartners, listOpenRaffles, loginCustomer, logoutCustomer, requestSubscription, spinRoulette } from "./club";
 import {
   createBlock,
   deleteBlock,
@@ -40,6 +41,12 @@ const adminDateRange = z.object({
   barberSlug: z.enum(["luan", "bruno", "kaua"]).optional(),
 });
 
+function mapClubError(error: unknown): never {
+  if (error instanceof ClubError) throw new TRPCError({ code: error.code, message: error.message });
+  console.error("[Club] Unexpected error:", error);
+  throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Não foi possível concluir a operação do Clube." });
+}
+
 export const appRouter = router({
   system: systemRouter,
   auth: router({
@@ -61,6 +68,31 @@ export const appRouter = router({
       if (adminToken) ctx.res.clearCookie(ADMIN_SESSION_COOKIE, { httpOnly: true, secure: true, sameSite: "none", path: "/", maxAge: -1 });
       return { success: true } as const;
     }),
+  }),
+
+  club: router({
+    plans: publicProcedure.query(() => getClubPlans()),
+    plan: publicProcedure.input(z.object({ slug: z.string().trim().min(1).max(96) })).query(({ input }) => getClubPlanBySlug(input.slug).catch(mapClubError)),
+    partners: publicProcedure.query(() => listClubPartners().catch(mapClubError)),
+    raffles: publicProcedure.query(() => listOpenRaffles().catch(mapClubError)),
+    requestSubscription: publicProcedure.input(z.object({ name: z.string().trim().min(2).max(255), phone: z.string().trim().min(8).max(32), email: z.string().trim().email().max(320), planSlug: z.string().trim().min(1).max(96), paymentMethod: z.enum(["card", "pix"]) })).mutation(({ input }) => requestSubscription({ ...input, email: input.email.toLowerCase() }).catch(mapClubError)),
+    login: publicProcedure.input(z.object({ email: z.string().trim().email().max(320), phone: z.string().trim().min(8).max(32) })).mutation(async ({ input, ctx }) => {
+      try {
+        const result = await loginCustomer(input.email, input.phone);
+        ctx.res.cookie(CUSTOMER_SESSION_COOKIE, result.token, { httpOnly: true, secure: true, sameSite: "none", path: "/", maxAge: 1000 * 60 * 60 * 24 * 7 });
+        return result.customer;
+      } catch (error) { mapClubError(error); }
+    }),
+    logout: publicProcedure.mutation(async ({ ctx }) => {
+      await logoutCustomer(ctx.req);
+      ctx.res.clearCookie(CUSTOMER_SESSION_COOKIE, { httpOnly: true, secure: true, sameSite: "none", path: "/", maxAge: -1 });
+      return { success: true } as const;
+    }),
+    me: customerProcedure.query(({ ctx }) => getVipDashboard(ctx.customer.id).catch(mapClubError)),
+    myRaffles: customerProcedure.query(({ ctx }) => getCustomerRaffles(ctx.customer.id).catch(mapClubError)),
+    joinRaffle: customerProcedure.input(z.object({ raffleId: z.number().int().positive() })).mutation(({ input, ctx }) => joinRaffle(ctx.customer.id, input.raffleId).catch(mapClubError)),
+    spin: customerProcedure.input(z.object({ idempotencyKey: z.string().trim().min(16).max(191) })).mutation(({ input, ctx }) => spinRoulette(ctx.customer.id, input.idempotencyKey).catch(mapClubError)),
+    consume: staffProcedure.input(z.object({ clubMemberId: z.number().int().positive(), membershipCycleId: z.number().int().positive(), kind: z.enum(["cut", "beard", "eyebrow", "discount", "benefit"]), quantity: z.number().int().positive(), idempotencyKey: z.string().trim().min(16).max(191), appointmentId: z.number().int().positive().optional(), serviceId: z.number().int().positive().optional(), barberId: z.number().int().positive().optional(), note: z.string().max(500).optional() })).mutation(({ input }) => consumeBenefit(input).catch(mapClubError)),
   }),
 
   appointments: router({
@@ -96,6 +128,7 @@ export const appRouter = router({
     users: adminProcedure.query(({ ctx }) => listStaffUsers(ctx.user)),
     setPassword: adminProcedure.input(z.object({ userId: z.number().int().positive(), password: z.string().min(10) })).mutation(({ input, ctx }) => setUserPassword(ctx.user, input.userId, input.password)),
     accessCheck: staffProcedure.query(({ ctx }) => ({ canViewAll: ctx.user.role === "admin", canViewReports: ctx.user.role === "admin" || ctx.user.role === "barber", canManageUsers: ctx.user.role === "admin", canViewFinance: canViewFinance(ctx.user) })),
+    clubReport: reportProcedure.query(() => getAdminClubReport().catch(mapClubError)),
   }),
 });
 

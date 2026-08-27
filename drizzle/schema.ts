@@ -80,6 +80,12 @@ export const plans = mysqlTable("plans", {
   slug: varchar("slug", { length: 96 }).notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   priceCents: int("priceCents").notNull(),
+  oldPriceCents: int("oldPriceCents").notNull(),
+  economyCents: int("economyCents").notNull(),
+  note: varchar("note", { length: 500 }).notNull(),
+  details: json("details").$type<string[]>().notNull(),
+  featured: int("featured").default(0).notNull(),
+  tone: mysqlEnum("tone", ["purple", "yellow"]).default("purple").notNull(),
   active: int("active").default(1).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 }, (table) => ({

@@ -1124,3 +1124,59 @@ body.admin-menu-open { overflow: hidden; }
 @media (max-width: 850px) {
   .hero-watermark { transform: scale(.94); transform-origin: center; }
 }
+
+
+/* Street Barber Clube — experiência pública e área VIP */
+.club-page-live { background: radial-gradient(circle at 86% 4%, #403229 0, #201f20 29%, var(--graphite) 65%); }
+.club-live-hero { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 240px; align-items: center; gap: 70px; }
+.club-live-hero h1 { max-width: 750px; }
+.club-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 31px; }
+.club-actions button, .club-panel .primary { cursor: pointer; }
+.club-live-mark { width: 220px; height: 220px; border: 1px solid #876d54; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 5px; color: var(--beige); transform: rotate(7deg); box-shadow: inset 0 0 0 12px #2b2627, 0 25px 80px #0005; }
+.club-live-mark span { font: 800 39px var(--display); letter-spacing: .08em; line-height: .9; }
+.club-live-mark small { color: #c8af90; font-size: 9px; letter-spacing: .25em; }
+.club-feedback { width: 100%; max-width: 760px; margin: 36px 0 0; padding: 15px 17px; border-left: 3px solid var(--beige); background: rgba(211, 189, 158, .11); color: #e7d8c5; font-size: 13px; line-height: 1.55; }
+.club-panel { width: 100%; margin-top: 46px; padding: 32px; background: #1e1d1f; border: 1px solid #4c4542; box-shadow: 0 24px 70px #0004; }
+.club-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 30px; margin-bottom: 28px; }
+.club-panel-head h2 { font-size: clamp(39px, 5vw, 68px); }
+.panel-close { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; color: #ded3c6; background: transparent; border: 1px solid #57504d; border-radius: 50%; }
+.panel-close:hover { color: var(--beige); border-color: var(--beige); }
+.club-plan-selector { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.club-plan-option { min-width: 0; min-height: 123px; display: flex; flex-direction: column; align-items: flex-start; gap: 5px; padding: 14px; text-align: left; background: #292628; color: #eee4d9; border: 1px solid #494244; border-radius: 10px; transition: transform .18s var(--ease-out), border-color .18s, background .18s; }
+.club-plan-option:hover, .club-plan-option.selected { border-color: var(--beige); background: #3a302e; transform: translateY(-2px); }
+.club-plan-option strong { color: var(--beige); font: 800 31px var(--display); }
+.club-plan-option small { color: #a69c93; font-size: 10px; line-height: 1.4; }
+.club-form { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; margin-top: 28px; }
+.club-form-grid { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.club-form label { display: flex; flex-direction: column; gap: 7px; color: #beb4ab; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.club-form input, .club-form select { width: 100%; padding: 13px 14px; border: 1px solid #494649; border-radius: 9px; outline: none; background: #29282b; color: #f4eee7; font-size: 13px; font-weight: 400; letter-spacing: 0; text-transform: none; }
+.club-form input:focus, .club-form select:focus { border-color: var(--beige); box-shadow: 0 0 0 3px #c6a77730; }
+.club-form-note { max-width: 760px; margin: 0; color: #958c85; font-size: 12px; line-height: 1.6; }
+.club-dashboard-panel .club-panel-head { align-items: center; }
+.vip-status-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; border-top: 1px solid #403b3b; border-bottom: 1px solid #403b3b; color: #d9cec1; font-size: 13px; }
+.vip-status { display: inline-flex; align-items: center; gap: 7px; color: #d3bd9e; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.vip-status:before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #c2a16f; }
+.vip-status.pending:before { background: #e4a83a; }
+.vip-status.active:before { background: #8eb56b; }
+.vip-balance-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 22px 0 18px; }
+.vip-balance-grid > div { padding: 17px; background: #2a2729; border: 1px solid #474042; }
+.vip-balance-grid strong { display: block; color: var(--beige); font: 800 39px var(--display); }
+.vip-balance-grid span { color: #aaa09a; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.vip-history { display: flex; flex-direction: column; gap: 9px; padding-top: 18px; border-top: 1px solid #403b3b; color: #c4b9ad; font-size: 12px; }
+.vip-history h3 { margin: 0 0 4px; color: #f0e8dc; font-size: 20px; text-transform: uppercase; }
+.vip-history span { display: flex; align-items: center; gap: 7px; }
+.vip-history svg { color: var(--beige); }
+.roulette-button { margin-top: 22px; }
+.club-benefits-grid { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 82px 0 35px; }
+.club-benefits-grid article { min-height: 230px; padding: 24px 21px; border: 1px solid #474143; background: rgba(38, 35, 37, .74); }
+.club-benefits-grid article h2 { margin: 23px 0 15px; font-size: clamp(32px, 3vw, 48px); }
+.club-benefits-grid article > p:last-child, .club-empty-note { color: #aaa19a; font-size: 12px; line-height: 1.65; }
+.partner-row, .raffle-row { display: flex; flex-direction: column; gap: 4px; padding: 13px 0; border-top: 1px solid #484145; }
+.partner-row strong, .raffle-row strong { color: #eee2d4; font-size: 13px; }
+.partner-row span, .raffle-row span { color: #a79c92; font-size: 11px; line-height: 1.4; }
+@media (max-width: 980px) { .club-live-hero { grid-template-columns: minmax(0, 1fr) 180px; gap: 35px; } .club-live-mark { width: 175px; height: 175px; } .club-live-mark span { font-size: 31px; } .club-plan-selector { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 850px) { .club-live-hero { display: block; } .club-live-mark { margin: 42px auto 0; } .club-panel { padding: 23px 18px; } .club-plan-selector, .club-benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .club-page-live { padding-left: 17px; padding-right: 17px; } .club-page-live h1 { font-size: 57px; } .club-actions { flex-direction: column; align-items: stretch; } .club-actions button { justify-content: center; } .club-panel-head { gap: 12px; } .club-panel-head h2 { font-size: 39px; } .club-form-grid, .club-plan-selector, .club-benefits-grid, .vip-balance-grid { grid-template-columns: 1fr; } .vip-status-row { align-items: flex-start; flex-direction: column; } }
+
+.raffle-join { align-self: flex-start; margin-top: 7px; padding: 8px 10px; border: 1px solid #8c745c; border-radius: 7px; background: transparent; color: var(--beige); font-size: 10px; font-weight: 800; }
+.raffle-join:hover { background: var(--beige); color: #252223; }
