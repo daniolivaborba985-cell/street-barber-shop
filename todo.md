@@ -443,3 +443,17 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Criar fundos neutros para os cards, usando variações discretas derivadas das cores de cada logo circular.
 - [x] Aplicar as seis logos circulares nos cards personalizados, preservando ordem e parceiros existentes.
 - [x] Validar contraste, leitura, responsividade, seleção de fundo e build; salvar checkpoint.
+
+# Apresentações independentes do Clube — 2026-08-27
+
+- [ ] Criar apresentação comercial para clientes com no máximo 6 slides.
+- [ ] Criar apresentação comercial para patrocinadores com no máximo 6 slides.
+- [ ] Manter as apresentações separadas do site, usando apenas a identidade visual como referência.
+- [ ] Exportar as duas apresentações em PDF e revisar legibilidade, hierarquia e ausência de excesso de informação.
+
+# Conteúdo confirmado — apresentação para clientes — 2026-08-27
+
+- [ ] Explicar os planos do Clube de forma curta e comparável.
+- [ ] Explicar formas de contratação, cadastro, escolha do barbeiro e pagamento.
+- [ ] Apresentar as empresas parceiras e o valor das vantagens no comércio local.
+- [ ] Explicar os sorteios mensais como benefício independente da roleta.
