@@ -1151,6 +1151,20 @@ body.admin-menu-open { overflow: hidden; }
 .club-form label { display: flex; flex-direction: column; gap: 7px; color: #beb4ab; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .club-form input, .club-form select { width: 100%; padding: 13px 14px; border: 1px solid #494649; border-radius: 9px; outline: none; background: #29282b; color: #f4eee7; font-size: 13px; font-weight: 400; letter-spacing: 0; text-transform: none; }
 .club-form input:focus, .club-form select:focus { border-color: var(--beige); box-shadow: 0 0 0 3px #c6a77730; }
+.club-payment-picker { grid-column: 1 / -1; min-width: 0; margin: 0; padding: 17px; border: 1px solid rgba(224,196,157,.48); border-radius: 14px; background: linear-gradient(135deg, rgba(211,189,158,.13), rgba(255,255,255,.025)); }
+.club-payment-picker legend { padding: 0 7px; color: var(--beige); font: 800 13px var(--display); letter-spacing: .12em; text-transform: uppercase; }
+.club-payment-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 8px; }
+.club-payment-option { min-height: 78px; display: grid; grid-template-columns: 37px minmax(0, 1fr) auto; gap: 11px; align-items: center; min-width: 0; padding: 13px 15px; border: 1px solid rgba(255,255,255,.16); border-radius: 11px; color: #f7eee4; background: rgba(255,255,255,.035); text-align: left; cursor: pointer; transition: transform .18s var(--ease-out), border-color .18s, background .18s; }
+.club-payment-option:hover, .club-payment-option:focus-visible { transform: translateY(-2px); border-color: #d8b583; background: rgba(216,181,131,.13); outline: none; }
+.club-payment-option.selected { border-color: #e0c49d; background: linear-gradient(135deg, rgba(216,181,131,.25), rgba(116,48,100,.22)); box-shadow: 0 0 0 2px rgba(224,196,157,.13); }
+.club-payment-symbol { width: 37px; height: 37px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #b99a72; border-radius: 10px; color: var(--beige); font-size: 22px; line-height: 1; }
+.club-payment-option > span:nth-child(2) { display: grid; gap: 4px; min-width: 0; }
+.club-payment-option strong { color: #fff7ed; font-size: 13px; }
+.club-payment-option small { color: #b9aaa0; font-size: 10px; line-height: 1.25; }
+.club-payment-option > svg { color: #d9b988; opacity: 0; }
+.club-payment-option.selected > svg { opacity: 1; }
+@media (max-width: 620px) { .club-payment-options { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .club-payment-option { transition: none; } .club-payment-option:hover, .club-payment-option:focus-visible { transform: none; } }
 .club-form-note { max-width: 760px; margin: 0; color: #958c85; font-size: 12px; line-height: 1.6; }
 .club-dashboard-panel .club-panel-head { align-items: center; }
 .vip-status-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; border-top: 1px solid #403b3b; border-bottom: 1px solid #403b3b; color: #d9cec1; font-size: 13px; }

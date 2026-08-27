@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { availableBenefitQuantity, buildEntitlementsSnapshot, cycleEndsAt } from "./club";
+import { availableBenefitQuantity, buildEntitlementsSnapshot, canReusePendingSubscription, cycleEndsAt } from "./club";
 
 describe("Street Barber Clube", () => {
   it("calcula ciclos com duração exata de 30 dias", () => {
@@ -31,6 +31,12 @@ describe("Street Barber Clube", () => {
     expect(availableBenefitQuantity(snapshot, usage, "cut")).toBe(3);
     expect(availableBenefitQuantity(snapshot, usage, "beard")).toBe(0);
     expect(availableBenefitQuantity(snapshot, usage, "eyebrow")).toBe(1);
+  });
+
+  it("reutiliza somente a contratação pendente do mesmo plano, barbeiro e método", () => {
+    expect(canReusePendingSubscription({ status: "pending", planId: 2, barberId: 1, paymentMethod: "card" }, { planId: 2, barberId: 1, paymentMethod: "card" })).toBe(true);
+    expect(canReusePendingSubscription({ status: "pending", planId: 2, barberId: 1, paymentMethod: "card" }, { planId: 2, barberId: 3, paymentMethod: "card" })).toBe(false);
+    expect(canReusePendingSubscription({ status: "active", planId: 2, barberId: 1, paymentMethod: "card" }, { planId: 2, barberId: 1, paymentMethod: "card" })).toBe(false);
   });
 
   it("não permite que a área VIP seja acessada sem sessão de cliente", async () => {

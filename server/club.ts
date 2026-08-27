@@ -134,6 +134,10 @@ async function findOrCreateCustomer(tx: any, input: { name: string; phone: strin
   return Number(inserted[0].insertId);
 }
 
+export function canReusePendingSubscription(existing: { status: string; planId: number; barberId: number | null; paymentMethod: string | null }, desired: { planId: number; barberId: number; paymentMethod: string }) {
+  return existing.status === "pending" && existing.planId === desired.planId && existing.barberId === desired.barberId && existing.paymentMethod === desired.paymentMethod;
+}
+
 export async function requestSubscription(input: { name: string; phone: string; email: string; planSlug: string; barberSlug: string; paymentMethod: "card" | "pix" }) {
   const db = await requireDb();
   return db.transaction(async (tx) => {
@@ -142,8 +146,13 @@ export async function requestSubscription(input: { name: string; phone: string; 
     const [barber] = await tx.select({ id: barbers.id, slug: barbers.slug }).from(barbers).where(and(eq(barbers.slug, input.barberSlug), eq(barbers.active, 1))).limit(1);
     if (!barber) throw new ClubError("Barbeiro não encontrado ou indisponível.", "NOT_FOUND");
     const customerId = await findOrCreateCustomer(tx, input);
-    const [existing] = await tx.select({ id: subscriptions.id }).from(subscriptions).where(and(eq(subscriptions.customerId, customerId), or(eq(subscriptions.status, "active"), eq(subscriptions.status, "pending")))).limit(1);
-    if (existing) throw new ClubError("Você já possui uma contratação pendente ou uma assinatura ativa.", "CONFLICT");
+    const [existing] = await tx.select({ id: subscriptions.id, status: subscriptions.status, planId: subscriptions.planId, barberId: subscriptions.barberId, paymentMethod: subscriptions.paymentMethod, clubMemberId: clubMembers.id }).from(subscriptions).innerJoin(clubMembers, eq(clubMembers.customerId, subscriptions.customerId)).where(and(eq(subscriptions.customerId, customerId), or(eq(subscriptions.status, "active"), eq(subscriptions.status, "pending")))).limit(1);
+    if (existing?.status === "active") throw new ClubError("Você já possui uma assinatura ativa.", "CONFLICT");
+    if (existing?.status === "pending") {
+      if (!canReusePendingSubscription(existing, { planId: plan.id, barberId: barber.id, paymentMethod: input.paymentMethod })) throw new ClubError("Já existe uma contratação pendente diferente para este cliente. Finalize ou aguarde a expiração antes de iniciar outra.", "CONFLICT");
+      const [pendingPayment] = await tx.select({ id: payments.id }).from(payments).where(and(eq(payments.subscriptionId, existing.id), eq(payments.status, "pending"))).limit(1);
+      if (pendingPayment) return { customerId, clubMemberId: existing.clubMemberId, subscriptionId: existing.id, paymentId: pendingPayment.id, planSlug: plan.slug, barberSlug: barber.slug, status: "pending" as const, reused: true as const };
+    }
 
     const [member] = await tx.select().from(clubMembers).where(eq(clubMembers.customerId, customerId)).limit(1);
     let clubMemberId: number;
@@ -176,7 +185,7 @@ export async function requestSubscription(input: { name: string; phone: string; 
     });
     const paymentId = Number(paymentInsert[0].insertId);
     await tx.insert(subscriptionHistory).values({ subscriptionId, customerId, event: "created", fromStatus: null, toStatus: "pending", paymentId, note: `Solicitação do plano ${plan.slug}.` });
-    return { customerId, clubMemberId, subscriptionId, paymentId, planSlug: plan.slug, barberSlug: barber.slug, status: "pending" as const };
+    return { customerId, clubMemberId, subscriptionId, paymentId, planSlug: plan.slug, barberSlug: barber.slug, status: "pending" as const, reused: false as const };
   });
 }
 

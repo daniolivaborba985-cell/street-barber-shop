@@ -545,3 +545,16 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Exibir no painel o faturamento por barbeiro e no consolidado conforme as permissões já definidas.
 - [ ] Orientar o responsável, passo a passo, sobre claim do sandbox Stripe, dados da conta, métodos de pagamento e configuração do webhook.
 - [ ] Validar com o responsável cada etapa do cadastramento antes de avançar para testes de cartão e PIX.
+
+# Correção do Checkout Stripe — 2026-08-27
+- [x] Investigar o erro exibido ao clicar em Continuar com o plano do Clube.
+- [x] Corrigir a abertura do Checkout Stripe para permitir o preenchimento do cartão de teste.
+- [x] Preservar a seleção de plano, barbeiro e cliente durante a criação da sessão.
+- [x] Validar sucesso, cancelamento e erro do Checkout com testes e build.
+
+# Refinamento visual do pagamento do Clube — 2026-08-27
+- [x] Corrigir o fluxo de contratação pendente para reabrir o Checkout sem duplicar assinatura ou pagamento.
+- [x] Substituir o campo genérico de forma de pagamento por cards personalizados de PIX e Cartão.
+- [x] Refinar visualmente os campos de dados do cliente e o resumo da contratação com a identidade Street Barber.
+- [x] Garantir que o método selecionado seja enviado corretamente ao backend e preserve o barbeiro escolhido.
+- [x] Validar visualmente desktop/mobile, TypeScript, build e testes do Checkout.
