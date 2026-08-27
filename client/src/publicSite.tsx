@@ -229,8 +229,14 @@ function ClubSponsorMural({ partners }) {
   return <section id="patrocinadores" className="club-sponsor-mural"><div className="club-sponsor-heading"><p className="eyebrow">PARCEIROS STREET</p><h2>Marcas que<br /><em>caminham com a gente.</em></h2><p>Conheça quem faz parte da nossa rede.</p></div>{activePartners.length ? <div className="club-sponsor-grid">{activePartners.map((partner) => { const palette = sponsorPalette[partner.name] || ['#2b2927', '#c9b294']; return <article className="club-sponsor-card" style={{ '--sponsor-base': palette[0], '--sponsor-accent': palette[1] }} key={partner.id}><div className="club-sponsor-logo">{partner.logoUrl || partner.logo ? <img src={partner.logoUrl || partner.logo} alt={`Logo ${partner.name}`} loading="lazy" decoding="async" /> : <span>{partner.name.slice(0, 2).toUpperCase()}</span>}</div><div className="club-sponsor-card-copy"><span>PARCEIRO STREET</span><h3>{partner.name}</h3><p>{partner.description || 'Presença que fortalece a comunidade.'}</p></div></article> })}</div> : <p className="club-empty-note">Os parceiros serão exibidos assim que forem cadastrados.</p>}</section>
 }
 
+const clubBarberPhotos: Record<number, string> = {
+  1: '/manus-storage/luan_14839cc1.jpeg',
+  2: '/manus-storage/bruno_2ebb25ec.jpeg',
+  3: '/manus-storage/kaua_3c752368.jpeg',
+}
+
 function ClubBarberPicker({ barberCatalog, selectedBarberSlug, onSelect }) {
-  const activeBarbers = barberCatalog.data?.map((barber) => ({ ...barber, photo: barbers.find((item) => item.slug === barber.slug)?.photo })) || []
+  const activeBarbers = barberCatalog.data?.map((barber) => ({ ...barber, photo: clubBarberPhotos[barber.id] })) || []
   return <fieldset className="club-barber-picker" disabled={barberCatalog.isLoading || !activeBarbers.length}><legend>1 · Escolha seu barbeiro</legend>{barberCatalog.isLoading ? <p className="club-picker-status">Carregando barbeiros…</p> : !activeBarbers.length ? <p className="club-picker-status">Nenhum barbeiro disponível no momento.</p> : <div className="club-barber-options">{activeBarbers.map((barber) => <button type="button" className={selectedBarberSlug === barber.slug ? 'club-barber-option selected' : 'club-barber-option'} aria-pressed={selectedBarberSlug === barber.slug} onClick={() => onSelect(barber.slug)} key={barber.slug}><img src={barber.photo} alt={`Foto de ${barber.name}`} loading="lazy" decoding="async" /><span><strong>{barber.name}</strong><small>Escolher este barbeiro</small></span><Check size={17} aria-hidden="true" /></button>)}</div>}</fieldset>
 }
 

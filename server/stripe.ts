@@ -29,6 +29,8 @@ export async function createClubCheckoutSession(customerId: number, subscription
     customer_email: row.customer.email,
     client_reference_id: String(row.customer.id),
     allow_promotion_codes: true,
+    payment_method_types: row.subscription.paymentMethod === "card" ? ["card"] : undefined,
+    payment_method_collection: "always",
     line_items: [{ price_data: { currency: "brl", unit_amount: row.plan.priceCents, product_data: { name: `Street Barber Clube · ${row.plan.name}`, description: "Plano mensal Street Barber Clube" }, recurring: { interval: "month" } }, quantity: 1 }],
     metadata: { subscription_id: String(row.subscription.id), customer_id: String(row.customer.id), customer_email: row.customer.email, customer_name: row.customer.name, plan_slug: row.plan.slug },
     subscription_data: { metadata: { subscription_id: String(row.subscription.id), customer_id: String(row.customer.id), plan_slug: row.plan.slug } },

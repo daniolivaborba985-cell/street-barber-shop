@@ -557,10 +557,17 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Substituir o campo genérico de forma de pagamento por cards personalizados de PIX e Cartão.
 - [x] Refinar visualmente os campos de dados do cliente e o resumo da contratação com a identidade Street Barber.
 - [x] Garantir que o método selecionado seja enviado corretamente ao backend e preserve o barbeiro escolhido.
-- [x] Validar visualmente desktop/mobile, TypeScript, build e testes do Checkout.
+- [ ] Validar visualmente desktop/mobile, TypeScript, build e testes do Checkout.
 
 # Correção final do fluxo de pagamento e fotos — 2026-08-27
 - [x] Corrigir o vínculo entre nome, slug e foto oficial de cada barbeiro no seletor do Clube.
 - [x] Corrigir a opção Cartão para abrir o Checkout Stripe com os campos de pagamento.
 - [x] Garantir que PIX e Cartão continuem com cards personalizados e método correto no backend.
-- [x] Validar plano, barbeiro, cliente e faturamento após o Checkout, sem duplicação.
+- [ ] Validar plano, barbeiro, cliente e faturamento após o Checkout, sem duplicação.
+
+# Reabertura dos bloqueadores do Cartão — 2026-08-27
+- [x] Diagnosticar por que o seletor do Clube ainda exibe fotos invertidas apesar dos slugs corretos.
+- [x] Corrigir definitivamente o vínculo visual das fotos no componente de escolha do barbeiro.
+- [x] Diagnosticar por que Cartão não exibe um formulário real de dados após a seleção.
+- [x] Ajustar o fluxo para abrir o Checkout Stripe ou exibir etapa de cartão real sem confundir com o seletor de método.
+- [ ] Validar os dois bloqueadores no preview antes de orientar novo teste.
