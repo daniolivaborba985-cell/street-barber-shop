@@ -338,3 +338,28 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Ativar membro VIP e criar ciclo de 30 dias somente após confirmação de pagamento; manter webhook idempotente.
 - [x] Adicionar testes de configuração/redirect e executar check, 39 testes e build de produção.
 - [x] Validar que o sandbox Stripe ainda precisa ser reivindicado em Settings → Payment antes de testar uma cobrança real.
+
+# Requisitos do arquivo pasted_content_4.txt — 2026-08-27
+
+- [x] Ler e delimitar todos os requisitos do novo arquivo enviado.
+- [x] Transformar os requisitos em tarefas técnicas sem quebrar o Clube, o painel ou os fluxos públicos existentes.
+- [x] Implementar as alterações necessárias em frontend, backend e banco somente quando justificadas.
+- [x] Validar segurança, responsividade, testes e build; salvar checkpoint após a execução.
+
+# Adaptação do Clube como segundo ambiente — 2026-08-27
+
+- [x] Separar visual e funcionalmente `/clube` da experiência da Home sem criar nova aplicação ou banco.
+- [x] Preservar o slug do plano na navegação `/planos` → `/clube?plano=<slug>` e validar o plano exclusivamente pelo backend.
+- [x] Manter `/`, `/planos`, `/assistentes/:slug` e `/admin` funcionando sem regressões.
+- [x] Criar navegação própria Clube → Site principal e Site principal → Clube, com os cinco planos vindos do MySQL/TiDB.
+- [x] Validar rotas, responsividade, testes e build; documentar arquivos, componentes e fluxo final e salvar checkpoint.
+
+# Conclusão da arquitetura separada do Clube — 2026-08-27
+
+- [x] Preservar `/` como Home principal sem alterar sua composição ou funcionalidades.
+- [x] Manter `/planos` com os cinco planos oficiais vindos do MySQL/TiDB.
+- [x] Fazer os cards e CTAs de planos encaminharem para `/clube?plano=<slug>`.
+- [x] Criar navegação própria do Clube com retorno ao site principal e aos planos.
+- [x] Validar o slug no backend e manter preço, benefícios e quantidades fora da confiança do frontend.
+- [x] Confirmar `/assistentes/:slug` e `/admin` sem regressões aparentes.
+- [x] Validar desktop/mobile, TypeScript, 39 testes e build de produção.
