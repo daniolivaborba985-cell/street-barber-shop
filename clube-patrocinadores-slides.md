@@ -26,7 +26,7 @@ A participação será apresentada com identidade visual organizada e comunicaç
 
 1. A empresa define o benefício ou brinde que deseja oferecer.
 2. A Street Barber Shop registra a condição e o período da ação.
-3. O benefício é comunicado aos clientes do Clube.
+3. O benefício é comunicado aos membros do Clube.
 4. A parceria é ativada nos pontos de divulgação combinados.
 
 Podem participar benefícios como brindes, descontos, experiências ou condições especiais.
@@ -58,6 +58,6 @@ Envie sua logo e escolha como quer aparecer.
 
 A Street Barber Shop organiza a apresentação da parceria e combina os próximos passos com sua empresa.
 
-Street Barber Shop · Nonoai, RS
+Rua Borges de Medeiros, nº 802 · Nonoai, RS
 
-Fale com a equipe para criar uma ação sob medida.
+WhatsApp Luan: (49) 99157-0099 · Instagram: @street.barbeer.shop

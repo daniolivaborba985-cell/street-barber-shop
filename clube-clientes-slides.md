@@ -49,7 +49,7 @@ A roleta e os sorteios são experiências diferentes: cada uma tem sua própria 
 
 O Clube aproxima você de empresas que fazem parte da nossa comunidade: Armazém Lounge Bar, Hudrin Style, La Tiendita Café, IR Agro, Academia Império Fitness e CD Fight Team.
 
-Consulte no Clube as condições, benefícios e campanhas vigentes de cada parceiro.
+Consulte no Clube as condições, benefícios e campanhas vigentes de cada parceiro. A rede fortalece o comércio local.
 
 ## Slide 6
 ### Seu próximo corte começa aqui
@@ -58,6 +58,6 @@ Escolha seu plano.
 Escolha seu barbeiro.
 Faça parte do Street Barber Clube.
 
-Street Barber Shop · Nonoai, RS
+Rua Borges de Medeiros, nº 802 · Nonoai, RS
 
-Consulte planos e condições no atendimento oficial da barbearia.
+WhatsApp Luan: (49) 99157-0099 · Instagram: @street.barbeer.shop

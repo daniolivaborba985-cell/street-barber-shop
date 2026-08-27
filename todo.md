@@ -457,3 +457,32 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Explicar formas de contratação, cadastro, escolha do barbeiro e pagamento.
 - [x] Apresentar as empresas parceiras e o valor das vantagens no comércio local.
 - [x] Explicar os sorteios mensais como benefício independente da roleta.
+
+# Redesign premium das apresentações — 2026-08-27
+
+- [x] Extrair do site o telefone/WhatsApp do barbeiro Luan e o Instagram oficial da Street Barber.
+- [x] Extrair o conteúdo e a estrutura das duas apresentações originais anexadas pelo usuário.
+- [x] Redesenhar a apresentação de clientes com no máximo 6 slides em Nardo Gray, preto fosco, grafite e branco/prata.
+- [x] Redesenhar a apresentação de patrocinadores com no máximo 6 slides na mesma identidade corporativa.
+- [x] Aplicar a logo oficial correta em capas, rodapés ou cantos e incluir endereço e contatos oficiais.
+- [x] Entregar dois PDFs independentes e revisar legibilidade, hierarquia e fidelidade ao conteúdo original.
+
+# Redesign premium final das apresentações — 2026-08-27
+
+- [x] Extrair e preservar a estrutura e o conteúdo das apresentações originais anexadas.
+- [x] Aplicar visual premium não genérico com Nardo Gray/cinza chumbo, preto fosco, grafite, branco e prata.
+- [x] Aplicar a logo oficial real nas capas e em posições discretas dos slides.
+- [x] Incluir Rua Borges de Medeiros, nº 802, WhatsApp do Luan (49) 99157-0099 e Instagram @street.barbeer.shop.
+- [x] Redesenhar e revisar os dois decks, cada um com no máximo 6 slides, exportando PDFs independentes.
+
+# Correção final de logo e tipografia — 2026-08-27
+
+- [x] Substituir o elemento circular incorreto pela logo oficial real em arquivo local nos dois decks.
+- [x] Aplicar uma tipografia premium e consistente em todos os slides de clientes e patrocinadores.
+- [x] Reexportar e revisar os dois PDFs, verificando logo, legibilidade, ausência de erro visual e máximo de 6 slides.
+
+# Correção dos marcadores de erro nas apresentações — 2026-08-27
+
+- [x] Substituir todos os marcadores visuais com erro pela logo oficial real da Street Barber Shop.
+- [x] Garantir que a logo seja carregada por arquivo PNG local válido em todos os slides necessários.
+- [x] Revisar visualmente os dois decks, reexportar os PDFs e confirmar que nenhum marcador de erro permanece.
