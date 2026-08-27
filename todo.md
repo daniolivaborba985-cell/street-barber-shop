@@ -527,3 +527,9 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Remover somente o quadrado branco e manter apenas a bolinha da logo oficial.
 - [x] Preservar conteúdo, cores, tipografia e layout; remover a marca-d’água conforme a solicitação final do responsável.
 - [x] Revisar e entregar os dois PDFs corrigidos, com 6 slides em cada deck.
+
+# Auditoria final dos PDFs — 2026-08-27
+- [x] Comparar o nome exibido nos seis slides do deck de clientes e nos seis slides do deck de patrocinadores.
+- [x] Comparar visualmente cada apresentação com sua versão anterior e identificar qualquer alteração visual indevida.
+- [x] Corrigir somente o deck que apresentar divergência visual, preservando o conteúdo e a identidade aprovados.
+- [x] Reexportar e entregar os dois PDFs revisados, confirmando 6 slides em cada.
