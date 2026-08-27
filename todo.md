@@ -366,10 +366,10 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 
 # Requisitos do arquivo pasted_content_5.txt — 2026-08-27
 
-- [ ] Ler e delimitar todos os requisitos do novo arquivo.
-- [ ] Definir impacto no site principal, Clube, painel, autenticação, banco e integrações.
-- [ ] Implementar as alterações necessárias preservando a fonte única de dados e as funcionalidades existentes.
-- [ ] Validar segurança, responsividade, testes e build; salvar checkpoint após a execução.
+- [x] Ler e delimitar todos os requisitos do novo arquivo.
+- [x] Definir impacto no site principal, Clube, painel, autenticação, banco e integrações.
+- [x] Implementar as alterações necessárias preservando a fonte única de dados e as funcionalidades existentes.
+- [x] Validar segurança, responsividade, testes e build; salvar checkpoint após a execução.
 
 # Redesign visual premium do Street Barber Clube — 2026-08-27
 
@@ -378,3 +378,14 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Usar somente dados reais do banco para parceiros, patrocinadores, planos e campanhas; manter estados vazios elegantes sem inventar conteúdo.
 - [x] Preservar `/clube?plano=<slug>`, contratação, login VIP, consumo, roleta, sorteios e navegação de retorno ao site principal.
 - [x] Validar desktop/tablet/mobile, acessibilidade, microinterações, regressões, testes e build; salvar checkpoint.
+
+# Correções visuais do Clube — 2026-08-27
+
+- [x] Transformar os cinco planos em cards personalizados, com hierarquia e conteúdo distribuído visualmente.
+- [x] Adicionar uma roleta animada com descontos, sem misturar sua estrutura com sorteios nem confiar no resultado enviado pelo frontend.
+- [x] Encurtar e reorganizar a aba de presença para remover o excesso de texto e melhorar a leitura.
+- [x] Realinhar os blocos bege, contraste e espaçamento para evitar desalinhamento e excesso de escuro.
+- [x] Validar desktop/mobile, acessibilidade, testes e build; salvar checkpoint após a correção.
+
+- [x] Reduzir textos longos do Clube a títulos, frases curtas e dados essenciais, sem remover regras ou ações importantes.
+- [x] Usar detalhes secundários somente em elementos compactos, estados expansíveis ou mensagens contextuais.

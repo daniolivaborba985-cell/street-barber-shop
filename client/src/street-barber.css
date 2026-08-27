@@ -1285,3 +1285,76 @@ body.admin-menu-open { overflow: hidden; }
 
 .club-mobile-toggle { display: none; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid #6d5848; border-radius: 50%; background: transparent; color: #eee5dc; }
 @media (max-width: 480px) { .club-site-header { position: sticky; } .club-mobile-toggle { display: inline-flex; } .club-site-header nav { display: none; position: absolute; top: calc(100% + 1px); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 11px 18px 18px; background: rgba(24, 23, 24, .98); border-bottom: 1px solid #5c4a3d; box-shadow: 0 20px 35px #0007; } .club-site-header nav.open { display: flex; } .club-site-header nav a { padding: 15px 4px; border-bottom: 1px solid #3c3432; } .club-site-header nav .nav-cta { margin-top: 10px; justify-content: center; text-align: center; border: 1px solid #876e52; } }
+
+/* Correção de leitura do Clube: menos texto, mais ritmo visual */
+.club-page-live { overflow: hidden; }
+.club-hero-copy .page-lead { max-width: 430px; font-size: 15px; line-height: 1.45; }
+.club-manifesto { min-height: 0; padding-top: 68px; padding-bottom: 68px; }
+.club-manifesto-copy { max-width: 530px; }
+.club-manifesto-copy > p:not(.eyebrow) { max-width: 390px; font-size: 16px; line-height: 1.45; }
+.club-benefits-editorial, .club-sponsors-editorial { color: #292326; background: #e9e0d2; border-radius: 22px; margin: 20px clamp(16px, 4vw, 64px); padding: clamp(38px, 6vw, 74px) clamp(24px, 5vw, 72px); }
+.club-benefits-editorial h2, .club-sponsors-editorial h2 { color: #292326; }
+.club-benefits-editorial .club-section-heading, .club-sponsors-editorial .eyebrow { color: #725c49; }
+.club-benefits-editorial .club-section-heading { margin-bottom: 30px; }
+.club-benefit-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(66, 48, 35, .22); border-bottom: 1px solid rgba(66, 48, 35, .22); }
+.club-benefit-list article { min-height: 132px; padding: 22px 18px; border-right: 1px solid rgba(66, 48, 35, .22); }
+.club-benefit-list article:last-child { border-right: 0; }
+.club-benefit-list h3 { color: #292326; font-size: 17px; margin-bottom: 7px; }
+.club-benefit-list p { color: #685b51; font-size: 12px; line-height: 1.4; }
+.club-sponsors-editorial { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, .8fr); align-items: center; gap: 56px; }
+.club-sponsors-editorial > div:first-child p:last-child { max-width: 330px; color: #685b51; font-size: 13px; }
+.sponsor-levels { display: grid; gap: 0; border-top: 1px solid rgba(66, 48, 35, .28); }
+.sponsor-levels span { padding: 13px 0; border-bottom: 1px solid rgba(66, 48, 35, .28); color: #463a32; font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.sponsor-levels small { margin-top: 13px; color: #88776a; font-size: 10px; }
+.club-experiences { padding-top: 66px; padding-bottom: 66px; }
+.club-experiences-head > p { max-width: 280px; font-size: 13px; line-height: 1.45; }
+/* Cards de planos: painel visual próprio e escaneável */
+.club-plans-showcase { padding-top: 70px; padding-bottom: 70px; }
+.club-plans-showcase .club-section-heading { max-width: 520px; margin-bottom: 30px; }
+.club-plans-showcase .club-section-heading > p:last-child { max-width: 310px; font-size: 13px; line-height: 1.4; }
+.club-plan-ribbon { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.club-premium-plan { position: relative; display: flex; min-height: 355px; flex-direction: column; overflow: hidden; padding: 20px 17px 17px; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; background: linear-gradient(155deg, #292329, #171719); color: #f8efe5; box-shadow: 0 15px 35px rgba(0,0,0,.2); transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out), border-color .22s; }
+.club-premium-plan::after { content: ''; position: absolute; width: 150px; height: 150px; right: -70px; bottom: -76px; border: 1px solid rgba(226,198,161,.2); border-radius: 50%; }
+.club-premium-plan:hover, .club-premium-plan.is-selected { transform: translateY(-5px); border-color: rgba(224,196,157,.65); box-shadow: 0 24px 44px rgba(0,0,0,.3); }
+.club-premium-plan.yellow { background: linear-gradient(155deg, #dca437, #a86f20); color: #2b211d; }
+.club-premium-plan.purple { background: linear-gradient(155deg, #762064, #421936); }
+.club-plan-topline { display: flex; align-items: center; justify-content: space-between; color: #d9b988; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+.club-premium-plan.yellow .club-plan-topline { color: rgba(43,33,28,.72); }
+.club-plan-topline b { font-size: 7px; }
+.club-premium-plan h3 { max-width: 150px; margin: 43px 0 8px; color: inherit; font-size: 26px; line-height: .92; }
+.club-premium-plan > p { min-height: 34px; margin: 0 0 16px; color: rgba(247,239,229,.72); font-size: 11px; line-height: 1.35; }
+.club-premium-plan.yellow > p { color: rgba(43,33,28,.7); }
+.club-plan-price { display: flex; flex-direction: column; gap: 3px; margin-bottom: 15px; }
+.club-plan-price del { color: rgba(247,239,229,.58); font-size: 11px; }
+.club-premium-plan.yellow .club-plan-price del { color: rgba(43,33,28,.58); }
+.club-plan-price strong { color: #f4d5a5; font: 800 39px var(--display); line-height: .86; }
+.club-premium-plan.yellow .club-plan-price strong { color: #2b211d; }
+.club-plan-price small { color: rgba(247,239,229,.62); font-size: 9px; }
+.club-premium-plan.yellow .club-plan-price small { color: rgba(43,33,28,.62); }
+.club-plan-details { display: grid; gap: 6px; margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.17); }
+.club-plan-details span { display: flex; align-items: flex-start; gap: 6px; color: rgba(247,239,229,.84); font-size: 10px; line-height: 1.25; }
+.club-premium-plan.yellow .club-plan-details { border-color: rgba(43,33,28,.2); }
+.club-premium-plan.yellow .club-plan-details span { color: rgba(43,33,28,.8); }
+.club-plan-details svg { flex: 0 0 auto; color: #d7b37d; }
+.club-premium-plan.yellow .club-plan-details svg { color: #64431d; }
+.club-plan-cta { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 16px; padding: 10px 11px; border: 1px solid rgba(255,255,255,.28); border-radius: 10px; color: #fff5e9; background: rgba(255,255,255,.07); font-size: 10px; font-weight: 800; }
+.club-premium-plan.yellow .club-plan-cta { border-color: rgba(43,33,28,.32); color: #2b211d; background: rgba(255,247,219,.16); }
+/* Roleta: animação apenas durante a chamada segura ao backend */
+.club-roulette-section { display: grid; grid-template-columns: minmax(0, 1fr) 250px auto; align-items: center; gap: 34px; margin: 18px clamp(16px, 4vw, 64px); padding: 34px clamp(20px, 4vw, 48px); border: 1px solid #57473b; border-radius: 22px; background: linear-gradient(120deg, #262126, #171719); }
+.club-roulette-copy h2 { margin: 7px 0 12px; color: #f7eee4; font-size: clamp(36px, 4vw, 57px); line-height: .9; }
+.club-roulette-copy > p:not(.eyebrow) { max-width: 265px; color: #aaa09a; font-size: 13px; line-height: 1.45; }
+.club-roulette-rule { display: inline-block; margin-top: 15px; color: #d4b287; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.club-wheel-stage { position: relative; display: grid; justify-items: center; gap: 12px; }
+.club-wheel { position: relative; width: 214px; height: 214px; border: 7px solid #322b2c; border-radius: 50%; background: conic-gradient(#e5b44c 0deg 60deg, #743064 60deg 120deg, #b27b30 120deg 180deg, #54234c 180deg 240deg, #d39a35 240deg 300deg, #3a2039 300deg 360deg); box-shadow: 0 0 0 1px #b99668, 0 16px 34px #0008, inset 0 0 0 10px rgba(255,255,255,.08); transition: transform .3s ease; }
+.club-wheel.is-spinning { animation: club-wheel-spin 2.4s cubic-bezier(.12,.72,.18,1) both; }
+.club-wheel span { position: absolute; top: 50%; left: 50%; width: 65px; margin: -7px 0 0 -32px; color: #fff8ed; font-size: 8px; font-weight: 900; letter-spacing: .04em; text-align: center; text-shadow: 0 1px 2px #0008; transform: rotate(calc(var(--segment-index) * 60deg)) translateY(-77px) rotate(calc(var(--segment-index) * -60deg)); }
+.club-wheel-pointer { position: absolute; z-index: 2; top: -10px; color: #f5d6a5; font-size: 22px; line-height: 1; filter: drop-shadow(0 2px 2px #000); }
+.club-wheel-stage::after { content: 'VIP'; position: absolute; top: 92px; left: 50%; width: 29px; height: 29px; margin-left: -14px; display: grid; place-items: center; border: 1px solid #e0c49d; border-radius: 50%; color: #f7e4c3; background: #2a2226; font-size: 8px; font-weight: 900; }
+.club-wheel-result { min-height: 17px; color: #e0c49d; font-size: 11px; font-weight: 800; text-align: center; }
+.club-wheel-button { white-space: nowrap; }
+@keyframes club-wheel-spin { from { transform: rotate(0deg); } to { transform: rotate(1260deg); } }
+/* A faixa antiga repetia benefícios e sorteio; a versão editorial já concentra esses dados. */
+#beneficios.club-benefits-grid { display: none; }
+@media (max-width: 980px) { .club-plan-ribbon { grid-template-columns: repeat(3, minmax(0, 1fr)); } .club-benefit-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } .club-benefit-list article:nth-child(2) { border-right: 0; } .club-sponsors-editorial { grid-template-columns: 1fr; gap: 28px; } .club-roulette-section { grid-template-columns: 1fr 220px; } .club-wheel-button { grid-column: 1 / -1; justify-self: start; } }
+@media (max-width: 650px) { .club-plan-ribbon { grid-template-columns: 1fr; } .club-premium-plan { min-height: 300px; } .club-benefits-editorial, .club-sponsors-editorial { margin: 12px; border-radius: 16px; padding: 34px 20px; } .club-benefit-list { grid-template-columns: 1fr; } .club-benefit-list article, .club-benefit-list article:nth-child(2) { min-height: 0; border-right: 0; border-bottom: 1px solid rgba(66,48,35,.18); } .club-benefit-list article:last-child { border-bottom: 0; } .club-roulette-section { grid-template-columns: 1fr; gap: 22px; margin: 12px; padding: 30px 20px; } .club-roulette-copy > p:not(.eyebrow) { max-width: 100%; } .club-wheel-button { grid-column: auto; justify-self: stretch; justify-content: center; } }
+@media (prefers-reduced-motion: reduce) { .club-premium-plan, .club-wheel { transition: none; } .club-wheel.is-spinning { animation: none; } .club-premium-plan:hover, .club-premium-plan.is-selected { transform: none; } }
