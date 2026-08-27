@@ -7,6 +7,7 @@ import { ADMIN_SESSION_COOKIE } from "./_core/context";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, customerProcedure, publicProcedure, reportProcedure, router, staffProcedure } from "./_core/trpc";
 import { ClubError, CUSTOMER_SESSION_COOKIE, consumeBenefit, getAdminClubReport, getClubPlanBySlug, getClubPlans, getCustomerRaffles, getCustomerFromRequest, getVipDashboard, joinRaffle, listClubPartners, listOpenRaffles, loginCustomer, logoutCustomer, requestSubscription, spinRoulette } from "./club";
+import { createClubCheckoutForRequest, createClubCheckoutSession } from "./stripe";
 import {
   createBlock,
   deleteBlock,
@@ -76,6 +77,8 @@ export const appRouter = router({
     partners: publicProcedure.query(() => listClubPartners().catch(mapClubError)),
     raffles: publicProcedure.query(() => listOpenRaffles().catch(mapClubError)),
     requestSubscription: publicProcedure.input(z.object({ name: z.string().trim().min(2).max(255), phone: z.string().trim().min(8).max(32), email: z.string().trim().email().max(320), planSlug: z.string().trim().min(1).max(96), paymentMethod: z.enum(["card", "pix"]) })).mutation(({ input }) => requestSubscription({ ...input, email: input.email.toLowerCase() }).catch(mapClubError)),
+    checkout: customerProcedure.input(z.object({ subscriptionId: z.number().int().positive() })).mutation(({ input, ctx }) => createClubCheckoutSession(ctx.customer.id, input.subscriptionId, typeof ctx.req.headers.origin === "string" ? ctx.req.headers.origin : undefined).catch(mapClubError)),
+    checkoutRequest: publicProcedure.input(z.object({ subscriptionId: z.number().int().positive(), email: z.string().trim().toLowerCase().email(), phone: z.string().trim().min(8).max(32) })).mutation(({ input, ctx }) => createClubCheckoutForRequest(input.subscriptionId, input.email, input.phone, typeof ctx.req.headers.origin === "string" ? ctx.req.headers.origin : undefined).catch(mapClubError)),
     login: publicProcedure.input(z.object({ email: z.string().trim().email().max(320), phone: z.string().trim().min(8).max(32) })).mutation(async ({ input, ctx }) => {
       try {
         const result = await loginCustomer(input.email, input.phone);

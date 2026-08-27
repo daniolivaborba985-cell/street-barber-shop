@@ -295,7 +295,7 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Auditar arquitetura atual, tabelas, autenticação, clientes, agendamentos, planos e painel; documentar a divergência entre o requisito Supabase e o banco MySQL/TiDB ativo.
 - [x] Apresentar e validar o plano técnico incremental antes das alterações estruturais.
 - [x] Criar a página pública do Clube usando a identidade visual atual e os mesmos planos como fonte única de verdade.
-- [ ] Implementar contratação e futura assinatura mensal com status, ciclo de 30 dias e integração segura de pagamento, sem ativar assinatura por pagamento iniciado. A solicitação pendente e os ciclos/consumos já estão preparados; falta conectar o gateway real.
+- [x] Implementar contratação e futura assinatura mensal com status, ciclo de 30 dias e integração segura de pagamento, sem ativar assinatura por pagamento iniciado. Checkout e webhook Stripe foram conectados; a ativação operacional depende de reivindicar/configurar o sandbox.
 - [x] Implementar controle de cortes, sobrancelha de brinde, benefícios, parceiros, sorteios e roleta com persistência e regras no backend.
 - [x] Criar área autenticada do Cliente VIP com isolamento por cliente e integração ao cadastro e histórico existentes.
 - [x] Preparar integração futura com painel e relatórios sem alterar as quatro permissões administrativas já definidas.
@@ -329,3 +329,12 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Executar testes, TypeScript e build após a aplicação; salvar checkpoint da estrutura persistida.
 
 - [x] Preservar no banco também preço de referência, economia, nota, destaque e tom visual dos cinco planos antes de substituir a fonte hardcoded.
+
+# Checkout Stripe do Clube — 2026-08-27
+
+- [x] Adicionar SDK Stripe e manter as credenciais somente no ambiente configurado.
+- [x] Criar Checkout mensal com preço e plano selecionados do catálogo persistido, URLs de retorno e abertura em nova aba.
+- [x] Registrar somente referências essenciais do provedor e atualizar pagamentos/assinaturas por webhook assinado.
+- [x] Ativar membro VIP e criar ciclo de 30 dias somente após confirmação de pagamento; manter webhook idempotente.
+- [x] Adicionar testes de configuração/redirect e executar check, 39 testes e build de produção.
+- [x] Validar que o sandbox Stripe ainda precisa ser reivindicado em Settings → Payment antes de testar uma cobrança real.
