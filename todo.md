@@ -363,3 +363,18 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Validar o slug no backend e manter preço, benefícios e quantidades fora da confiança do frontend.
 - [x] Confirmar `/assistentes/:slug` e `/admin` sem regressões aparentes.
 - [x] Validar desktop/mobile, TypeScript, 39 testes e build de produção.
+
+# Requisitos do arquivo pasted_content_5.txt — 2026-08-27
+
+- [ ] Ler e delimitar todos os requisitos do novo arquivo.
+- [ ] Definir impacto no site principal, Clube, painel, autenticação, banco e integrações.
+- [ ] Implementar as alterações necessárias preservando a fonte única de dados e as funcionalidades existentes.
+- [ ] Validar segurança, responsividade, testes e build; salvar checkpoint após a execução.
+
+# Redesign visual premium do Street Barber Clube — 2026-08-27
+
+- [x] Redesenhar o `/clube` como ambiente visual próprio, premium e editorial, sem alterar backend, banco, autenticação, planos, rotas ou regras de negócio.
+- [x] Reestruturar header, hero, conceito, benefícios, parceiros, patrocinadores, planos, como funciona, sorteios, área VIP, CTA final e footer.
+- [x] Usar somente dados reais do banco para parceiros, patrocinadores, planos e campanhas; manter estados vazios elegantes sem inventar conteúdo.
+- [x] Preservar `/clube?plano=<slug>`, contratação, login VIP, consumo, roleta, sorteios e navegação de retorno ao site principal.
+- [x] Validar desktop/tablet/mobile, acessibilidade, microinterações, regressões, testes e build; salvar checkpoint.

@@ -1180,3 +1180,108 @@ body.admin-menu-open { overflow: hidden; }
 
 .raffle-join { align-self: flex-start; margin-top: 7px; padding: 8px 10px; border: 1px solid #8c745c; border-radius: 7px; background: transparent; color: var(--beige); font-size: 10px; font-weight: 800; }
 .raffle-join:hover { background: var(--beige); color: #252223; }
+
+/* Clube premium — editorial, comunidade e profundidade */
+.club-app { background: #171719; color: #f3ede5; }
+.club-site-header { position: sticky; top: 0; z-index: 20; background: rgba(18, 18, 19, .94); backdrop-filter: blur(16px); border-bottom-color: #4b4037; }
+.club-site-header nav { gap: 23px; }
+.club-site-header nav a { color: #d9cbbd; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+.club-site-header nav a:hover { color: var(--beige); }
+.club-site-header .nav-cta { border-color: #876e52; }
+.club-page-live { padding-top: 0; padding-bottom: 100px; background: linear-gradient(180deg, #19191b 0%, #211c1b 34%, #18181a 100%); }
+.club-live-hero { min-height: 610px; position: relative; padding: 108px 0 62px; align-items: center; isolation: isolate; }
+.club-live-hero:before { content: ''; position: absolute; z-index: -1; inset: 0 -8vw; background: radial-gradient(circle at 82% 25%, rgba(159, 117, 76, .26), transparent 28%), linear-gradient(125deg, transparent 30%, rgba(203, 173, 135, .08) 30.1%, transparent 30.4%, transparent 70%, rgba(203, 173, 135, .07) 70.1%, transparent 70.35%); pointer-events: none; }
+.club-hero-copy { position: relative; z-index: 1; }
+.club-hero-copy h1 { max-width: 780px; font-size: clamp(63px, 8vw, 126px); letter-spacing: -.045em; line-height: .88; text-wrap: balance; }
+.club-hero-copy h1 em { color: var(--beige); }
+.club-hero-copy .page-lead { max-width: 570px; margin-top: 28px; font-size: 17px; line-height: 1.7; color: #c9bfb5; }
+.club-live-mark { width: 280px; height: 280px; border-color: #a58665; background: radial-gradient(circle at 35% 25%, #59483b 0%, #2a2322 42%, #161618 100%); box-shadow: inset 0 0 0 12px #252021, inset 0 0 0 13px #816849, 0 35px 90px #0008; }
+.club-live-mark:after { content: ''; position: absolute; width: 320px; height: 320px; border: 1px solid #b89a7440; border-radius: 50%; transform: rotate(-12deg); }
+.club-live-mark b { margin-top: 18px; color: #a98c6c; font: 700 8px var(--body); letter-spacing: .22em; }
+.club-hero-proof { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #5d4d40; border-bottom: 1px solid #5d4d40; }
+.club-hero-proof span { padding: 20px 23px; color: #a99d91; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+.club-hero-proof span + span { border-left: 1px solid #5d4d40; }
+.club-hero-proof strong { display: block; margin-bottom: 4px; color: var(--beige); font: 800 30px var(--display); letter-spacing: .03em; }
+.club-section { width: 100%; padding: 125px 0; border-bottom: 1px solid #3d3533; }
+.club-section-heading { max-width: 760px; margin-bottom: 52px; }
+.club-section-heading.compact { margin-bottom: 42px; }
+.club-section-heading h2, .club-manifesto h2, .club-sponsors-editorial h2, .club-experiences h2 { margin: 14px 0 19px; font-size: clamp(46px, 6vw, 94px); line-height: .92; letter-spacing: -.035em; }
+.club-section-heading h2 em, .club-manifesto h2 em, .club-sponsors-editorial h2 em, .club-experiences h2 em { color: var(--beige); }
+.club-section-heading > p:last-child, .club-manifesto-copy > p:not(.eyebrow), .club-sponsors-editorial > div:first-child > p:last-child { max-width: 610px; color: #b9afa5; font-size: 15px; line-height: 1.75; }
+.club-manifesto { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .8fr); gap: 90px; align-items: center; }
+.club-manifesto-copy { max-width: 680px; }
+.club-manifesto-art { min-height: 380px; position: relative; display: grid; place-items: center; background: linear-gradient(135deg, #312824, #1b1a1c 56%); overflow: hidden; }
+.club-manifesto-art:before, .club-manifesto-art:after { content: ''; position: absolute; width: 500px; height: 1px; background: #b79a7948; transform: rotate(45deg); }
+.club-manifesto-art:after { transform: rotate(-45deg); }
+.club-art-ring { width: 190px; height: 190px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; border: 1px solid #b69a75; border-radius: 50%; color: var(--beige); transform: rotate(-7deg); box-shadow: 0 0 0 14px #2c2524, 0 0 0 15px #6d5745; }
+.club-art-ring span { font: 700 11px var(--body); letter-spacing: .3em; line-height: 1.5; text-align: center; }
+.club-art-note { position: absolute; right: 22px; bottom: 20px; color: #8d8178; font-size: 10px; line-height: 1.4; text-align: right; text-transform: uppercase; letter-spacing: .12em; }
+.club-art-note strong { color: var(--beige); }
+.club-manifesto-signature { display: flex; align-items: baseline; gap: 10px; margin-top: 45px; color: var(--beige); }
+.club-manifesto-signature span { font: 800 34px var(--display); letter-spacing: .08em; }
+.club-manifesto-signature b { color: #887869; font: 700 10px var(--body); letter-spacing: .24em; }
+.club-benefits-editorial { background: #e9e1d7; color: #252023; }
+.club-benefits-editorial .eyebrow, .club-benefits-editorial h2 { color: #252023; }
+.club-benefits-editorial h2 em { color: #8c6442; }
+.club-benefit-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid #b8a99a; }
+.club-benefit-list article { display: grid; grid-template-columns: 58px 1fr; gap: 18px; padding: 31px 18px 31px 0; border-bottom: 1px solid #b8a99a; }
+.club-benefit-list article:nth-child(even) { padding-left: 28px; border-left: 1px solid #b8a99a; }
+.club-benefit-number { color: #9d7551; font: 800 32px var(--display); }
+.club-benefit-list h3 { margin: 0 0 8px; font: 800 30px var(--display); letter-spacing: .02em; text-transform: uppercase; }
+.club-benefit-list p { max-width: 340px; margin: 0; color: #70645c; font-size: 13px; line-height: 1.6; }
+.club-partners-editorial { background: #201d1d; }
+.club-partner-mural { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid #594b40; border-left: 1px solid #594b40; }
+.club-partner-tile { min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; padding: 28px; border-right: 1px solid #594b40; border-bottom: 1px solid #594b40; background: linear-gradient(140deg, #282321, #1b1b1d); transition: background .22s var(--ease-out), transform .22s var(--ease-out); }
+.club-partner-tile:hover { background: linear-gradient(140deg, #3a2e27, #1e1b1d); transform: translateY(-4px); }
+.partner-logo-lockup { min-height: 74px; display: flex; align-items: center; justify-content: flex-start; }
+.partner-logo-lockup img { max-width: 180px; max-height: 65px; object-fit: contain; filter: grayscale(1) brightness(1.8); }
+.partner-logo-lockup span { width: 66px; height: 66px; display: grid; place-items: center; border: 1px solid #a88968; border-radius: 50%; color: var(--beige); font: 800 23px var(--display); letter-spacing: .04em; }
+.club-partner-tile p { margin: 0 0 5px; color: #9c8064; font-size: 9px; letter-spacing: .18em; }
+.club-partner-tile h3 { margin: 0 0 7px; color: #f0e8df; font: 800 36px var(--display); text-transform: uppercase; }
+.club-partner-tile > div:nth-child(2) > span { display: block; color: #aba097; font-size: 12px; line-height: 1.45; }
+.club-partner-tile button, .club-plan-cta, .club-outline-button { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 10px 0; border: 0; border-bottom: 1px solid #987a59; background: transparent; color: var(--beige); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; transition: gap .2s var(--ease-out), color .2s; }
+.club-partner-tile button:hover, .club-plan-cta:hover, .club-outline-button:hover { gap: 13px; color: #fff3e4; }
+.club-empty-feature { min-height: 245px; display: flex; align-items: center; gap: 28px; padding: 44px; border: 1px solid #594b40; background: radial-gradient(circle at 15% 50%, #403228, transparent 34%), #242123; }
+.empty-feature-mark { width: 74px; height: 74px; display: grid; place-items: center; flex: 0 0 auto; border: 1px solid #997956; border-radius: 50%; color: var(--beige); }
+.club-empty-feature h3 { margin: 8px 0 10px; color: #f0e8df; font: 800 35px var(--display); }
+.club-empty-feature p:last-child { max-width: 550px; margin: 0; color: #aaa098; line-height: 1.65; }
+.club-sponsors-editorial { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .8fr); gap: 90px; align-items: center; background: #e9e1d7; color: #282124; }
+.club-sponsors-editorial .eyebrow, .club-sponsors-editorial h2 { color: #282124; }
+.club-sponsors-editorial h2 em { color: #8c6442; }
+.sponsor-levels { display: flex; flex-direction: column; gap: 0; border-top: 1px solid #b8a99a; }
+.sponsor-levels span { padding: 21px 0; border-bottom: 1px solid #b8a99a; color: #8c6442; font: 800 25px var(--display); letter-spacing: .03em; }
+.sponsor-levels small { padding-top: 18px; color: #81746b; font-size: 11px; }
+.club-how { background: #18181a; }
+.club-how-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid #55473d; }
+.club-how-grid article { min-height: 220px; padding: 25px 20px 24px 0; border-bottom: 1px solid #55473d; }
+.club-how-grid article + article { padding-left: 20px; border-left: 1px solid #55473d; }
+.club-how-grid strong { color: var(--beige); font: 800 45px var(--display); }
+.club-how-grid h3 { margin: 35px 0 10px; color: #f1e8de; font: 800 25px var(--display); text-transform: uppercase; }
+.club-how-grid p { margin: 0; color: #a9a098; font-size: 12px; line-height: 1.6; }
+.club-experiences { background: radial-gradient(circle at 92% 30%, #44362c, transparent 30%), #211d1c; }
+.club-experiences-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 48px; }
+.club-experiences-head > p { max-width: 390px; margin: 0 0 10px; color: #b9afa5; font-size: 13px; line-height: 1.7; }
+.club-raffle-feature-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.club-raffle-feature { min-height: 240px; padding: 27px; border: 1px solid #655344; background: #241f1f; transition: transform .2s var(--ease-out), border-color .2s; }
+.club-raffle-feature:hover { transform: translateY(-4px); border-color: var(--beige); }
+.club-raffle-label { color: #a88764; font-size: 9px; letter-spacing: .2em; }
+.club-raffle-feature h3 { margin: 34px 0 9px; color: #eee6dd; font: 800 35px var(--display); text-transform: uppercase; }
+.club-raffle-feature strong { color: var(--beige); font: 800 24px var(--display); }
+.club-raffle-feature p { color: #9f948b; font-size: 12px; }
+.club-experience-empty { min-height: 190px; display: flex; align-items: center; gap: 18px; padding: 30px; border: 1px solid #5d4d40; color: var(--beige); }
+.club-experience-empty span { color: #eee4db; font: 800 29px var(--display); text-transform: uppercase; }
+.club-experience-empty small { color: #a69a90; }
+.club-vip-callout { display: grid; grid-template-columns: 110px minmax(0, 1fr) auto; gap: 30px; align-items: center; padding: 60px 0; border-bottom: 0; }
+.vip-callout-mark { width: 88px; height: 88px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2px; border: 1px solid #ae8f6c; border-radius: 50%; color: var(--beige); }
+.vip-callout-mark span { font: 800 16px var(--display); letter-spacing: .13em; }
+.club-vip-callout h2 { margin: 6px 0; color: #f4ece3; font: 800 55px var(--display); text-transform: uppercase; }
+.club-vip-callout p:last-child { margin: 0; color: #a9a098; font-size: 14px; }
+.club-final-link { display: inline-flex; align-items: center; gap: 7px; margin: 35px 0 0; color: #afa198; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.club-final-link:hover { color: var(--beige); }
+@media (max-width: 980px) { .club-live-hero { gap: 35px; } .club-section { padding: 95px 0; } .club-manifesto, .club-sponsors-editorial { gap: 45px; } .club-hero-copy h1 { font-size: clamp(60px, 9vw, 95px); } }
+@media (max-width: 850px) { .club-site-header nav { gap: 12px; } .club-live-hero { min-height: auto; padding: 75px 0 48px; } .club-hero-copy h1 { font-size: clamp(57px, 12vw, 84px); } .club-manifesto, .club-sponsors-editorial { display: block; } .club-manifesto-art { margin-top: 50px; } .club-sponsors-editorial > .sponsor-levels { margin-top: 45px; } .club-benefit-list, .club-partner-mural, .club-how-grid, .club-raffle-feature-grid { grid-template-columns: 1fr; } .club-benefit-list article:nth-child(even), .club-how-grid article + article { padding-left: 0; border-left: 0; } .club-hero-proof { grid-template-columns: 1fr; } .club-hero-proof span + span { border-left: 0; border-top: 1px solid #5d4d40; } .club-experiences-head { display: block; } .club-experiences-head > p { margin-top: 25px; } .club-vip-callout { grid-template-columns: 80px minmax(0, 1fr); } .club-vip-callout button { grid-column: 1 / -1; justify-self: start; } }
+@media (max-width: 480px) { .club-site-header nav { display: none; } .club-page-live { padding-left: 18px; padding-right: 18px; } .club-section { padding: 78px 0; } .club-live-hero { padding-top: 55px; } .club-hero-copy h1 { font-size: 58px; } .club-hero-copy .page-lead { font-size: 14px; } .club-live-mark { width: 214px; height: 214px; } .club-live-mark:after { width: 250px; height: 250px; } .club-section-heading h2, .club-manifesto h2, .club-sponsors-editorial h2, .club-experiences h2 { font-size: 52px; } .club-benefit-list article { grid-template-columns: 42px 1fr; gap: 10px; padding: 24px 0; } .club-benefit-list h3 { font-size: 26px; } .club-partner-tile { min-height: 235px; padding: 22px; } .club-empty-feature { align-items: flex-start; flex-direction: column; padding: 26px; } .club-empty-feature h3 { font-size: 29px; } .club-how-grid article { min-height: 175px; padding: 23px 0; } .club-how-grid article + article { padding-top: 23px; } .club-experience-empty { align-items: flex-start; flex-direction: column; } .club-experience-empty span { font-size: 25px; } .club-vip-callout { display: block; } .club-vip-callout > div:nth-child(2) { margin: 24px 0; } }
+@media (prefers-reduced-motion: reduce) { .club-partner-tile, .club-raffle-feature { transition: none; } .club-partner-tile:hover, .club-raffle-feature:hover { transform: none; } }
+
+.club-mobile-toggle { display: none; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid #6d5848; border-radius: 50%; background: transparent; color: #eee5dc; }
+@media (max-width: 480px) { .club-site-header { position: sticky; } .club-mobile-toggle { display: inline-flex; } .club-site-header nav { display: none; position: absolute; top: calc(100% + 1px); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 11px 18px 18px; background: rgba(24, 23, 24, .98); border-bottom: 1px solid #5c4a3d; box-shadow: 0 20px 35px #0007; } .club-site-header nav.open { display: flex; } .club-site-header nav a { padding: 15px 4px; border-bottom: 1px solid #3c3432; } .club-site-header nav .nav-cta { margin-top: 10px; justify-content: center; text-align: center; border: 1px solid #876e52; } }
