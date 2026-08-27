@@ -1364,3 +1364,26 @@ body.admin-menu-open { overflow: hidden; }
 .club-barber-field select { min-height: 49px; cursor: pointer; border-color: #8d7257; }
 .club-barber-field select:invalid { color: #d7c6b2; }
 @media (max-width: 650px) { .club-barber-field { max-width: none; } }
+
+.club-barber-picker { grid-column: 1 / -1; min-width: 0; margin: 0; padding: 17px; border: 1px solid rgba(224,196,157,.48); border-radius: 14px; background: linear-gradient(135deg, rgba(211,189,158,.13), rgba(255,255,255,.025)); }
+.club-barber-picker:disabled { opacity: .78; }
+.club-barber-picker legend { padding: 0 7px; color: var(--beige); font: 800 13px var(--display); letter-spacing: .12em; text-transform: uppercase; }
+.club-barber-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 8px; }
+.club-barber-option { display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; gap: 10px; align-items: center; min-width: 0; padding: 9px; border: 1px solid rgba(255,255,255,.16); border-radius: 11px; color: #f7eee4; background: rgba(255,255,255,.035); text-align: left; cursor: pointer; transition: transform .2s var(--ease-out), border-color .2s, background .2s; }
+.club-barber-option:hover, .club-barber-option:focus-visible { transform: translateY(-2px); border-color: #d8b583; background: rgba(216,181,131,.13); outline: none; }
+.club-barber-option.selected { border-color: #e0c49d; background: linear-gradient(135deg, rgba(216,181,131,.25), rgba(116,48,100,.22)); box-shadow: 0 0 0 2px rgba(224,196,157,.13); }
+.club-barber-option img { width: 58px; height: 64px; border-radius: 7px; object-fit: cover; object-position: center; }
+.club-barber-option span { display: grid; gap: 4px; min-width: 0; }
+.club-barber-option strong { overflow: hidden; color: #fff7ed; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.club-barber-option small { color: #b9aaa0; font-size: 9px; line-height: 1.2; }
+.club-barber-option svg { color: #d9b988; opacity: 0; }
+.club-barber-option.selected svg { opacity: 1; }
+.club-picker-status { margin: 8px 0 0; color: #b9aaa0; font-size: 12px; }
+.club-partner-action { align-self: flex-start; color: var(--beige); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+@media (max-width: 760px) { .club-barber-options { grid-template-columns: 1fr; } .club-barber-option { grid-template-columns: 64px minmax(0, 1fr) auto; } .club-barber-option img { width: 64px; height: 72px; } }
+@media (prefers-reduced-motion: reduce) { .club-barber-option { transition: none; } .club-barber-option:hover, .club-barber-option:focus-visible { transform: none; } }
+
+/* Escolha visual do barbeiro: fotos oficiais com leitura imediata */
+.club-barber-option { grid-template-columns: 86px minmax(0, 1fr) auto; padding: 10px; }
+.club-barber-option img { width: 86px; height: 104px; object-fit: cover; object-position: center; }
+@media (max-width: 760px) { .club-barber-option { grid-template-columns: 76px minmax(0, 1fr) auto; } .club-barber-option img { width: 76px; height: 92px; } }

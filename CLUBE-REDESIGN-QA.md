@@ -31,3 +31,13 @@ Ao selecionar um card de plano, o painel de ativação agora é renderizado e re
 Na roleta pública, clique, toque e teclado iniciam uma animação visual de 2,4 segundos; depois o fluxo abre a Área VIP para revelar a recompensa real com segurança. Para membros VIP, o giro continua sendo executado pela mutação protegida do backend. Capturas desktop e mobile foram refeitas sem overflow.
 
 A reprodução no preview confirmou o estado `club-wheel is-spinning` e o texto “Girando…” aproximadamente 120 ms após o clique no círculo. Após o ciclo de animação, a Área VIP foi aberta automaticamente para autenticação, sem exibir uma recompensa falsa fora da sessão VIP.
+
+## Simplificação e fotos oficiais — 2026-08-27
+
+A versão atual removeu da experiência pública a navegação e os painéis de Área VIP/login, mantendo a contratação por cadastro e Checkout. O Clube foi reduzido à apresentação principal, roleta, planos e formulário de ativação. As capturas desktop 1280×720 e mobile 390×844 mostram o fluxo compacto sem overflow.
+
+A seleção de barbeiro foi preparada como cards visuais usando os mesmos caminhos de imagem já utilizados na Home: Luan com `luan_e357146c.jpeg`, Bruno com `bruno_34a0c1b4.jpeg` e Kauã com `kaua_ae2b8882.jpeg`.
+
+A validação em execução confirmou que o fluxo reduzido não exibe Área VIP ou login do cliente. Após o clique no plano, o cadastro mostra uma única seleção de barbeiro com as três fotos oficiais, nomes e estado selecionado, seguida pelos dados de contato e pagamento.
+
+As capturas finais desktop 1280×720 e mobile 390×844 confirmaram uma navegação reduzida a Planos e Voltar ao site, apresentação principal, roleta, cinco planos e retorno. O cadastro com os cards fotográficos aparece somente após escolher um plano, mantendo a página inicial compacta e sem links mortos.

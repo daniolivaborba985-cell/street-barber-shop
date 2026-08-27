@@ -408,3 +408,18 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Fazer qualquer clique em um plano abrir imediatamente o fluxo de contratação com o plano já selecionado.
 - [x] Exibir a escolha obrigatória de barbeiro como etapa clara do fluxo, carregada a partir dos barbeiros ativos do banco.
 - [x] Validar a interação no desktop/mobile, manter a validação backend e atualizar testes/build/checkpoint.
+
+# Fotos oficiais na escolha do barbeiro — 2026-08-27
+
+- [ ] Reutilizar nos cards de escolha do plano as mesmas fotos oficiais dos barbeiros já exibidas no site.
+- [ ] Manter nomes, slugs, imagens e dados sincronizados com o cadastro único de barbeiros.
+- [ ] Validar seleção visual, responsividade, acessibilidade, testes e build após a simplificação do Clube.
+
+# Simplificação do cadastro do Clube — 2026-08-27
+
+- [x] Remover da experiência pública do Clube a Área VIP e o login exclusivo do cliente.
+- [x] Usar somente o cadastro existente do site para contratação, mantendo Checkout e banco único.
+- [x] Reduzir a página a apresentação, roleta, planos e formulário de cadastro, sem links mortos.
+- [x] Reutilizar nos cards de escolha do plano as mesmas fotos oficiais dos barbeiros já exibidas no site.
+- [x] Manter nomes, slugs, imagens e dados sincronizados com o cadastro único de barbeiros.
+- [x] Validar seleção visual, responsividade, acessibilidade, testes e build após a simplificação do Clube.
