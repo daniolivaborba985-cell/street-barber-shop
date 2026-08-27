@@ -1100,3 +1100,22 @@ body.admin-menu-open { overflow: hidden; }
 .hero-copy, .hero-card { z-index: 1; }
 @media (max-width: 850px) { .hero-watermark { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: .085; } }
 @media (prefers-reduced-transparency: reduce) { .hero-watermark { opacity: .06; } }
+
+/* Entrada suave da marca d’água 4K após o carregamento inicial */
+@keyframes hero-watermark-fade-in {
+  from { opacity: 0; }
+  to { opacity: .115; }
+}
+.hero-watermark { opacity: 0; }
+.hero-watermark.is-loaded { animation: hero-watermark-fade-in 900ms cubic-bezier(.23, 1, .32, 1) both; }
+@media (max-width: 850px) { .hero-watermark.is-loaded { animation-name: hero-watermark-fade-in-mobile; } }
+@keyframes hero-watermark-fade-in-mobile {
+  from { opacity: 0; }
+  to { opacity: .085; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-watermark { animation: none; opacity: .115; }
+}
+@media (max-width: 850px) and (prefers-reduced-motion: reduce) {
+  .hero-watermark { opacity: .085; }
+}

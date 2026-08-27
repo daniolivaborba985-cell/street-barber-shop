@@ -277,3 +277,9 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Usar o melhor arquivo original disponível da logo, sem alterar seu desenho, cores ou proporções.
 - [x] Otimizar formato, resolução efetiva e renderização da marca d’água no Hero para reduzir pixelização.
 - [x] Validar desktop/mobile, executar testes/build e salvar checkpoint somente após confirmar o resultado.
+
+# Fade-in da logo 4K no carregamento — 2026-08-26
+
+- [x] Adicionar transição suave de fade-in quando a logo 4K da marca d’água carregar no Hero.
+- [x] Respeitar prefers-reduced-motion e preservar o layout, a legibilidade e a responsividade.
+- [x] Validar visualmente, executar testes/build e salvar checkpoint.
