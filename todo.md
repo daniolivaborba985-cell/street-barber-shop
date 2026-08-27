@@ -486,3 +486,16 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Substituir todos os marcadores visuais com erro pela logo oficial real da Street Barber Shop.
 - [x] Garantir que a logo seja carregada por arquivo PNG local válido em todos os slides necessários.
 - [x] Revisar visualmente os dois decks, reexportar os PDFs e confirmar que nenhum marcador de erro permanece.
+
+# Marca-d’água oficial nos decks — 2026-08-27
+
+- [x] Aplicar a logo oficial como marca-d’água em todos os slides da apresentação de clientes.
+- [x] Aplicar a logo oficial como marca-d’água em todos os slides da apresentação de patrocinadores.
+- [x] Posicionar a marca-d’água próxima à borda esquerda, entre a borda e o centro, com opacidade discreta e sem prejudicar a leitura.
+- [x] Revisar contraste e proporção, reexportar os dois PDFs e confirmar que cada deck permanece com 6 slides.
+
+# Marca-d’água igual à Home — 2026-08-27
+
+- [x] Usar nos decks a mesma arte grande de marca-d’água do fundo da Home, não a logo circular pequena.
+- [x] Posicionar a arte entre a borda esquerda e o centro, com escala ampla e transparência semelhante à Home.
+- [x] Revisar os 12 slides, reexportar os dois PDFs e confirmar que o conteúdo continua legível.
