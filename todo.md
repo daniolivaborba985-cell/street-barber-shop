@@ -502,25 +502,25 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 
 # Integrações de confirmação — 2026-08-27
 
-- [ ] Auditar conectores disponíveis e o fluxo atual de agendamento, cadastro e Checkout Stripe.
+- [x] Auditar conectores disponíveis e o fluxo atual de agendamento, cadastro e Checkout Stripe.
 - [ ] Definir credenciais, consentimento e contrato para mensagens de confirmação via WhatsApp.
 - [ ] Enviar confirmação de agendamento pelo WhatsApp somente após agendamento persistido com sucesso.
-- [ ] Validar assinatura do webhook Stripe e confirmar o plano apenas após pagamento aprovado.
-- [ ] Garantir idempotência, segurança, tratamento de falhas, testes e regressões antes do checkpoint.
+- [x] Validar assinatura do webhook Stripe e confirmar o plano apenas após pagamento aprovado.
+- [x] Garantir idempotência, segurança, tratamento de falhas, testes e regressões antes do checkpoint.
 
 # Meta Cloud API aprovada — 2026-08-27
 
 - [ ] Solicitar e configurar com segurança o token da Meta, Phone Number ID e token de verificação do webhook.
 - [ ] Implementar WhatsApp exclusivamente para confirmação de agendamento persistido.
-- [ ] Manter e validar o webhook Stripe exclusivamente para confirmação de compras de planos por cartão ou PIX.
+- [x] Manter e validar o webhook Stripe exclusivamente para confirmação de compras de planos por cartão ou PIX.
 - [ ] Criar teste Vitest de configuração e validação das credenciais, além dos testes de envio, falhas e idempotência.
 
 # Ajuste de nome e logo circular dos decks — 2026-08-27
 
-- [ ] Alterar o nome das duas apresentações para “CLUBE STREET BARBER”.
-- [ ] Usar somente a bolinha oficial da logo, removendo a área branca externa sem criar uma marca nova.
-- [ ] Preservar conteúdo, marca-d’água grande da Home, paleta premium e limite de 6 slides por deck.
-- [ ] Revisar e entregar os dois PDFs corrigidos.
+- [x] Alterar o nome das duas apresentações para “CLUBE STREET BARBER”.
+- [x] Usar somente a bolinha oficial da logo, removendo a área branca externa sem criar uma marca nova.
+- [x] Preservar conteúdo, marca-d’água grande da Home, paleta premium e limite de 6 slides por deck.
+- [x] Revisar e entregar os dois PDFs corrigidos.
 
 # Ajuste restrito dos decks — 2026-08-27
 - [x] Alterar somente o nome das duas apresentações para “CLUBE STREET BARBER”.
@@ -558,3 +558,9 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Refinar visualmente os campos de dados do cliente e o resumo da contratação com a identidade Street Barber.
 - [x] Garantir que o método selecionado seja enviado corretamente ao backend e preserve o barbeiro escolhido.
 - [x] Validar visualmente desktop/mobile, TypeScript, build e testes do Checkout.
+
+# Correção final do fluxo de pagamento e fotos — 2026-08-27
+- [x] Corrigir o vínculo entre nome, slug e foto oficial de cada barbeiro no seletor do Clube.
+- [x] Corrigir a opção Cartão para abrir o Checkout Stripe com os campos de pagamento.
+- [x] Garantir que PIX e Cartão continuem com cards personalizados e método correto no backend.
+- [x] Validar plano, barbeiro, cliente e faturamento após o Checkout, sem duplicação.
