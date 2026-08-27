@@ -423,3 +423,23 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Reutilizar nos cards de escolha do plano as mesmas fotos oficiais dos barbeiros já exibidas no site.
 - [x] Manter nomes, slugs, imagens e dados sincronizados com o cadastro único de barbeiros.
 - [x] Validar seleção visual, responsividade, acessibilidade, testes e build após a simplificação do Clube.
+
+# Patrocinadores enviados pelo responsável — 2026-08-27
+
+- [x] Auditar o modelo de parceiros e verificar registros existentes antes de cadastrar os seis patrocinadores.
+- [x] Copiar e carregar as seis imagens enviadas sem alterar ou excluir os arquivos originais.
+- [x] Cadastrar ou atualizar sem duplicação: Armazém Lounge Bar, Hudrin Style, La Tiendita Café, IR Agro, Academia Império Fitness e CD Fight Team.
+- [x] Reativar o mural de patrocinadores do Clube na ordem das fotos informada pelo responsável.
+- [x] Validar logos, nomes, ordem, responsividade, testes e build; salvar checkpoint.
+
+# Recortes circulares das logos — 2026-08-27
+
+- [x] Usar somente os recortes circulares centrais das seis logos enviadas, excluindo telas de rede social e fundos.
+- [x] Preservar a ordem dos patrocinadores, sem apagar ou substituir parceiros já cadastrados.
+- [x] Validar o mural com as logos circulares em desktop e mobile, executar testes/build e salvar checkpoint.
+
+# Cards neutros com identidade cromática — 2026-08-27
+
+- [x] Criar fundos neutros para os cards, usando variações discretas derivadas das cores de cada logo circular.
+- [x] Aplicar as seis logos circulares nos cards personalizados, preservando ordem e parceiros existentes.
+- [x] Validar contraste, leitura, responsividade, seleção de fundo e build; salvar checkpoint.

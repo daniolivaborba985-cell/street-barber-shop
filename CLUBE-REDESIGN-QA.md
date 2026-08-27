@@ -41,3 +41,9 @@ A seleção de barbeiro foi preparada como cards visuais usando os mesmos caminh
 A validação em execução confirmou que o fluxo reduzido não exibe Área VIP ou login do cliente. Após o clique no plano, o cadastro mostra uma única seleção de barbeiro com as três fotos oficiais, nomes e estado selecionado, seguida pelos dados de contato e pagamento.
 
 As capturas finais desktop 1280×720 e mobile 390×844 confirmaram uma navegação reduzida a Planos e Voltar ao site, apresentação principal, roleta, cinco planos e retorno. O cadastro com os cards fotográficos aparece somente após escolher um plano, mantendo a página inicial compacta e sem links mortos.
+
+## Mural de patrocinadores — 2026-08-27
+
+O mural foi reativado com dados reais do banco e seis logos circulares recortadas das imagens enviadas. A ordem visual foi definida como Armazém Lounge Bar, Hudrin Style, La Tiendita Café, IR Agro, Academia Império Fitness e CD Fight Team. Cada card usa fundo neutro com acento cromático correspondente à logo, sem incorporar a interface ou o fundo das capturas de rede social.
+
+As capturas desktop 1280×720 e mobile 390×844 confirmaram seis cards legíveis, responsivos, sem overflow e com a identidade cromática individual preservada. Registros existentes não foram apagados; o cadastro foi feito com verificação por nome antes da inserção.
