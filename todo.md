@@ -411,9 +411,9 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 
 # Fotos oficiais na escolha do barbeiro — 2026-08-27
 
-- [ ] Reutilizar nos cards de escolha do plano as mesmas fotos oficiais dos barbeiros já exibidas no site.
-- [ ] Manter nomes, slugs, imagens e dados sincronizados com o cadastro único de barbeiros.
-- [ ] Validar seleção visual, responsividade, acessibilidade, testes e build após a simplificação do Clube.
+- [x] Reutilizar nos cards de escolha do plano as mesmas fotos oficiais dos barbeiros já exibidas no site.
+- [x] Manter nomes, slugs, imagens e dados sincronizados com o cadastro único de barbeiros.
+- [x] Validar seleção visual, responsividade, acessibilidade, testes e build após a simplificação do Clube.
 
 # Simplificação do cadastro do Clube — 2026-08-27
 
