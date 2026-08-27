@@ -396,3 +396,15 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Adicionar escolha de barbeiro no fluxo de contratação do plano selecionado.
 - [x] Validar o barbeiro no backend e vincular a escolha ao mesmo cliente/assinatura sem criar cadastro duplicado.
 - [x] Validar responsividade, acessibilidade, regras VIP, testes e build; salvar checkpoint.
+
+# Bloqueios relatados no Clube — 2026-08-27
+
+- [x] Corrigir a roleta para responder ao clique/toque e executar a animação com resultado visível.
+- [x] Corrigir a abertura do seletor de barbeiro no fluxo de contratação do plano.
+- [x] Revalidar contratos, estados, acessibilidade, mobile, testes e build; salvar checkpoint da correção.
+
+# Fluxo plano → barbeiro — 2026-08-27
+
+- [x] Fazer qualquer clique em um plano abrir imediatamente o fluxo de contratação com o plano já selecionado.
+- [x] Exibir a escolha obrigatória de barbeiro como etapa clara do fluxo, carregada a partir dos barbeiros ativos do banco.
+- [x] Validar a interação no desktop/mobile, manter a validação backend e atualizar testes/build/checkpoint.

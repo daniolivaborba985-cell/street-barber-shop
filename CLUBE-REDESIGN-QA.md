@@ -23,3 +23,11 @@ A seção de presença/benefícios foi compactada e o contraste dos blocos claro
 A rota `/clube?plano=4-cortes` continua abrindo o Clube com o plano indicado. A roleta agora possui interação no próprio círculo por clique/toque e teclado, além do botão principal; enquanto a chamada está pendente, a roda recebe o estado de giro e o resultado exibido continua vindo exclusivamente da mutação do backend. O modo sem sessão encaminha para login VIP.
 
 O formulário de contratação passou a consultar barbeiros ativos pelo backend e exibir o seletor “Seu barbeiro”. A submissão exige um `barberSlug`; o servidor valida slug e disponibilidade, grava o `barberId` na mesma assinatura e mantém o cliente único. As capturas desktop e mobile não apresentaram overflow no Clube.
+
+## Correção do fluxo plano → barbeiro e roleta — 2026-08-27
+
+Ao selecionar um card de plano, o painel de ativação agora é renderizado e recebe rolagem automática, deixando a próxima ação visível. O barbeiro não é mais pré-selecionado: o campo aparece como primeira etapa, com label destacada, lista carregada dos barbeiros ativos e seleção obrigatória antes do envio.
+
+Na roleta pública, clique, toque e teclado iniciam uma animação visual de 2,4 segundos; depois o fluxo abre a Área VIP para revelar a recompensa real com segurança. Para membros VIP, o giro continua sendo executado pela mutação protegida do backend. Capturas desktop e mobile foram refeitas sem overflow.
+
+A reprodução no preview confirmou o estado `club-wheel is-spinning` e o texto “Girando…” aproximadamente 120 ms após o clique no círculo. Após o ciclo de animação, a Área VIP foi aberta automaticamente para autenticação, sem exibir uma recompensa falsa fora da sessão VIP.
