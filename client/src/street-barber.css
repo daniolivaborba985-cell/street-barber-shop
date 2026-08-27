@@ -1119,3 +1119,8 @@ body.admin-menu-open { overflow: hidden; }
 @media (max-width: 850px) and (prefers-reduced-motion: reduce) {
   .hero-watermark { opacity: .085; }
 }
+
+/* Escala mobile um pouco menor, preservando o preenchimento e a centralização do Hero */
+@media (max-width: 850px) {
+  .hero-watermark { transform: scale(.94); transform-origin: center; }
+}

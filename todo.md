@@ -283,3 +283,9 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Adicionar transição suave de fade-in quando a logo 4K da marca d’água carregar no Hero.
 - [x] Respeitar prefers-reduced-motion e preservar o layout, a legibilidade e a responsividade.
 - [x] Validar visualmente, executar testes/build e salvar checkpoint.
+
+# Ajuste mobile da marca d’água — 2026-08-27
+
+- [x] Reduzir discretamente a escala da logo 4K somente no mobile.
+- [x] Preservar o tamanho desktop, o fade-in, a legibilidade e a ausência de overflow.
+- [x] Validar mobile/desktop, executar testes/build e salvar checkpoint.
