@@ -38,4 +38,16 @@ describe("Street Barber Clube", () => {
     const caller = appRouter.createCaller({ user: null, req: { headers: {} } as any, res: {} as any });
     await expect(caller.club.me()).rejects.toMatchObject({ code: "UNAUTHORIZED" });
   });
+
+  it("lista somente barbeiros ativos para o seletor do Clube", async () => {
+    const { getClubBarbers } = await import("./club");
+    const rows = await getClubBarbers();
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.every((row) => row.slug && row.name && row.assistantName)).toBe(true);
+  });
+
+  it("rejeita barbeiro inexistente antes de criar a contratação", async () => {
+    const { requestSubscription } = await import("./club");
+    await expect(requestSubscription({ name: "Cliente Teste", phone: "48999999999", email: "teste-barber@invalid.local", planSlug: "2-cortes", barberSlug: "barbeiro-inexistente", paymentMethod: "pix" })).rejects.toMatchObject({ code: "NOT_FOUND" });
+  });
 });

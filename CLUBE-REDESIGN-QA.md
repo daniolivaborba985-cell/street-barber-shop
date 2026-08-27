@@ -17,3 +17,9 @@ A seleção continua usando o slug `/clube?plano=<slug>`. As mutações de contr
 As novas capturas mostram cinco cards de planos com cores alternadas, hierarquia de preço e detalhes curtos; a roleta aparece como um componente visual próprio com ponteiro, segmentos de desconto e CTA. A antiga faixa repetida de benefícios/sorteio foi ocultada para reduzir a extensão da página.
 
 A seção de presença/benefícios foi compactada e o contraste dos blocos claros foi suavizado com margens e bordas arredondadas, mantendo o texto escuro alinhado no painel bege. No mobile, os cards ficam em uma coluna, a roleta se reorganiza sem overflow e a leitura permanece objetiva. O botão da roleta redireciona para login quando não há sessão VIP; com sessão ativa, chama a mutação existente e exibe somente a recompensa retornada pelo backend.
+
+## Interação da roleta e barbeiro no plano — 2026-08-27
+
+A rota `/clube?plano=4-cortes` continua abrindo o Clube com o plano indicado. A roleta agora possui interação no próprio círculo por clique/toque e teclado, além do botão principal; enquanto a chamada está pendente, a roda recebe o estado de giro e o resultado exibido continua vindo exclusivamente da mutação do backend. O modo sem sessão encaminha para login VIP.
+
+O formulário de contratação passou a consultar barbeiros ativos pelo backend e exibir o seletor “Seu barbeiro”. A submissão exige um `barberSlug`; o servidor valida slug e disponibilidade, grava o `barberId` na mesma assinatura e mantém o cliente único. As capturas desktop e mobile não apresentaram overflow no Clube.

@@ -389,3 +389,10 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 
 - [x] Reduzir textos longos do Clube a títulos, frases curtas e dados essenciais, sem remover regras ou ações importantes.
 - [x] Usar detalhes secundários somente em elementos compactos, estados expansíveis ou mensagens contextuais.
+
+# Roleta interativa e barbeiro no plano — 2026-08-27
+
+- [x] Tornar a roleta interativa por clique/toque, com animação, estados de giro e recompensa retornada pelo backend.
+- [x] Adicionar escolha de barbeiro no fluxo de contratação do plano selecionado.
+- [x] Validar o barbeiro no backend e vincular a escolha ao mesmo cliente/assinatura sem criar cadastro duplicado.
+- [x] Validar responsividade, acessibilidade, regras VIP, testes e build; salvar checkpoint.

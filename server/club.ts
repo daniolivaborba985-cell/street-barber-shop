@@ -4,6 +4,7 @@ import type { Request } from "express";
 import {
   benefits,
   benefitUsage,
+  barbers,
   clubMembers,
   customers,
   customerSessions,
@@ -118,6 +119,11 @@ export async function getClubPlanBySlug(slug: string) {
   return plan;
 }
 
+export async function getClubBarbers() {
+  const db = await requireDb();
+  return db.select({ id: barbers.id, slug: barbers.slug, name: barbers.name, assistantName: barbers.assistantName }).from(barbers).where(eq(barbers.active, 1)).orderBy(asc(barbers.id));
+}
+
 async function findOrCreateCustomer(tx: any, input: { name: string; phone: string; email: string }) {
   const [existing] = await tx.select().from(customers).where(and(eq(customers.phone, input.phone), eq(customers.email, input.email))).limit(1);
   if (existing) {
@@ -128,11 +134,13 @@ async function findOrCreateCustomer(tx: any, input: { name: string; phone: strin
   return Number(inserted[0].insertId);
 }
 
-export async function requestSubscription(input: { name: string; phone: string; email: string; planSlug: string; paymentMethod: "card" | "pix" }) {
+export async function requestSubscription(input: { name: string; phone: string; email: string; planSlug: string; barberSlug: string; paymentMethod: "card" | "pix" }) {
   const db = await requireDb();
   return db.transaction(async (tx) => {
     const [plan] = await tx.select().from(plans).where(and(eq(plans.slug, input.planSlug), eq(plans.active, 1))).limit(1);
     if (!plan) throw new ClubError("Plano não encontrado.", "NOT_FOUND");
+    const [barber] = await tx.select({ id: barbers.id, slug: barbers.slug }).from(barbers).where(and(eq(barbers.slug, input.barberSlug), eq(barbers.active, 1))).limit(1);
+    if (!barber) throw new ClubError("Barbeiro não encontrado ou indisponível.", "NOT_FOUND");
     const customerId = await findOrCreateCustomer(tx, input);
     const [existing] = await tx.select({ id: subscriptions.id }).from(subscriptions).where(and(eq(subscriptions.customerId, customerId), or(eq(subscriptions.status, "active"), eq(subscriptions.status, "pending")))).limit(1);
     if (existing) throw new ClubError("Você já possui uma contratação pendente ou uma assinatura ativa.", "CONFLICT");
@@ -150,6 +158,7 @@ export async function requestSubscription(input: { name: string; phone: string; 
     const subscriptionInsert = await tx.insert(subscriptions).values({
       customerId,
       planId: plan.id,
+      barberId: barber.id,
       status: "pending",
       paymentMethod: input.paymentMethod,
       paymentStatus: "pending",
@@ -167,7 +176,7 @@ export async function requestSubscription(input: { name: string; phone: string; 
     });
     const paymentId = Number(paymentInsert[0].insertId);
     await tx.insert(subscriptionHistory).values({ subscriptionId, customerId, event: "created", fromStatus: null, toStatus: "pending", paymentId, note: `Solicitação do plano ${plan.slug}.` });
-    return { customerId, clubMemberId, subscriptionId, paymentId, planSlug: plan.slug, status: "pending" as const };
+    return { customerId, clubMemberId, subscriptionId, paymentId, planSlug: plan.slug, barberSlug: barber.slug, status: "pending" as const };
   });
 }
 

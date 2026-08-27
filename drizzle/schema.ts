@@ -135,6 +135,7 @@ export const subscriptions = mysqlTable("subscriptions", {
   id: int("id").autoincrement().primaryKey(),
   customerId: int("customerId").notNull().references(() => customers.id),
   planId: int("planId").notNull().references(() => plans.id),
+  barberId: int("barberId").references(() => barbers.id),
   status: mysqlEnum("status", ["pending", "active", "paused", "cancelled", "expired"]).default("pending").notNull(),
   paymentMethod: mysqlEnum("paymentMethod", ["card", "pix"]),
   paymentStatus: mysqlEnum("paymentStatus", ["pending", "approved", "declined", "cancelled", "refunded", "expired"]).default("pending").notNull(),
@@ -145,7 +146,9 @@ export const subscriptions = mysqlTable("subscriptions", {
   providerCustomerRef: varchar("providerCustomerRef", { length: 191 }),
   providerSubscriptionRef: varchar("providerSubscriptionRef", { length: 191 }),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
+}, (table) => ({
+  barberIdx: index("subscriptions_barber_idx").on(table.barberId),
+}));
 
 export const appointmentStatuses = ["pending", "confirmed", "cancelled"] as const;
 
