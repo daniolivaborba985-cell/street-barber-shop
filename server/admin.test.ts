@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("./db", () => ({ getDb: vi.fn() }));
-import { assertAdminUser, blockPersistence, canAccessBarber, canManageUsers, canViewAll, canViewFinance, canViewReports, createBlock, deleteBlock, filterBarberScope, FIXED_PROFILES, isLocalStaffUser, getAdminReport, hashPassword, isAdminRole, isBillableStatus, listAdminAppointments, listAdminCustomers, loginWithPassword, nextAppointmentStatus, recordAppointmentHistory, rescheduleAppointment, scopedBarberId, setUserPassword, verifyPassword } from "./admin";
+import { assertAdminUser, blockPersistence, canAccessBarber, canManageUsers, canViewAll, canViewFinance, canViewReports, createBlock, deleteBlock, filterBarberScope, FIXED_PROFILES, isLocalStaffUser, getAdminReport, listAdminPlanPayments, hashPassword, isAdminRole, isBillableStatus, listAdminAppointments, listAdminCustomers, loginWithPassword, nextAppointmentStatus, recordAppointmentHistory, rescheduleAppointment, scopedBarberId, setUserPassword, verifyPassword } from "./admin";
 import { getDb } from "./db";
 import { listOccupiedSlots } from "./appointments";
 import type { User } from "../drizzle/schema";
@@ -93,9 +93,27 @@ describe("administrative integration contracts", () => {
     vi.mocked(getDb).mockResolvedValue(mockDatabase([[row(1, "Luan", "luan"), row(3, "Kauã", "kaua")]]) as any);
     const report = await getAdminReport(makeUser("barber", 3), "2030-01-01", "2030-01-31");
     expect(report.appointments).toBe(1);
-    expect(report.byBarber).toEqual([{ barberName: "Kauã", appointments: 1, revenueCents: 3500, cancellations: 0 }]);
+    expect(report.byBarber).toEqual([{ barberName: "Kauã", appointments: 1, revenueCents: 3500, cancellations: 0, planPayments: 0, planPaymentsCents: 0 }]);
     expect(report.moreData.uniqueCustomers).toBe(1);
     expect(report.moreData.appointmentsPerCustomer).toBe(1);
+  });
+
+  it("adds an approved Club plan payment to the selected barber revenue without changing appointment counts", async () => {
+    const appointment = { id: 10, customerId: 4, barberId: 3, appointmentDate: "2030-01-10", startTime: "09:00:00", endTime: "09:30:00", totalDurationMinutes: 30, totalPriceCents: 3500, status: "confirmed", customerName: "Cliente", customerPhone: "555", customerEmail: "cliente@test", barberName: "Kauã", barberSlug: "kaua" };
+    const payment = { id: 88, subscriptionId: 12, customerId: 4, barberId: 3, barberName: "Kauã", barberSlug: "kaua", planName: "Plano Street", customerName: "Cliente", customerEmail: "cliente@test", method: "card", status: "approved", amountCents: 9900, paidAt: new Date("2030-01-15T12:00:00Z") };
+    vi.mocked(getDb).mockResolvedValue(mockDatabase([[appointment], [payment], [], [], []]) as any);
+    const report = await getAdminReport(makeUser("admin"), "2030-01-01", "2030-01-31");
+    expect(report.appointments).toBe(1);
+    expect(report.revenueCents).toBe(13400);
+    expect(report.planPaymentsRevenueCents).toBe(9900);
+    expect(report.planPaymentsCount).toBe(1);
+    expect(report.byBarber).toEqual([{ barberName: "Kauã", appointments: 1, revenueCents: 13400, cancellations: 0, planPayments: 1, planPaymentsCents: 9900 }]);
+  });
+
+  it("keeps approved plan payments inside the selected barber scope", async () => {
+    const payment = { id: 88, subscriptionId: 12, customerId: 4, barberId: 1, barberName: "Luan", barberSlug: "luan", planName: "Plano Street", customerName: "Cliente", customerEmail: "cliente@test", method: "pix", status: "approved", amountCents: 9900, paidAt: new Date("2030-01-15T12:00:00Z") };
+    vi.mocked(getDb).mockResolvedValue(mockDatabase([[payment]]) as any);
+    await expect(listAdminPlanPayments(makeUser("barber", 3), "2030-01-01", "2030-01-31")).resolves.toEqual([]);
   });
 
   it("records a real cancellation history event without changing appointment identity", async () => {
@@ -233,7 +251,7 @@ describe("administrative report barber filter", () => {
     vi.mocked(getDb).mockResolvedValue(mockDatabase([[row(1, "Luan", "luan"), row(2, "Bruno", "bruno"), row(3, "Kauã", "kaua")]]) as any);
     const report = await getAdminReport(makeUser("admin"), "2030-01-01", "2030-01-31", "bruno");
     expect(report.appointments).toBe(1);
-    expect(report.byBarber).toEqual([{ barberName: "Bruno", appointments: 1, revenueCents: 3500, cancellations: 0 }]);
+    expect(report.byBarber).toEqual([{ barberName: "Bruno", appointments: 1, revenueCents: 3500, cancellations: 0, planPayments: 0, planPaymentsCents: 0 }]);
     expect(report.moreData.uniqueCustomers).toBe(1);
   });
 });

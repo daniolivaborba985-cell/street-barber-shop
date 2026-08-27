@@ -533,3 +533,15 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Comparar visualmente cada apresentação com sua versão anterior e identificar qualquer alteração visual indevida.
 - [x] Corrigir somente o deck que apresentar divergência visual, preservando o conteúdo e a identidade aprovados.
 - [x] Reexportar e entregar os dois PDFs revisados, confirmando 6 slides em cada.
+
+# Pagamentos do Clube nos relatórios — 2026-08-27
+- [x] Exibir no Relatório administrativo as compras de planos confirmadas pelo webhook Stripe.
+- [x] Separar pagamentos de planos dos agendamentos, sem duplicar cliente ou lançamento financeiro.
+- [x] Vincular cada pagamento ao cliente existente, plano, barbeiro escolhido, método, valor, status e data de confirmação.
+- [x] Respeitar o escopo: Luan e Bruno visualizam consolidado e por barbeiro; Kauã visualiza somente os próprios pagamentos; Barbearia não visualiza dados financeiros.
+- [x] Adicionar testes Vitest para inclusão, status, idempotência e isolamento dos pagamentos nos relatórios.
+- [x] Validar TypeScript, build, regressões e salvar checkpoint antes da entrega.
+- [x] Direcionar cada lançamento confirmado de plano ao barbeiro escolhido pelo cliente no checkout.
+- [x] Exibir no painel o faturamento por barbeiro e no consolidado conforme as permissões já definidas.
+- [ ] Orientar o responsável, passo a passo, sobre claim do sandbox Stripe, dados da conta, métodos de pagamento e configuração do webhook.
+- [ ] Validar com o responsável cada etapa do cadastramento antes de avançar para testes de cartão e PIX.

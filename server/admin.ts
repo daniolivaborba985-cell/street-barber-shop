@@ -1,4 +1,4 @@
-import { and, desc, eq, gt, gte, inArray, like, lt, ne, or } from "drizzle-orm";
+import { and, desc, eq, gt, gte, inArray, like, lt, lte, ne, or } from "drizzle-orm";
 import { createHash, randomBytes, scrypt as nodeScrypt, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
 import {
@@ -13,6 +13,7 @@ import {
   availability,
   blocks,
   customers,
+  payments,
   services,
   users,
   type User,
@@ -207,6 +208,8 @@ export async function listAdminCustomers(user: AdminUser) {
 export async function getAdminDashboard(user: AdminUser) {
   const rows = await listAdminAppointments(user);
   const active = rows.filter((row) => isBillableStatus(row.status));
+  const planPayments = canViewFinance(user) ? await listAdminPlanPayments(user, "2000-01-01", "2100-12-31") : [];
+  const planRevenueCents = planPayments.reduce((sum, payment) => sum + payment.amountCents, 0);
   const confirmed = rows.filter((row) => row.status === "confirmed");
   return {
     today: rows.filter((row) => row.appointmentDate === new Date().toISOString().slice(0, 10)),
@@ -215,7 +218,9 @@ export async function getAdminDashboard(user: AdminUser) {
       appointments: rows.length,
       confirmed: confirmed.length,
       cancelled: rows.filter((row) => row.status === "cancelled").length,
-      revenueCents: canViewFinance(user) ? active.reduce((sum, row) => sum + row.totalPriceCents, 0) : null,
+      revenueCents: canViewFinance(user) ? active.reduce((sum, row) => sum + row.totalPriceCents, 0) + planRevenueCents : null,
+      planPaymentsRevenueCents: canViewFinance(user) ? planRevenueCents : null,
+      planPaymentsCount: canViewFinance(user) ? planPayments.length : null,
     },
   };
 }
@@ -242,6 +247,45 @@ async function getMoreReportData(user: AdminUser, rows: Awaited<ReturnType<typeo
   return { uniqueCustomers, appointmentsPerCustomer: uniqueCustomers ? Number((activeRows.length / uniqueCustomers).toFixed(2)) : 0, performancePercent: availableMinutes ? Math.round((workedMinutes / availableMinutes) * 100) : 0, revenuePerHourCents: workedMinutes ? Math.round((revenueCents / workedMinutes) * 60) : 0, upsellPercent: null, pendingPercent, topService: topServiceEntry ? `${topServiceEntry[0]} (${Math.round((topServiceEntry[1] / Math.max(1, activeRows.length)) * 100)}%)` : "Sem dados", availableHours: Number((availableMinutes / 60).toFixed(1)), workedHours: Number((workedMinutes / 60).toFixed(1)), idleHours: Number((Math.max(0, availableMinutes - workedMinutes - closedMinutes) / 60).toFixed(1)), closedHours: Number((closedMinutes / 60).toFixed(1)) };
 }
 
+export async function listAdminPlanPayments(user: AdminUser, fromDate: string, toDate: string, requestedBarberId?: number) {
+  const db = await getDb();
+  if (!db) return [];
+  const scopedBarberId = requestedBarberId ?? scopedBarberIdForUser(user);
+  const conditions = [
+    eq(payments.status, "approved"),
+    gte(payments.paidAt, new Date(`${fromDate}T00:00:00.000Z`)),
+    lte(payments.paidAt, new Date(`${toDate}T23:59:59.999Z`)),
+  ];
+  if (scopedBarberId) conditions.push(eq(subscriptions.barberId, scopedBarberId));
+  const rows = await db.select({
+    id: payments.id,
+    subscriptionId: payments.subscriptionId,
+    customerId: payments.customerId,
+    barberId: subscriptions.barberId,
+    barberName: barbers.name,
+    barberSlug: barbers.slug,
+    planName: plans.name,
+    customerName: customers.name,
+    customerEmail: customers.email,
+    method: payments.method,
+    status: payments.status,
+    amountCents: payments.amountCents,
+    paidAt: payments.paidAt,
+  }).from(payments)
+    .innerJoin(subscriptions, eq(subscriptions.id, payments.subscriptionId))
+    .innerJoin(plans, eq(plans.id, subscriptions.planId))
+    .innerJoin(customers, eq(customers.id, payments.customerId))
+    .innerJoin(barbers, eq(barbers.id, subscriptions.barberId))
+    .where(and(...conditions))
+    .orderBy(desc(payments.paidAt), desc(payments.id))
+    .limit(500);
+  return (rows ?? []).filter((row) => row.status === "approved" && Number.isFinite(row.amountCents) && row.barberId != null && canAccessBarber(user, row.barberId));
+}
+
+function scopedBarberIdForUser(user: AdminUser) {
+  return scopedBarberId(user);
+}
+
 export async function getAdminReport(user: AdminUser, fromDate: string, toDate: string, barberSlug?: string) {
   if (!canViewReports(user)) throw new Error("Este perfil não possui acesso a relatórios.");
   const requestedBarberId = barberSlug ? ({ luan: 1, bruno: 2, kaua: 3 } as Record<string, number>)[barberSlug] : undefined;
@@ -249,21 +293,36 @@ export async function getAdminReport(user: AdminUser, fromDate: string, toDate: 
   if (user.role === "barber" && requestedBarberId && requestedBarberId !== user.barberId) throw new Error("Você só pode consultar o próprio relatório.");
   const rows = (await listAdminAppointments(user)).filter((row) => row.appointmentDate >= fromDate && row.appointmentDate <= toDate && (!requestedBarberId || row.barberId === requestedBarberId));
   const active = rows.filter((row) => isBillableStatus(row.status));
-  const byBarber = new Map<string, { barberName: string; appointments: number; revenueCents: number; cancellations: number }>();
+  const planPayments = await listAdminPlanPayments(user, fromDate, toDate, requestedBarberId);
+  const appointmentRevenueCents = active.reduce((sum, row) => sum + row.totalPriceCents, 0);
+  const planPaymentsRevenueCents = planPayments.reduce((sum, payment) => sum + payment.amountCents, 0);
+  const byBarber = new Map<string, { barberName: string; appointments: number; revenueCents: number; cancellations: number; planPayments: number; planPaymentsCents: number }>();
   for (const row of rows) {
-    const current = byBarber.get(row.barberSlug) ?? { barberName: row.barberName, appointments: 0, revenueCents: 0, cancellations: 0 };
+    const current = byBarber.get(row.barberSlug) ?? { barberName: row.barberName, appointments: 0, revenueCents: 0, cancellations: 0, planPayments: 0, planPaymentsCents: 0 };
     current.appointments += isBillableStatus(row.status) ? 1 : 0;
     current.cancellations += row.status === "cancelled" ? 1 : 0;
     current.revenueCents += isBillableStatus(row.status) ? row.totalPriceCents : 0;
     byBarber.set(row.barberSlug, current);
+  }
+  for (const payment of planPayments) {
+    if (!payment.barberSlug || payment.barberId == null) continue;
+    const current = byBarber.get(payment.barberSlug) ?? { barberName: payment.barberName, appointments: 0, revenueCents: 0, cancellations: 0, planPayments: 0, planPaymentsCents: 0 };
+    current.planPayments += 1;
+    current.planPaymentsCents += payment.amountCents;
+    current.revenueCents += payment.amountCents;
+    byBarber.set(payment.barberSlug, current);
   }
   return {
     fromDate,
     toDate,
     appointments: active.length,
     cancellations: rows.filter((row) => row.status === "cancelled").length,
-    revenueCents: active.reduce((sum, row) => sum + row.totalPriceCents, 0),
-    averageTicketCents: active.length ? Math.round(active.reduce((sum, row) => sum + row.totalPriceCents, 0) / active.length) : 0,
+    revenueCents: appointmentRevenueCents + planPaymentsRevenueCents,
+    appointmentRevenueCents,
+    planPaymentsRevenueCents,
+    planPaymentsCount: planPayments.length,
+    averageTicketCents: active.length ? Math.round(appointmentRevenueCents / active.length) : 0,
+    planPayments,
     byBarber: Array.from(byBarber.values()),
     moreData: await getMoreReportData(user, rows, fromDate, toDate, requestedBarberId),
   };
