@@ -289,3 +289,41 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Reduzir discretamente a escala da logo 4K somente no mobile.
 - [x] Preservar o tamanho desktop, o fade-in, a legibilidade e a ausência de overflow.
 - [x] Validar mobile/desktop, executar testes/build e salvar checkpoint.
+
+# Street Barber Clube — plano recebido em 2026-08-27
+
+- [x] Auditar arquitetura atual, tabelas, autenticação, clientes, agendamentos, planos e painel; documentar a divergência entre o requisito Supabase e o banco MySQL/TiDB ativo.
+- [x] Apresentar e validar o plano técnico incremental antes das alterações estruturais.
+- [ ] Criar a página pública do Clube usando a identidade visual atual e os mesmos planos como fonte única de verdade.
+- [ ] Implementar contratação e futura assinatura mensal com status, ciclo de 30 dias e integração segura de pagamento, sem ativar assinatura por pagamento iniciado.
+- [ ] Implementar controle de cortes, sobrancelha de brinde, benefícios, parceiros, sorteios e roleta com persistência e regras no backend.
+- [ ] Criar área autenticada do Cliente VIP com isolamento por cliente e integração ao cadastro e histórico existentes.
+- [ ] Preparar integração futura com painel e relatórios sem alterar as quatro permissões administrativas já definidas.
+- [x] Validar incrementalmente banco, fluxos, segurança, responsividade e testes antes de cada checkpoint.
+
+# Auditoria e modelo do Street Barber Clube — 2026-08-27
+
+- [x] Auditar estrutura do MySQL/TiDB ativo, dados e fluxos de clientes, agenda, barbeiros, serviços, planos, autenticação, calendário e relatórios.
+- [x] Projetar o modelo relacional do Clube com uma única fonte de verdade, separando rigorosamente sorteios e roleta.
+- [x] Documentar relacionamentos, regras VIP, ciclos de 30 dias, consumos, benefícios e pagamentos/renovações.
+- [x] Apresentar a análise e aguardar aprovação explícita antes de alterar schema ou banco.
+
+# Ajustes finais do modelo do Clube — 2026-08-27
+
+- [x] Consolidar os cinco planos do frontend com quantidades e benefícios exatos, sem inserir ainda.
+- [x] Preparar schema Drizzle aditivo com novas tabelas, campos, relacionamentos, índices, constraints e SQL para revisão.
+- [x] Manter sorteios e roleta em estruturas independentes, e pagamentos apenas como modelo de dados sem gateway nesta etapa.
+- [x] Documentar riscos e rollback não destrutivo; não aplicar migration até aprovação explícita.
+
+# Revisão final do schema do Clube — 2026-08-27
+
+- [x] Revisar o snapshot completo de entitlements para preservar qualquer benefício futuro no ciclo iniciado.
+- [x] Revisar a migration Drizzle completa, SQL, constraints, foreign keys, índices, defaults e NULL/NOT NULL sem aplicar.
+- [x] Entregar estratégias separadas de consumo, roleta e sorteios, rollback e checklist de segurança.
+- [x] Aguardar a frase explícita “APROVADO — PODE APLICAR A MIGRATION” antes de executar qualquer migration.
+
+# Aplicação aprovada da migration do Clube — 2026-08-27
+
+- [x] Aplicar a migration Drizzle aprovada no MySQL/TiDB usando a sequência gerada, sem inserir os cinco planos.
+- [x] Verificar tabelas, foreign keys, índices, UNIQUE constraints, defaults e contagens dos dados existentes.
+- [x] Executar testes, TypeScript e build após a aplicação; salvar checkpoint da estrutura persistida.

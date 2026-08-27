@@ -36,6 +36,20 @@
       "when": 1787754295304,
       "tag": "0004_bright_warlock",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1787834113641,
+      "tag": "0005_tearful_sleeper",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1787834145775,
+      "tag": "0006_cultured_red_wolf",
+      "breakpoints": true
     }
   ]
 }

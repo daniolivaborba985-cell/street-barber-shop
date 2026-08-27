@@ -1,0 +1,1 @@
+ALTER TABLE `appointments` ADD CONSTRAINT `appointments_membershipCycleId_membershipCycles_id_fk` FOREIGN KEY (`membershipCycleId`) REFERENCES `membershipCycles`(`id`) ON DELETE no action ON UPDATE no action;
