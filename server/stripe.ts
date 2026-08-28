@@ -18,22 +18,75 @@ export function getOrigin(origin: string | undefined) {
   return origin || "http://localhost:3000";
 }
 
+export function buildClubPaymentOptions(paymentMethod: "card" | "pix", priceCents: number, planName: string, mode: "subscription" | "payment") {
+  if (paymentMethod === "card") return { payment_method_types: ["card"], payment_method_options: undefined };
+  if (mode === "payment") return { payment_method_types: ["pix" as const], payment_method_options: undefined, adaptive_pricing: { enabled: false } };
+  return {
+    payment_method_options: {
+      pix: {
+        mandate_options: {
+          amount: priceCents,
+          payment_schedule: "monthly" as const,
+        },
+      },
+    },
+  };
+}
+
+type PixConfigurationCandidate = {
+  id: string;
+  name?: string | null;
+  application?: string | null;
+  is_default?: boolean | null;
+  pix?: {
+    available?: boolean | null;
+    display_preference?: { value?: string | null; preference?: string | null } | null;
+  } | null;
+};
+
+export function selectPixPaymentMethodConfiguration(configurations: PixConfigurationCandidate[]) {
+  const eligible = configurations
+    .filter((configuration) => {
+      const displayValue = configuration.pix?.display_preference?.value ?? configuration.pix?.display_preference?.preference;
+      return configuration.application == null && configuration.pix?.available === true && displayValue !== "off";
+    })
+    .sort((left, right) => {
+      const score = (configuration: PixConfigurationCandidate) => {
+        const nameScore = configuration.name?.toLowerCase().includes("pix") ? 2 : 0;
+        return nameScore + Number(configuration.is_default ?? false);
+      };
+      return score(right) - score(left);
+    });
+  return eligible[0]?.id ?? null;
+}
+
+async function getPixPaymentMethodConfiguration(stripe: Stripe) {
+  const configurations = await stripe.paymentMethodConfigurations.list({ limit: 100 });
+  const configurationId = selectPixPaymentMethodConfiguration(configurations.data);
+  if (!configurationId) throw new StripeConfigurationError("PIX ainda não está habilitado na configuração de pagamentos da Stripe.");
+  return configurationId;
+}
+
 export async function createClubCheckoutSession(customerId: number, subscriptionId: number, origin?: string) {
   const db = await getDb();
   if (!db) throw new StripeConfigurationError("Banco indisponível para iniciar o pagamento.");
   const [row] = await db.select({ subscription: subscriptions, customer: customers, plan: plans }).from(subscriptions).innerJoin(customers, eq(subscriptions.customerId, customers.id)).innerJoin(plans, eq(subscriptions.planId, plans.id)).where(and(eq(subscriptions.id, subscriptionId), eq(subscriptions.customerId, customerId), eq(subscriptions.status, "pending"))).limit(1);
   if (!row) throw new StripeConfigurationError("Não encontramos uma contratação pendente para este cliente.");
   const stripe = getStripe();
+  const paymentMethod = row.subscription.paymentMethod || "card";
+  const checkoutMode = paymentMethod === "pix" ? "payment" : "subscription";
+  const paymentOptions = buildClubPaymentOptions(paymentMethod, row.plan.priceCents, row.plan.name, checkoutMode);
   const session = await stripe.checkout.sessions.create({
-    mode: "subscription",
+    mode: checkoutMode,
     customer_email: row.customer.email,
     client_reference_id: String(row.customer.id),
     allow_promotion_codes: true,
-    payment_method_types: row.subscription.paymentMethod === "card" ? ["card"] : undefined,
-    payment_method_collection: "always",
-    line_items: [{ price_data: { currency: "brl", unit_amount: row.plan.priceCents, product_data: { name: `Street Barber Clube · ${row.plan.name}`, description: "Plano mensal Street Barber Clube" }, recurring: { interval: "month" } }, quantity: 1 }],
-    metadata: { subscription_id: String(row.subscription.id), customer_id: String(row.customer.id), customer_email: row.customer.email, customer_name: row.customer.name, plan_slug: row.plan.slug },
-    subscription_data: { metadata: { subscription_id: String(row.subscription.id), customer_id: String(row.customer.id), plan_slug: row.plan.slug } },
+    ...paymentOptions,
+
+    ...(checkoutMode === "subscription" ? { payment_method_collection: "always" as const } : {}),
+    line_items: [{ price_data: { currency: "brl", unit_amount: row.plan.priceCents, product_data: { name: `Street Barber Clube · ${row.plan.name}`, description: checkoutMode === "payment" ? "Ciclo de 30 dias do Street Barber Clube" : "Plano mensal Street Barber Clube", ...(checkoutMode === "subscription" ? { recurring: { interval: "month" as const } } : {}) } }, quantity: 1 }],
+    metadata: { subscription_id: String(row.subscription.id), customer_id: String(row.customer.id), customer_email: row.customer.email, customer_name: row.customer.name, plan_slug: row.plan.slug, payment_method: paymentMethod, checkout_mode: checkoutMode },
+    ...(checkoutMode === "subscription" ? { subscription_data: { metadata: { subscription_id: String(row.subscription.id), customer_id: String(row.customer.id), plan_slug: row.plan.slug, payment_method: paymentMethod } } } : {}),
     success_url: `${getOrigin(origin)}/clube?checkout=success`,
     cancel_url: `${getOrigin(origin)}/clube?checkout=cancelled`,
   });
@@ -65,10 +118,12 @@ async function activateSubscriptionFromStripe(subscriptionId: number, paymentInt
 }
 
 async function handleStripeEvent(event: Stripe.Event) {
-  if (event.type === "checkout.session.completed") {
+  if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
     const session = event.data.object as Stripe.Checkout.Session;
     const subscriptionId = Number(session.metadata?.subscription_id);
-    if (Number.isInteger(subscriptionId) && subscriptionId > 0) await activateSubscriptionFromStripe(subscriptionId, typeof session.payment_intent === "string" ? session.payment_intent : null, typeof session.customer === "string" ? session.customer : null, typeof session.subscription === "string" ? session.subscription : null);
+    const isPix = session.metadata?.payment_method === "pix";
+    const canActivate = event.type === "checkout.session.async_payment_succeeded" || !isPix || session.payment_status === "paid";
+    if (canActivate && Number.isInteger(subscriptionId) && subscriptionId > 0) await activateSubscriptionFromStripe(subscriptionId, typeof session.payment_intent === "string" ? session.payment_intent : null, typeof session.customer === "string" ? session.customer : null, typeof session.subscription === "string" ? session.subscription : null);
   }
   if (event.type === "invoice.paid") {
     const invoice = event.data.object as Stripe.Invoice & { subscription?: string | Stripe.Subscription | null; payment_intent?: string | Stripe.PaymentIntent | null };

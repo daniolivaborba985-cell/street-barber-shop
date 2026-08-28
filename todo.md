@@ -544,7 +544,7 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Direcionar cada lançamento confirmado de plano ao barbeiro escolhido pelo cliente no checkout.
 - [x] Exibir no painel o faturamento por barbeiro e no consolidado conforme as permissões já definidas.
 - [ ] Orientar o responsável, passo a passo, sobre claim do sandbox Stripe, dados da conta, métodos de pagamento e configuração do webhook.
-- [ ] Validar com o responsável cada etapa do cadastramento antes de avançar para testes de cartão e PIX.
+- [x] Validar com o responsável cada etapa do cadastramento antes de avançar para testes de cartão e PIX.
 
 # Correção do Checkout Stripe — 2026-08-27
 - [x] Investigar o erro exibido ao clicar em Continuar com o plano do Clube.
@@ -557,7 +557,7 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Substituir o campo genérico de forma de pagamento por cards personalizados de PIX e Cartão.
 - [x] Refinar visualmente os campos de dados do cliente e o resumo da contratação com a identidade Street Barber.
 - [x] Garantir que o método selecionado seja enviado corretamente ao backend e preserve o barbeiro escolhido.
-- [ ] Validar visualmente desktop/mobile, TypeScript, build e testes do Checkout.
+- [x] Validar visualmente desktop/mobile, TypeScript, build e testes do Checkout.
 
 # Correção final do fluxo de pagamento e fotos — 2026-08-27
 - [x] Corrigir o vínculo entre nome, slug e foto oficial de cada barbeiro no seletor do Clube.
@@ -588,3 +588,84 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Implementar uma etapa real e segura para número, validade e CVC, sem armazenar dados sensíveis do cartão. (Campos fornecidos pelo Checkout hospedado da Stripe.)
 - [x] Garantir que o método Cartão selecionado seja enviado ao backend e que o fluxo não fique apenas no card visual.
 - [x] Executar teste de verificação com cartão de teste e validar webhook, ativação e relatório do barbeiro.
+
+# Configuração de PIX do Clube — 2026-08-28
+- [ ] Confirmar a compatibilidade do PIX com o modelo atual de assinatura recorrente.
+- [ ] Implementar o fluxo PIX adequado, mantendo a contratação pendente até pagamento confirmado.
+- [ ] Garantir confirmação por webhook, idempotência e atribuição ao barbeiro escolhido.
+- [ ] Exibir o PIX aprovado nos Relatórios sem misturar com Cartão ou agendamentos.
+- [ ] Executar teste de PIX no sandbox e validar o resultado no painel administrativo.
+
+# Validação PIX Stripe — 2026-08-28
+
+- [x] Remover do Checkout subscription os parâmetros `mandate_options` incompatíveis com o método PIX.
+- [x] Atualizar o teste unitário de `buildClubPaymentOptions` para garantir que PIX não envie opções de mandato.
+- [x] Executar TypeScript, 46 testes Vitest e build de produção após o ajuste.
+- [ ] Ativar o método de pagamento PIX na conta Stripe sandbox e repetir a abertura do Checkout para validar o QR Code.
+- [ ] Simular/confirmar o evento `checkout.session.async_payment_succeeded` e verificar pagamento PIX aprovado nos relatórios, atribuído ao barbeiro escolhido.
+- [ ] Após validar PIX, retomar somente mediante autorização a integração do WhatsApp Cloud API para confirmações de agendamento.
+
+## Evidência do bloqueio externo
+
+Em 28/08/2026, o Checkout retornou `The payment method type provided: pix is invalid` e orientou ativar PIX em `Stripe Dashboard > Test mode > Settings > Payment methods`. O código da aplicação já não envia parâmetros de mandato incompatíveis; a pendência atual é a habilitação do método na conta Stripe sandbox.
+
+## Segurança de teste
+
+A validação utiliza apenas dados fictícios e não deve concluir cobranças reais. O teste de cartão já foi validado anteriormente no sandbox; a confirmação PIX depende da ativação do método na conta Stripe.
+
+## WhatsApp permanece pausado
+
+A integração de mensagens para agendamentos continua fora desta etapa, conforme solicitação do responsável. A confirmação de pagamento e a mensagem de agendamento permanecem fluxos distintos.
+
+## Registro de segurança
+
+Não registrar chaves Stripe, tokens ou senhas no TODO, logs ou interface.
+
+## Contratos de pagamento
+
+Cartão e PIX usam o mesmo cadastro de cliente e a mesma atribuição por barbeiro. O webhook aprovado deve atualizar assinatura e pagamento e alimentar o relatório financeiro sem duplicar clientes.
+
+# Ajuste de Payment Method Configuration PIX — 2026-08-28
+
+- [ ] Vincular o Checkout PIX à Payment Method Configuration da própria conta que possui `pix.available=true`, sem hardcode de credencial e sem usar a configuração padrão de aplicação externa.
+- [ ] Adicionar teste unitário para a seleção segura da configuração PIX e repetir a validação do QR Code.
+
+# Compatibilidade PIX no Checkout — 2026-08-28
+
+- [ ] Adaptar PIX para Checkout `payment` com moeda BRL e cobrança única do ciclo de 30 dias, preservando Cartão em `subscription`.
+- [ ] Manter a confirmação por `checkout.session.async_payment_succeeded`, ativando o ciclo local de 30 dias e alimentando os relatórios sem criar cliente duplicado.
+- [ ] Validar no sandbox que o Checkout PIX exibe QR Code e que o retorno assíncrono atualiza a contratação correta.
+
+# Disponibilização PIX no Checkout — 2026-08-28
+
+- [ ] Para contratações PIX, excluir Cartão no Checkout dinâmico e deixar a Payment Method Configuration elegível apresentar somente o método PIX compatível.
+- [ ] Validar que a nova sessão registra `payment_method_types: ["pix"]` e exibe QR Code/código copia e cola em BRL.
+
+# Moeda PIX no Checkout — 2026-08-28
+
+- [ ] Desativar Adaptive Pricing somente na cobrança PIX, fixando BRL para que o Checkout não ofereça USD como moeda alternativa incompatível.
+- [ ] Validar que a nova sessão PIX registra moeda BRL sem Adaptive Pricing e passa a exibir o QR Code.
+
+# Fallback de compatibilidade PIX — 2026-08-28
+
+- [ ] Testar o Checkout PIX explícito (`payment_method_types: ["pix"]`) sem `payment_method_configuration`, mantendo BRL e Adaptive Pricing desativado.
+- [ ] Se aceito pela conta sandbox, manter esse payload exclusivo para PIX e preservar a configuração dinâmica do Cartão.
+
+# Integração Resend e domínio próprio — 2026-08-28
+
+- [ ] Adicionar `streetbarbershop.com.br` ao Resend e registrar os valores DNS gerados pelo Resend.
+- [ ] Configurar no Registro.br os registros SPF, DKIM e DMARC exibidos pelo Resend, sem duplicar SPF existente.
+- [ ] Verificar o domínio no Resend e documentar o estado de autenticação sem armazenar credenciais no projeto.
+- [ ] Solicitar e configurar a chave `RESEND_API_KEY` por mecanismo seguro de segredos.
+- [ ] Implementar o cliente de e-mail transacional no backend usando remetente `@streetbarbershop.com.br` após a verificação do domínio.
+- [ ] Testar envio bem-sucedido, erro de configuração e proteção contra exposição da chave.
+- [ ] Definir os fluxos de e-mail autorizados; notificações de agendamento permanecem desabilitadas até autorização explícita.
+
+# Relatório de migração para infraestrutura própria — 2026-08-28
+
+- [ ] Inventariar runtime, scripts, estrutura de pastas, ambiente, banco, integrações e dependências sem alterar código ou banco.
+- [ ] Documentar requisitos de GitHub, Docker/VPS, arquivos sensíveis, domínios, URLs, uploads, armazenamento e tarefas de background.
+- [ ] Entregar relatório técnico revisado com secrets, tokens, senhas e chaves privadas integralmente mascarados.
+
+# Integração com GitHub — 2026-08-28
+- [ ] Conectar e validar o projeto Street Barber Shop em um repositório GitHub sem incluir secrets ou arquivos sensíveis.
