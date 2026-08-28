@@ -668,4 +668,4 @@ Cartão e PIX usam o mesmo cadastro de cliente e a mesma atribuição por barbei
 - [ ] Entregar relatório técnico revisado com secrets, tokens, senhas e chaves privadas integralmente mascarados.
 
 # Integração com GitHub — 2026-08-28
-- [ ] Conectar e validar o projeto Street Barber Shop em um repositório GitHub sem incluir secrets ou arquivos sensíveis.
+- [x] Conectar e validar o projeto Street Barber Shop em um repositório GitHub sem incluir secrets ou arquivos sensíveis.
