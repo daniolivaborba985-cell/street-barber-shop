@@ -576,3 +576,9 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Conferir a associação visual observada entre Luan e Kauã no seletor do Clube.
 - [x] Corrigir somente os nomes/slugs das duas opções, preservando as fotos oficiais e o fluxo de Cartão.
 - [ ] Validar o seletor e o Checkout após a correção.
+
+# Correção de fotos na Home e no Clube — 2026-08-28
+- [x] Confirmar a associação visual correta entre Luan/Kauã na Home e no Clube.
+- [x] Corrigir o catálogo compartilhado para que Home e Clube exibam nomes e fotos correspondentes.
+- [x] Preservar os slugs usados no agendamento, a seleção do barbeiro e o Checkout de Cartão.
+- [ ] Validar Home, Clube e rotas de agendamento após a correção.
