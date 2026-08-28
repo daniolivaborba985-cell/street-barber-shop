@@ -571,3 +571,8 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Diagnosticar por que Cartão não exibe um formulário real de dados após a seleção.
 - [x] Ajustar o fluxo para abrir o Checkout Stripe ou exibir etapa de cartão real sem confundir com o seletor de método.
 - [ ] Validar os dois bloqueadores no preview antes de orientar novo teste.
+
+# Correção de associação Luan/Kauã — 2026-08-27
+- [x] Conferir a associação visual observada entre Luan e Kauã no seletor do Clube.
+- [x] Corrigir somente os nomes/slugs das duas opções, preservando as fotos oficiais e o fluxo de Cartão.
+- [ ] Validar o seletor e o Checkout após a correção.

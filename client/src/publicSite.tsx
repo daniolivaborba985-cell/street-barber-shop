@@ -230,9 +230,9 @@ function ClubSponsorMural({ partners }) {
 }
 
 const clubBarberPhotos: Record<number, string> = {
-  1: '/manus-storage/luan_14839cc1.jpeg',
+  1: '/manus-storage/kaua_3c752368.jpeg',
   2: '/manus-storage/bruno_2ebb25ec.jpeg',
-  3: '/manus-storage/kaua_3c752368.jpeg',
+  3: '/manus-storage/luan_14839cc1.jpeg',
 }
 
 function ClubBarberPicker({ barberCatalog, selectedBarberSlug, onSelect }) {
