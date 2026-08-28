@@ -563,22 +563,28 @@ As senhas recebidas foram usadas somente para provisionamento seguro e não deve
 - [x] Corrigir o vínculo entre nome, slug e foto oficial de cada barbeiro no seletor do Clube.
 - [x] Corrigir a opção Cartão para abrir o Checkout Stripe com os campos de pagamento.
 - [x] Garantir que PIX e Cartão continuem com cards personalizados e método correto no backend.
-- [ ] Validar plano, barbeiro, cliente e faturamento após o Checkout, sem duplicação.
+- [x] Validar plano, barbeiro, cliente e faturamento após o Checkout, sem duplicação.
 
 # Reabertura dos bloqueadores do Cartão — 2026-08-27
 - [x] Diagnosticar por que o seletor do Clube ainda exibe fotos invertidas apesar dos slugs corretos.
 - [x] Corrigir definitivamente o vínculo visual das fotos no componente de escolha do barbeiro.
 - [x] Diagnosticar por que Cartão não exibe um formulário real de dados após a seleção.
 - [x] Ajustar o fluxo para abrir o Checkout Stripe ou exibir etapa de cartão real sem confundir com o seletor de método.
-- [ ] Validar os dois bloqueadores no preview antes de orientar novo teste.
+- [x] Validar os dois bloqueadores no preview antes de orientar novo teste.
 
 # Correção de associação Luan/Kauã — 2026-08-27
 - [x] Conferir a associação visual observada entre Luan e Kauã no seletor do Clube.
 - [x] Corrigir somente os nomes/slugs das duas opções, preservando as fotos oficiais e o fluxo de Cartão.
-- [ ] Validar o seletor e o Checkout após a correção.
+- [x] Validar o seletor e o Checkout após a correção.
 
 # Correção de fotos na Home e no Clube — 2026-08-28
 - [x] Confirmar a associação visual correta entre Luan/Kauã na Home e no Clube.
 - [x] Corrigir o catálogo compartilhado para que Home e Clube exibam nomes e fotos correspondentes.
 - [x] Preservar os slugs usados no agendamento, a seleção do barbeiro e o Checkout de Cartão.
-- [ ] Validar Home, Clube e rotas de agendamento após a correção.
+- [x] Validar Home, Clube e rotas de agendamento após a correção.
+
+# Etapa real de dados do Cartão — 2026-08-28
+- [x] Confirmar se o Checkout atual deve abrir a página hospedada da Stripe ou um formulário Elements dentro do Clube. (Escolhido: Checkout hospedado da Stripe.)
+- [x] Implementar uma etapa real e segura para número, validade e CVC, sem armazenar dados sensíveis do cartão. (Campos fornecidos pelo Checkout hospedado da Stripe.)
+- [x] Garantir que o método Cartão selecionado seja enviado ao backend e que o fluxo não fique apenas no card visual.
+- [x] Executar teste de verificação com cartão de teste e validar webhook, ativação e relatório do barbeiro.
