@@ -669,3 +669,6 @@ Cartão e PIX usam o mesmo cadastro de cliente e a mesma atribuição por barbei
 
 # Integração com GitHub — 2026-08-28
 - [x] Conectar e validar o projeto Street Barber Shop em um repositório GitHub sem incluir secrets ou arquivos sensíveis.
+
+# Direção frontend permanente — 2026-08-28
+- [x] Incorporar a direção frontend às diretrizes permanentes de React, UX, acessibilidade, performance e identidade visual do projeto.
