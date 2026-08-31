@@ -8,6 +8,8 @@ import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, customerProcedure, publicProcedure, reportProcedure, router, staffProcedure } from "./_core/trpc";
 import { ClubError, CUSTOMER_SESSION_COOKIE, consumeBenefit, getAdminClubReport, getClubBarbers, getClubPlanBySlug, getClubPlans, getCustomerRaffles, getCustomerFromRequest, getVipDashboard, joinRaffle, listClubPartners, listOpenRaffles, loginCustomer, logoutCustomer, requestSubscription, spinRoulette } from "./club";
 import { createClubCheckoutForRequest, createClubCheckoutSession } from "./stripe";
+import { sendAppointmentConfirmationEmail } from "./email";
+import { getCatalogBarber } from "../shared/catalog";
 import {
   createBlock,
   deleteBlock,
@@ -103,7 +105,21 @@ export const appRouter = router({
     schedule: publicProcedure.input(z.object({ barberSlug: z.enum(["luan", "bruno", "kaua"]), appointmentDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/) })).query(({ input }) => listOccupiedSlots(input.barberSlug, input.appointmentDate)),
     create: publicProcedure.input(appointmentInput).mutation(async ({ input }) => {
       try {
-        const appointment = await createAppointment(input);
+        const appointment = await createAppointment(input); 
+        const barber = getCatalogBarber(input.barberSlug);
+
+        void sendAppointmentConfirmationEmail({
+          to: input.email,
+          customerName: input.name,
+          barberName: barber?.name ?? input.barberSlug,
+          appointmentDate: appointment.appointmentDate,
+          startTime: appointment.startTime,
+          serviceNames: input.serviceSlugs.map(
+            (slug) => barber?.services.find((service) => service.slug === slug)?.name ?? slug
+          ),
+        }).catch((error) => {
+          console.error("[Email] Falha inesperada ao enviar confirmação:", error);
+        });
         return { id: appointment.id, appointmentDate: appointment.appointmentDate, startTime: appointment.startTime.slice(0, 5), endTime: appointment.endTime.slice(0, 5), totalDurationMinutes: appointment.totalDurationMinutes };
       } catch (error) {
         if (error instanceof AppointmentConflictError) throw new TRPCError({ code: "CONFLICT", message: error.message });
